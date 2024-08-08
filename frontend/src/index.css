@@ -1,3 +1,13 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900;100;300;400;500;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+.bg-container {
+  @apply bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%;
+}

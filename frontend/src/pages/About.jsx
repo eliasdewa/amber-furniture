@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div>About</div>
+    <div className="min-h-screen max-w-screen-2xl mx-auto xl:px-24 px-6">About</div>
   )
 }
 export default About
