@@ -90,7 +90,7 @@ const Navbar = () => {
           {/* Login button */}
           <button
           className="btn bg-light-golden p-2 flex items-center">
-            <FaRegUser /> Login
+            <FaRegUser /> Sign In
           </button>
           {/* cart */}
           <label
