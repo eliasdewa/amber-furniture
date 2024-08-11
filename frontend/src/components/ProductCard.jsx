@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-const Card = ({ image, name, description }) => {
+const ProductCard = ({ image, name, description }) => {
   return (
     <div className="card bg-light-golden w-80 sm:w-72 shadow-xl">
       <figure>
@@ -20,4 +20,4 @@ const Card = ({ image, name, description }) => {
     </div>
   );
 };
-export default Card;
+export default ProductCard;

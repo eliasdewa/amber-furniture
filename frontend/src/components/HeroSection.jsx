@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 const HeroSection = () => {
   return (
     <section className="w-full h-screen bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center relative">
-      <div className="bg-black/50 w-full h-[520px] flex items-center justify-center">
+      <div className="bg-black/50 w-full h-screen flex items-center justify-center">
         <div className="w-3/4 text-center">
           <h1 className="xl:text-5xl lg:text-4xl md:text-3xl text-2xl font-semibold text-green">
             Discover the beauty of your{" "}
