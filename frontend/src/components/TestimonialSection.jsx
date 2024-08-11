@@ -16,11 +16,11 @@ const TestimonialSection = () => {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed animi ducimus doloribus quas nulla ipsam debitis ratione autem nemo quia.</p>
       </div>
       <div className="mx-auto px-4 py-6 sm:px-6">
-        <h2 className="max-w-2xl text-2xl tracking-tight text-gray-900 sm:text-4xl">
+        <h2 className="max-w-2xl text-2xl tracking-tight text-gray-900 sm:text-4xl px-4">
           What our customers are saying...
         </h2>
 
-        <div className="flex mx-auto py-6 h-full">
+        <div className="flex p-4 h-full">
           <Swiper breakpoints={{
             // when window width is >= 320px
             320: {
@@ -50,7 +50,7 @@ const TestimonialSection = () => {
           modules={[FreeMode, Pagination, Navigation, Autoplay]}>
             {testimonials.map((testimonial) => (
               <SwiperSlide  key={testimonial.id}>
-                <TestimonialCard image={testimonial.image} name={testimonial.name} title={testimonial.title} description={testimonial.description} />;
+                <TestimonialCard image={testimonial.image} name={testimonial.name} title={testimonial.title} description={testimonial.description} />
               </SwiperSlide>
             ))}
           </Swiper>

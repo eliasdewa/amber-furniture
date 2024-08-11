@@ -17,4 +17,4 @@ const TestimonialCard = ({ image, name, title, description}) => {
     </div>
   )
 }
-export default TestimonialCard
+export default TestimonialCard;

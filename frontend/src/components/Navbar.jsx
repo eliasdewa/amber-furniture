@@ -42,7 +42,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="max-w-screen-2xl container mx-auto bg-container  transition-all duration-300 ease-in-out sticky top-0 z-50">
+    <header className="max-w-screen-2xl container mx-auto bg-container transition-all duration-300 ease-in-out sticky top-0 z-50">
       <div className="navbar xl:px-24 shadow-md bg-base-100 transition-all duration-300 ease-in-out">
         {/* left */}
         <div className="navbar-start flex gap-2">

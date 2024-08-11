@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 const ProductCard = ({ image, name, description }) => {
   return (
-    <div className="card bg-light-golden w-80 sm:w-72 shadow-xl">
+    <div className="card bg-light-golden w-full sm:w-72 shadow-xl">
       <figure>
         <Link to='/products'>
           <img
