@@ -2,6 +2,7 @@ import logo from "/logo.svg";
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { MdMenu } from "react-icons/md";
+import Modal from "./Modal";
 
 const Navbar = () => {
   // nav items
@@ -89,9 +90,11 @@ const Navbar = () => {
 
           {/* Login button */}
           <button
+          onClick={()=>document.getElementById('my_modal_5').showModal()}
           className="btn bg-light-golden p-2 flex items-center">
             <FaRegUser /> Sign In
           </button>
+          <Modal />
           {/* cart */}
           <label
             tabIndex={0}

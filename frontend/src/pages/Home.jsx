@@ -1,5 +1,6 @@
 import HeroSection from "../components/HeroSection"
 import ProductSection from "../components/ProductSection"
+import ScrollToTopBtn from "../components/ScrollToTopBtn"
 import TestimonialSection from "../components/TestimonialSection"
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <HeroSection />
       <ProductSection />
       <TestimonialSection />
+      <ScrollToTopBtn />
     </div>
   )
 }

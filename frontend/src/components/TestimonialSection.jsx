@@ -20,7 +20,7 @@ const TestimonialSection = () => {
           What our customers are saying...
         </h2>
 
-        <div className="flex p-4 h-full">
+        <div className="flex mx-auto py-10">
           <Swiper breakpoints={{
             // when window width is >= 320px
             320: {
