@@ -2,55 +2,38 @@ import logo from "/logo.svg";
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { MdMenu } from "react-icons/md";
+import { IoMdSearch } from "react-icons/io";
 import Modal from "./Modal";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   // nav items
   const navItems = (
     <>
       <li>
-        <a href="/">Home</a>
-      </li>
-      <li tabIndex={0}>
-        <details>
-          <summary>Products</summary>
-          <ul className="p-2">
-            <li>
-              <a href="/products">All</a>
-            </li>
-            <li>
-              <a>Living Room Furniture</a>
-            </li>
-            <li>
-              <a>Bedroom Furniture</a>
-            </li>
-            <li>
-              <a>Kitchen & Dining Furniture</a>
-            </li>
-            <li>
-              <a>Office Furniture</a>
-            </li>
-          </ul>
-        </details>
+        <a href="/">HOME</a>
       </li>
       <li>
-        <a href="/about">About Us</a>
+        <a href="/products">PRODUCTS</a>
       </li>
       <li>
-        <a href="/contact">Contact Us</a>
+        <a href="/about">ABOUT US</a>
+      </li>
+      <li>
+        <a href="/contact">CONTACT US</a>
       </li>
     </>
   );
 
   return (
-    <header className="max-w-screen-2xl container mx-auto bg-container transition-all duration-300 ease-in-out sticky top-0 z-50">
-      <div className="navbar xl:px-24 shadow-md bg-base-100 transition-all duration-300 ease-in-out">
+    <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 border-b-2 shadow-">
+      <div className="navbar bg-base-100">
         {/* left */}
-        <div className="navbar-start flex gap-2">
+        <div className="navbar-start flex">
           {/* Toggle menu */}
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden bg-light-golden p-2">
-              <MdMenu size={30}/>
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden py-1 mx-1">
+              <MdMenu size={26} />
             </div>
             <ul
               tabIndex={0}
@@ -60,9 +43,9 @@ const Navbar = () => {
             </ul>
           </div>
           {/* logo */}
-          <a href="/">
+          <Link to="/">
             <img src={logo} alt="" className="w-50 h-10" />
-          </a>
+          </Link>
         </div>
         {/* center */}
         <div className="navbar-center hidden lg:flex">
@@ -72,44 +55,45 @@ const Navbar = () => {
         <div className="navbar-end flex items-center gap-2">
           {/* search */}
           <button className="btn btn-ghost btn-circle hidden lg:flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <IoMdSearch size={30} />
           </button>
 
           {/* Login button */}
-          <button
-          onClick={()=>document.getElementById('my_modal_5').showModal()}
-          className="btn bg-light-golden p-2 flex items-center">
-            <FaRegUser /> Sign In
-          </button>
+          <div className="group relative">
+            <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+              className="btn bg-light-golden p-2 flex items-center"
+            >
+              <FaRegUser /> Sign In
+            </button>
+            <div className="group-hover:block hidden absolute dropdown-menu ring-0 pt-4">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                <p className="cursor-pointer hover:text-black">My Profile</p>
+                <p className="cursor-pointer hover:text-black">Orders</p>
+                <p className="cursor-pointer hover:text-black">Logout</p>
+              </div>
+            </div>
+          </div>
           <Modal />
           {/* cart */}
-          <label
-            tabIndex={0}
-            role="button"
-            className="flex items-center gap-2 btn btn-ghost btn-circle"
-          >
-            <div className="indicator">
-              <IoCartOutline size={30} />
-              <span className="badge badge-md indicator-item bg-light-golden">8</span>
-            </div>
-          </label>
+          <Link to="/cart">
+            <label
+              tabIndex={0}
+              role="button"
+              className="flex items-center gap-2 btn btn-ghost btn-circle"
+            >
+              <div className="indicator">
+                <IoCartOutline size={30} />
+                <span className="badge badge-md indicator-item bg-blue-400 w-4 text-center leading-4 text-white text-[12px]">
+                  2
+                </span>
+              </div>
+            </label>
+          </Link>
         </div>
       </div>
     </header>
   );
-}
+};
 
 export default Navbar;

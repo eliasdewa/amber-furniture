@@ -1,6 +1,6 @@
-const Product = () => {
+const Products = () => {
   return (
-    <div className="min-h-screen max-w-screen-2xl mx-auto xl:px-24 px-6">Products</div>
+    <div className="px-2">Products</div>
   )
 }
-export default Product
+export default Products

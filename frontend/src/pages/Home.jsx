@@ -1,13 +1,15 @@
-import HeroSection from "../components/HeroSection"
-import ProductSection from "../components/ProductSection"
-import ScrollToTopBtn from "../components/ScrollToTopBtn"
-import TestimonialSection from "../components/TestimonialSection"
+import BestSeller from "../components/home/BestSeller"
+import HeroSection from "../components/home/HeroSection"
+import ProductSection from "../components/home/ProductSection"
+import ScrollToTopBtn from "../components/home/ScrollToTopBtn"
+import TestimonialSection from "../components/home/TestimonialSection"
 
 const Home = () => {
   return (
-    <div className="min-h-screen max-w-screen-2xl mx-auto  px-6">
+    <div className="px-2">
       <HeroSection />
       <ProductSection />
+      <BestSeller />
       <TestimonialSection />
       <ScrollToTopBtn />
     </div>

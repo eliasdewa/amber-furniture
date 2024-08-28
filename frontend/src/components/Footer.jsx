@@ -9,8 +9,8 @@ import logo from "/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-white px-6 border-t-2 shadow-">
-      <div className="relative mx-auto max-w-screen-2xl space-y-8 px-3 py-14 sm:px-4 lg:space-y-16 lg:px-6">
+    <footer className="bg-white border-t-2">
+      <div className="relative space-y-8 px-2 py-14 lg:space-y-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             {/* Logo */}
@@ -196,7 +196,7 @@ const Footer = () => {
             </div>
             {/* legal */}
             <div>
-              <p className="font-medium text-gray-900">Legal</p>
+              <p className="font-medium text-gray-900">GET IN TOUCH</p>
               <ul className="mt-6 space-y-4 text-sm">
                 <li>
                   <a
@@ -204,27 +204,16 @@ const Footer = () => {
                     className="text-gray-700 transition hover:opacity-75"
                   >
                     {" "}
-                    Accessibility{" "}
+                    +251-910-009313{" "}
                   </a>
                 </li>
-
                 <li>
                   <a
                     href="#"
                     className="text-gray-700 transition hover:opacity-75"
                   >
                     {" "}
-                    Returns Policy{" "}
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    {" "}
-                    Refund Policy{" "}
+                    amberfurniture@gmail.com{" "}
                   </a>
                 </li>
               </ul>
