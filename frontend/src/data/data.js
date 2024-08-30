@@ -25,16 +25,18 @@ export const ProductItems = [
     title: "Dresser beside sofa",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Home Furniture",
+    category: "Home",
+    subCategory: "Sofa and Couch",
     bestSeller: true,
   },
   {
     _id: 2,
     img: "/images/home2.jpg",
-    title: "Wooden table",
+    title: "Wooden Table",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Home Furniture",
+    category: "Home",
+    subCategory: "Tables"
   },
   {
     _id: 3,
@@ -42,7 +44,8 @@ export const ProductItems = [
     title: "Grey couch",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Home Furniture",
+    category: "Home",
+    subCategory: "Sofa and Couch",
     bestSeller: true,
   },
   {
@@ -51,7 +54,8 @@ export const ProductItems = [
     title: "Gray chairs",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Home Furniture",
+    category: "Home",
+    subCategory: "Chairs",
     bestSeller: true,
   },
   {
@@ -60,7 +64,8 @@ export const ProductItems = [
     title: "Wooden headboard",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Bedroom Furniture",
+    category: "Bedroom",
+    subCategory: "Beds",
     bestSeller: true,
   },
   {
@@ -69,7 +74,8 @@ export const ProductItems = [
     title: "Beautiful modern bed",
     prevPrice: "$140,00",
     newPrice: "50",
-    category: "Bedroom Furniture",
+    category: "Bedroom",
+    subCategory: "Beds"
   },
   {
     _id: 7,
@@ -77,7 +83,8 @@ export const ProductItems = [
     title: "A large bed",
     prevPrice: "$140,00",
     newPrice: "50",
-    category: "Bedroom Furniture",
+    category: "Bedroom",
+    subCategory: "Beds",
     bestSeller: true,
   },
   {
@@ -86,7 +93,8 @@ export const ProductItems = [
     title: "Double bed",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Bedroom Furniture",
+    category: "Bedroom",
+    subCategory: "Beds"
   },
 
   {
@@ -95,7 +103,8 @@ export const ProductItems = [
     title: "Wooden dining",
     prevPrice: "$140,00",
     newPrice: "200",
-    category: "Dining Furniture",
+    category: "Dining",
+    subCategory: "Chairs"
   },
 
   {
@@ -104,7 +113,8 @@ export const ProductItems = [
     title: "Rectangular brown table",
     prevPrice: "$140,00",
     newPrice: "150",
-    category: "Dining Furniture",
+    category: "Dining",
+    subCategory: "Tables",
     bestSeller: true,
   },
   {
@@ -113,7 +123,8 @@ export const ProductItems = [
     title: "Dining table beside two chairs",
     prevPrice: "$140,00",
     newPrice: "150",
-    category: "Dining Furniture",
+    category: "Dining",
+    subCategory: ["Chairs", "Tables"],
     bestSeller: true,
   },
   {
@@ -122,7 +133,8 @@ export const ProductItems = [
     title: "Dining table set",
     prevPrice: "$140,00",
     newPrice: "150",
-    category: "sneakers",
+    category: "Dining",
+    subCategory: "Tables"
   },
   {
     _id: 13,
@@ -130,7 +142,8 @@ export const ProductItems = [
     title: "Orange chairs and a white table",
     prevPrice: "$140,00",
     newPrice: "150",
-    category: "Cafe Furniture",
+    category: "Cafe",
+    subCategory: ["Chairs", "Tables"]
   },
   {
     _id: 14,
@@ -138,7 +151,8 @@ export const ProductItems = [
     title: "Comfort Chairs",
     prevPrice: "$140,00",
     newPrice: "150",
-    category: "Cafe Furniture",
+    category: "Cafe",
+    subCategory: "Chairs",
     bestSeller: true,
   },
 
@@ -148,7 +162,8 @@ export const ProductItems = [
     title: "Wooden table with chairs",
     prevPrice: "$140,00",
     newPrice: "100",
-    category: "Cafe Furniture",
+    category: "Cafe",
+    subCategory: ["Chairs", "Tables"]
   },
   {
     _id: 16,
@@ -156,7 +171,8 @@ export const ProductItems = [
     title: "Beautiful chairs and table",
     prevPrice: "$140,00",
     newPrice: "100",
-    category: "Cafe Furniture",
+    category: "Cafe",
+    subCategory: ["Chairs", "Tables"]
   },
   {
     _id: 17,
@@ -164,7 +180,8 @@ export const ProductItems = [
     title: "Office rolling chairs and table",
     prevPrice: "$140,00",
     newPrice: "100",
-    category: "Office Furniture",
+    category: "Office",
+    subCategory: ["Chairs", "Tables"]
   },
   {
     _id: 18,
@@ -172,7 +189,8 @@ export const ProductItems = [
     title: "Desk with a glass top and wooden legs",
     prevPrice: "$140,00",
     newPrice: "100",
-    category: "Office Furniture",
+    category: "Office",
+    subCategory: "Tables"
   },
   {
     _id: 19,
@@ -180,7 +198,8 @@ export const ProductItems = [
     title: "Office Space, front desk",
     prevPrice: "$140,00",
     newPrice: "50",
-    category: "Office Furniture",
+    category: "Office",
+    subCategory: ["Chairs", "Tables"]
   },
   {
     _id: 20,
@@ -188,7 +207,8 @@ export const ProductItems = [
     title: "Ottomans and chairs",
     prevPrice: "$140,00",
     newPrice: "50",
-    category: "Office Furniture",
+    category: "Office",
+    subCategory: "Chairs",
     bestSeller: true,
   },
 ];
