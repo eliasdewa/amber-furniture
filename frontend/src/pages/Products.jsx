@@ -12,6 +12,7 @@ const Products = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState("relevent");
 
   // Toggle function main category
   const toggleCategory = (e) => {
@@ -43,6 +44,28 @@ const Products = () => {
     }
     setFilterProducts(productItemsCopy)
   };
+  // To sort products by category
+  const sortProducts = () => {
+    // copy the filtered products
+    let filteredProducts = filterProducts.slice();
+    switch (sortType) {
+      case "A-Z":
+        setFilterProducts(filteredProducts.sort((a, b) => (a.title > b.title ? 1 : -1)));
+        break;
+      case "Z-A":
+        setFilterProducts(filteredProducts.sort((a, b) => (a.title < b.title ? 1 : -1)));
+        break;
+      case "low-to-high":
+        setFilterProducts(filteredProducts.sort((a, b) => (a.newPrice - b.newPrice)));
+        break;
+      case "high-to-low":
+        setFilterProducts(filteredProducts.sort((a, b) => (b.newPrice - a.newPrice)));
+        break;
+      default:
+        applyFilter();
+        break;
+    }
+  };
   // To show all products
   // useEffect(() => {
   //   setFilterProducts(ProductItems);
@@ -58,7 +81,12 @@ const Products = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory])
+  }, [category, subCategory]);
+  
+  useEffect(() => {
+    sortProducts();
+  }, [sortType]);
+
   return (
     <div className="px-2 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* Filter Options */}
@@ -143,6 +171,7 @@ const Products = () => {
             <select
               id="sort"
               className="bg-black text-white text-sm border-2 p-2 rounded-sm"
+              onChange={(e) => setSortType(e.target.value)}
             >
               <option value="relevent">Relevent</option>
               <option value="A-Z">A-Z</option>
