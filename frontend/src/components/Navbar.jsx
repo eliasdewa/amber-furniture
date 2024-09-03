@@ -26,7 +26,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 border-b-2 shadow-">
+    <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 lg:border-b-2 shadow-">
       <div className="navbar bg-base-100">
         {/* left */}
         <div className="navbar-start flex">
@@ -53,11 +53,6 @@ const Navbar = () => {
         </div>
         {/* right */}
         <div className="navbar-end flex items-center gap-2">
-          {/* search */}
-          <button className="btn btn-ghost btn-circle hidden lg:flex">
-            <IoMdSearch size={30} />
-          </button>
-
           {/* Login button */}
           <div className="group relative">
             <button
