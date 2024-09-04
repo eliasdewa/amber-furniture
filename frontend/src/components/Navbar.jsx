@@ -1,4 +1,4 @@
-import logo from "/logo.svg";
+import logo from "/ambar.png";
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { MdMenu } from "react-icons/md";
@@ -44,7 +44,7 @@ const Navbar = () => {
           </div>
           {/* logo */}
           <Link to="/">
-            <img src={logo} alt="" className="w-50 h-10" />
+            <img src={logo} alt="" className="w-50 h-24" />
           </Link>
         </div>
         {/* center */}
