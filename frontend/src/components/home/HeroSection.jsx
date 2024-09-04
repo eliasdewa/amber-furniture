@@ -12,7 +12,7 @@ const HeroSection = () => {
           <p className="text-white/90 md:mt-6 md:block text-lg md:text-xl">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore
             officia corporis quasi doloribus iure architecto quae voluptatum
-            beatae excepturi dolores.
+            beatae excepturi dolores and achivments.
           </p>
 
           <div className="mt-4 sm:mt-8">
