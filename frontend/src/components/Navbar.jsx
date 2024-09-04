@@ -26,7 +26,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 lg:border-b-2 shadow-">
+    <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 border-b">
       <div className="navbar bg-base-100">
         {/* left */}
         <div className="navbar-start flex">

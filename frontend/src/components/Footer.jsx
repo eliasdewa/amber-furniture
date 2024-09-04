@@ -9,7 +9,7 @@ import logo from "/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t-2">
+    <footer className="bg-white border-t">
       <div className="relative space-y-8 px-2 py-14 lg:space-y-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>

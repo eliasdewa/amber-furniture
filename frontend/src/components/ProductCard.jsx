@@ -10,6 +10,7 @@ const ProductCard = ({ id, img, title, prevPrice, newPrice, category }) => {
   };
   return (
     <div className="relative block overflow-hidden shadow-xl rounded-lg">
+      {/* Heart filled */}
       <div
         onClick={handleLike}
         className={`absolute end-1 top-1 z-10 rounded-full p-1.5 bg-green transition ${
@@ -18,18 +19,21 @@ const ProductCard = ({ id, img, title, prevPrice, newPrice, category }) => {
       >
         <FaHeart className="h-5 w-5 cursor-pointer" />
       </div>
+      {/* Card details */}
       <Link to={`/product/${id}`}>
+        {/* image */}
         <img
           src={img}
           alt=""
           className="h-44 transition duration-500 group-hover:scale-105"
         />
         <div className="flex flex-col justify-between h-48">
-          <h3 className="mt-4 text-lg font-medium text-gray-900 px-2">
+          <h3 className="mt-2 text-lg font-bold text-center text-gray-900 px-2">
             {title}
           </h3>
+          <p className="px-2">Description about the product</p>
           {/* category */}
-          <div className="px-2">
+          {/* <div className="px-2">
             <span className="inline-flex items-center justify-center rounded-full border border-emerald-500 px-2.5 py-0.5 text-emerald-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,19 +51,21 @@ const ProductCard = ({ id, img, title, prevPrice, newPrice, category }) => {
               </svg>
               <p className="whitespace-nowrap text-sm">{category}</p>
             </span>
-          </div>
-          {/* Price */}
-          <div className="flex gap-2 px-2">
-            <del className="mt-1.5 text-sm text-gray-700">{prevPrice}</del>
-            <p className="mt-1.5 text-sm text-gray-700 font-semibold">
-              ${newPrice}
-            </p>
-          </div>
-          {/* add to cart btn */}
-          <div className="px-2">
-            <button className="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded p-2 mx-auto my-2 text-sm transition hover:scale-105">
-              Buy Now
-            </button>
+          </div> */}
+          <div className="flex justify-between items-center">
+            {/* Price */}
+            <div className="flex gap-2 px-2">
+              <del className="mt-1.5 text-sm text-gray-700">{prevPrice}</del>
+              <p className="mt-1.5 text-sm text-gray-700 font-semibold">
+                ${newPrice}
+              </p>
+            </div>
+            {/* add to cart btn */}
+            <div className="px-2">
+              <button className="block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded p-2 mx-auto my-2 text-sm transition hover:scale-105">
+                Buy Now
+              </button>
+            </div>
           </div>
         </div>
       </Link>

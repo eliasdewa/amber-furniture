@@ -15,7 +15,16 @@ const Products = () => {
   const [sortType, setSortType] = useState("relevent");
 
   // Search functionality
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
+  // pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterProducts.slice(indexOfFirstItem, indexOfLastItem);
+  // Pagination functionality
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Toggle function main category
   const toggleCategory = (e) => {
@@ -25,6 +34,7 @@ const Products = () => {
     } else {
       setCategory((prev) => [...prev, e.target.value]);
     }
+    setCurrentPage(1);
   };
   // Toggle function for sub-category
   const toggleSubCategory = (e) => {
@@ -34,12 +44,12 @@ const Products = () => {
     } else {
       setSubCategory((prev) => [...prev, e.target.value]);
     }
+    setCurrentPage(1);
   };
   // Apply filter
   const applyFilter = () => {
     // Make a copy of all products
     let productItemsCopy = ProductItems.slice();
-    
     if (search) {
       productItemsCopy = productItemsCopy.filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase())
@@ -56,6 +66,7 @@ const Products = () => {
       );
     }
     setFilterProducts(productItemsCopy);
+    setCurrentPage(1);
   };
   // To sort products by category
   const sortProducts = () => {
@@ -109,7 +120,7 @@ const Products = () => {
   }, [sortType]);
 
   return (
-    <div className="px-2 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
+    <div className="px-2 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
       {/* Filter Options */}
       <div className="min-w-60">
         <p
@@ -227,7 +238,9 @@ const Products = () => {
       </div>
       {/* Right side part */}
       <div className="flex-1">
-        <h3 className="text-2xl font-extrabold mb-4 text-center">All Products</h3>
+        <h3 className="text-2xl font-extrabold mb-4 text-center">
+          All Products
+        </h3>
         <div className="flex justify-between gap-2 text-base mb-4">
           {/* Search input */}
           <div className="flex items-center justify-center border border-gray-400 px-3 py-2 rounded-full w-3/5 sm:w-4/5">
@@ -260,7 +273,7 @@ const Products = () => {
         </div>
         {/* Map Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-2">
-          {filterProducts.map((product, idx) => (
+          {currentItems.map((product, idx) => (
             <ProductCard
               key={idx}
               id={product._id}
@@ -270,6 +283,16 @@ const Products = () => {
               newPrice={product.newPrice}
               category={product.category}
             />
+          ))}
+        </div>
+        {/* Pagination */}
+        <div className="flex justify-center my-8 gap-2">
+          {Array.from({
+            length: Math.ceil(filterProducts.length / itemsPerPage),
+          }).map((_, idx) => (
+            <button key={idx + 1} onClick={() => paginate(idx + 1)} className={`px-3 py-1 rounded-full ${currentPage === idx + 1 ? "bg-green text-white" : "bg-gray-200" }`}>
+              {idx + 1}
+            </button>
           ))}
         </div>
       </div>
