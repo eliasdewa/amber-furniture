@@ -28,6 +28,7 @@ const ProductSection = () => {
             id={product._id}
             img={product.img}
             title={product.title}
+            description={product.description}
             prevPrice={product.prevPrice}
             newPrice={product.newPrice}
             category={product.category}
