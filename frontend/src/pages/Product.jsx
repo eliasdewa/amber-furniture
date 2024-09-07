@@ -9,7 +9,7 @@ const Product = () => {
   const {productId} = useParams();
   // console.log(productId);
   // get all products
-  const {ProductItems} = useContext(ShopContext);
+  const {ProductItems, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
 
   const [image, setImage] = useState('');
@@ -79,7 +79,7 @@ const Product = () => {
               }
             </div>
           </div>
-          <button className="py-3 px-8 text-white bg-slate-500 active:bg-slate-700 rounded-md hover:scale-105 flex items-center gap-2">Add to Cart <IoCartOutline size={20} /> </button>
+          <button onClick={() => addToCart(productData._id, size)} className="py-3 px-8 text-white bg-slate-500 active:bg-slate-700 rounded-md hover:scale-105 flex items-center gap-2">Add to Cart <IoCartOutline size={20} /> </button>
         </div>
       </div>
       {/* Description */}

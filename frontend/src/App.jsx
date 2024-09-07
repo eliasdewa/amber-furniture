@@ -10,10 +10,13 @@ import SignUp from './components/SignUp';
 import PlaceOrder from './pages/PlaceOrder';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <div className='px-4 sm:px-6 md:px-8 xl:px-12'>
+      <ToastContainer />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

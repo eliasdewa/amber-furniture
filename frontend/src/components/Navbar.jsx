@@ -5,6 +5,8 @@ import { MdMenu } from "react-icons/md";
 import { IoMdSearch } from "react-icons/io";
 import Modal from "./Modal";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   // nav items
@@ -24,6 +26,8 @@ const Navbar = () => {
       </li>
     </>
   );
+  // de-structure getCartCount from context api
+  const { getCartCount } = useContext(ShopContext);
 
   return (
     <header className="w-full bg-container transition-all duration-300 ease-in-out sticky top-0 z-50 border-b">
@@ -80,7 +84,7 @@ const Navbar = () => {
               <div className="indicator">
                 <IoCartOutline size={30} />
                 <span className="badge badge-md indicator-item bg-blue-400 w-4 text-center leading-4 text-white text-[12px]">
-                  2
+                  {getCartCount()}
                 </span>
               </div>
             </label>
