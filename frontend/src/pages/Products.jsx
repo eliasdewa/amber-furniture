@@ -273,15 +273,15 @@ const Products = () => {
         </div>
         {/* Map Products */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-6 gap-2">
-          {currentItems.map((product, idx) => (
+          {currentItems.map((item, idx) => (
             <ProductCard
               key={idx}
-              id={product._id}
-              img={product.img}
-              title={product.title}
-              prevPrice={product.prevPrice}
-              newPrice={product.newPrice}
-              category={product.category}
+              id={item._id}
+              img={item.img}
+              title={item.title}
+              prevPrice={item.prevPrice}
+              newPrice={item.newPrice}
+              category={item.category}
             />
           ))}
         </div>

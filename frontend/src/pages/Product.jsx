@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import RelatedProducts from "../components/RelatedProducts";
+import { IoCartOutline } from "react-icons/io5";
 
 const Product = () => {
   const {productId} = useParams();
@@ -11,6 +13,8 @@ const Product = () => {
   const [productData, setProductData] = useState(false);
 
   const [image, setImage] = useState('');
+
+  const [size, setSize] = useState('');
 
   const fetchProductData = async () => {
     ProductItems.map((item) => {
@@ -68,13 +72,17 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p className="font-semibold">Select Size of Product</p>
             <div className="flex gap-2">
-
+              {
+                productData.sizes.map((item, index) => (
+                  <button onClick={() => setSize(item)} key={index} className={`border py-2 px-4 bg-gray-100 ${item === size ? 'border-orange-500' : ''}`}>{item}</button>
+                ))
+              }
             </div>
           </div>
-          <button className="py-3 px-8 text-white bg-slate-500 active:bg-slate-700 rounded-md">Add to Cart</button>
+          <button className="py-3 px-8 text-white bg-slate-500 active:bg-slate-700 rounded-md hover:scale-105 flex items-center gap-2">Add to Cart <IoCartOutline size={20} /> </button>
         </div>
       </div>
-      {/* Description and Review */}
+      {/* Description */}
       <div className="mt-20">
         <div className="flex">
           <b className="border px-5 py-3 text-sm">Description</b>
@@ -84,6 +92,7 @@ const Product = () => {
         </div>
       </div>
       {/* Display related product */}
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
     </div>
   ) : <div className="opacity-0"></div>
 }
