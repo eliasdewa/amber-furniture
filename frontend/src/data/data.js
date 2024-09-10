@@ -21,7 +21,7 @@ export const NavItems = [
 export const ProductItems = [
   {
     _id: 1,
-    img: ["/images/home1.jpg"],
+    image: ["/images/home1.jpg"],
     title: "Dresser beside sofa",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -33,7 +33,7 @@ export const ProductItems = [
   },
   {
     _id: 2,
-    img: ["/images/home2.jpg"],
+    image: ["/images/home2.jpg"],
     title: "Wooden Table",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -44,7 +44,7 @@ export const ProductItems = [
   },
   {
     _id: 3,
-    img: ["/images/home3.jpg"],
+    image: ["/images/home3.jpg"],
     title: "Grey couch",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -56,7 +56,7 @@ export const ProductItems = [
   },
   {
     _id: 4,
-    img: ["/images/home4.jpg"],
+    image: ["/images/home4.jpg"],
     title: "Gray chairs",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -68,7 +68,7 @@ export const ProductItems = [
   },
   {
     _id: 5,
-    img: ["/images/bedroom1.jpg"],
+    image: ["/images/bedroom1.jpg"],
     title: "Wooden headboard",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -80,7 +80,7 @@ export const ProductItems = [
   },
   {
     _id: 6,
-    img: ["/images/bedroom2.jpg"],
+    image: ["/images/bedroom2.jpg"],
     title: "Beautiful modern bed",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -91,7 +91,7 @@ export const ProductItems = [
   },
   {
     _id: 7,
-    img: ["/images/bedroom3.jpg"],
+    image: ["/images/bedroom3.jpg"],
     title: "A large bed",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -103,7 +103,7 @@ export const ProductItems = [
   },
   {
     _id: 8,
-    img: ["/images/bedroom4.jpg"],
+    image: ["/images/bedroom4.jpg"],
     title: "Double bed",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -115,7 +115,7 @@ export const ProductItems = [
 
   {
     _id: 9,
-    img: ["/images/dining1.jpg"],
+    image: ["/images/dining1.jpg"],
     title: "Wooden dining",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -127,7 +127,7 @@ export const ProductItems = [
 
   {
     _id: 10,
-    img: ["/images/dining2.jpg"],
+    image: ["/images/dining2.jpg"],
     title: "Rectangular brown table",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -139,7 +139,7 @@ export const ProductItems = [
   },
   {
     _id: 11,
-    img: ["/images/dining3.jpg"],
+    image: ["/images/dining3.jpg"],
     title: "Dining table beside two chairs",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -151,7 +151,7 @@ export const ProductItems = [
   },
   {
     _id: 12,
-    img: ["/images/dining4.jpg"],
+    image: ["/images/dining4.jpg"],
     title: "Dining table set",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -162,7 +162,7 @@ export const ProductItems = [
   },
   {
     _id: 13,
-    img: ["/images/cafe1.jpg"],
+    image: ["/images/cafe1.jpg"],
     title: "Orange chairs and a white table",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -173,7 +173,7 @@ export const ProductItems = [
   },
   {
     _id: 14,
-    img: ["/images/cafe2.jpg"],
+    image: ["/images/cafe2.jpg"],
     title: "Comfort Chairs",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -186,7 +186,7 @@ export const ProductItems = [
 
   {
     _id: 15,
-    img: ["/images/cafe3.jpg"],
+    image: ["/images/cafe3.jpg"],
     title: "Wooden table with chairs",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -197,7 +197,7 @@ export const ProductItems = [
   },
   {
     _id: 16,
-    img: ["/images/cafe4.jpg"],
+    image: ["/images/cafe4.jpg"],
     title: "Beautiful chairs and table",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -208,7 +208,7 @@ export const ProductItems = [
   },
   {
     _id: 17,
-    img: ["/images/office1.jpg"],
+    image: ["/images/office1.jpg"],
     title: "Office rolling chairs and table",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -219,7 +219,7 @@ export const ProductItems = [
   },
   {
     _id: 18,
-    img: ["/images/office2.jpg"],
+    image: ["/images/office2.jpg"],
     title: "Desk with a glass top and wooden legs",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -230,7 +230,7 @@ export const ProductItems = [
   },
   {
     _id: 19,
-    img: ["/images/office3.jpg"],
+    image: ["/images/office3.jpg"],
     title: "Office Space, front desk",
     description: "Description about the product",
     prevPrice: "$140,00",
@@ -241,7 +241,7 @@ export const ProductItems = [
   },
   {
     _id: 20,
-    img: ["/images/office4.jpg"],
+    image: ["/images/office4.jpg"],
     title: "Ottomans and chairs",
     description: "Description about the product",
     prevPrice: "$140,00",

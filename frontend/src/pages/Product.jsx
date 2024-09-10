@@ -21,7 +21,7 @@ const Product = () => {
       if (item._id === parseInt(productId)) {
         setProductData(item);
         // console.log(item);
-        setImage(item.img[0]); // Assuming first image is the main image for now
+        setImage(item.image[0]); // Assuming first image is the main image for now
         return null;
       }
     })
@@ -29,15 +29,16 @@ const Product = () => {
   useEffect(() => {
     fetchProductData();
   }, [productId, ProductItems]);
+  
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+    <div className="pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* Product Data */}
       <div className="flex gap-12 flex-col sm:flex-row">
         {/* Product Image */}
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
           <div className="flex sm:flex-col overflow-x-auto justify-between sm:justify-normal sm:w-[18.7%] w-full">
             {
-              productData.img.map((item, index) => (
+              productData.image.map((item, index) => (
                 <img
                   key={index}
                   src={item}
