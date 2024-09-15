@@ -31,7 +31,7 @@ const RelatedProducts = ({ category, subCategory}) => {
             <ProductCard
             key={index}
             id={item._id}
-            img={item.img}
+            image={item.image}
             title={item.title}
             prevPrice={item.prevPrice}
             newPrice={item.newPrice}

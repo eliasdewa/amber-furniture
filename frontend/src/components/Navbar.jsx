@@ -2,8 +2,7 @@ import logo from "/ambar.png";
 import { FaRegUser } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { MdMenu } from "react-icons/md";
-import { IoMdSearch } from "react-icons/io";
-import Modal from "./Modal";
+import LoginPopup from "./LoginPopup";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
@@ -73,7 +72,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <Modal />
+          <LoginPopup />
           {/* cart */}
           <Link to="/cart">
             <label

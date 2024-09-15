@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
-import { IoCartOutline } from "react-icons/io5";
-const ProductCard = ({ id, img, title, description, prevPrice, newPrice, category }) => {
+const ProductCard = ({ id, image, title, description, prevPrice, newPrice, category }) => {
   // Give a heart like for the product
   const [like, setLike] = useState(false);
   const handleLike = () => {
@@ -23,7 +22,7 @@ const ProductCard = ({ id, img, title, description, prevPrice, newPrice, categor
       <Link to={`/product/${id}`}>
         {/* image */}
         <img
-          src={img}
+          src={image}
           alt=""
           className="h-44 transition duration-500 group-hover:scale-105"
         />

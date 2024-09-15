@@ -27,6 +27,12 @@ const Cart = () => {
     setCartData(tempData);
     // console.log(tempData);
   }, [cartItems]);
+
+  const tableData = [
+    { id: 1, name: "John Doe", age: 30 },
+    { id: 2, name: "Jane Smith", age: 25 },
+    // ... more data
+  ];
   return (
     <div className="pt-14">
       <div className="text-2xl mb-3">
@@ -34,58 +40,76 @@ const Cart = () => {
         <Title topic={"Your Cart"} />
       </div>
       {/* Display selected cart items */}
-      <div>
-        {cartData.map((item, index) => {
-          let productData = {};
-          for (let i = 0; i < ProductItems.length; i++) {
-            if (ProductItems[i]._id === Number(item.id)) {
-              Object.assign(productData, ProductItems[i]);
-              break;
+      <table className="table-auto border-collapse w-full">
+        <thead>
+          <tr>
+            <th className="border px-4 py-2">Product Image</th>
+            <th className="border px-4 py-2">Name of Product</th>
+            <th className="border px-4 py-2">Price</th>
+            <th className="border px-4 py-2">Size</th>
+            <th className="border px-4 py-2">Quantity</th>
+            <th className="border px-4 py-2">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cartData.map((item, index) => {
+            let productData = {};
+            for (let i = 0; i < ProductItems.length; i++) {
+              if (ProductItems[i]._id === Number(item.id)) {
+                Object.assign(productData, ProductItems[i]);
+                break;
+              }
             }
-          }
-          return (
-            <div
-              key={index}
-              className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] gap-4 items-center"
-            >
-              <div className="flex items-start gap-6">
-                {/* Image */}
-                <img src={productData.image} alt="" className="w-16 sm:w-20" />
+            return (
+              <tr key={index} className="text-center">
+                <td className="border px-4 py-2">
+                  {" "}
+                  <img
+                    src={productData.image}
+                    alt=""
+                    className="w-40 mx-auto"
+                  />
+                </td>
                 {/* Item details */}
-                <div>
-                  <p className="text-xs sm:text-lg font-medium">
-                    {productData.title}
-                  </p>
-                  <div className="flex items-center gap-5 mt-2">
-                    <p>${productData.newPrice}</p>
-                    <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">
-                      {item.size}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* Number of item */}
-              <input
-                onChange={(e) =>
-                  e.target.value === "" || e.target.value === "0"
-                    ? null
-                    : updateQuantity(item.id, item.size, Number(e.target.value))
-                }
-                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
-                type="number"
-                min={1}
-                defaultValue={item.quantity}
-              />
-              {/* delete btn */}
-              <MdDelete
-                onClick={() => updateQuantity(item.id, item.size, 0)}
-                size={30}
-                className="cursor-pointer"
-              />
-            </div>
-          );
-        })}
-      </div>
+                <td className="border px-4 py-2 text-xs sm:text-lg font-medium">
+                  {productData.title}
+                </td>
+                <td className="border px-4 py-2 text-xs sm:text-lg font-medium">
+                  ${productData.newPrice}
+                </td>
+                <td className="border px-4 py-2 text-xs sm:text-lg font-medium sm:px-3 sm:py-1 bg-slate-50">
+                  {item.size}
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    onChange={(e) =>
+                      e.target.value === "" || e.target.value === "0"
+                        ? null
+                        : updateQuantity(
+                            item.id,
+                            item.size,
+                            Number(e.target.value)
+                          )
+                    }
+                    className="border max-w-10 sm:max-w-20 sm:px-2"
+                    type="number"
+                    min={1}
+                    defaultValue={item.quantity}
+                  />
+                </td>
+                {/* delete btn */}
+                <td className="border px-4 py-2">
+                  <MdDelete
+                    onClick={() => updateQuantity(item.id, item.size, 0)}
+                    size={30}
+                    className="cursor-pointer mx-auto hover:text-red"
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
       {/* Cart total amount section */}
       <div className="flex justify-end my-20">
         <div className="w-full sm:w-[450px]">
