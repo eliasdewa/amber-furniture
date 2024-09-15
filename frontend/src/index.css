@@ -14,3 +14,6 @@ a.active {
 .bg-container {
   @apply bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%;
 }
+.table-cell {
+  @apply border px-2 sm:px-4 py-2
+}
