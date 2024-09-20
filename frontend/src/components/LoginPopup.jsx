@@ -1,56 +1,61 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
-import  axios from "axios";
+import axios from "axios";
 import { toast } from "react-toastify";
+import { ShopContext } from "../context/ShopContext";
 const LoginPopup = () => {
   const [currentState, setCurrentState] = useState("Login");
 
   // create  a state variable to store user information
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const onChangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setData(data => ({...data, [name]: value }));
-  };
+  // Initialize the input
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Check if the user data stored
   // useEffect(() => {
   //   console.log(data)
   // }, [data]);
-  
+
+  // To close the popup
   const closeModal = () => {
     document.getElementById("my_modal_5").close();
   };
 
-  const url = 'http://localhost:5000';
-  const [token, setToken] = useState("");
+  const { url, setToken } = useContext(ShopContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newUrl = url;
     if (currentState === "Login") {
-      newUrl += '/api/user/login';
+      newUrl += "/api/user/login";
     } else {
-      newUrl += '/api/user/register';
+      newUrl += "/api/user/register";
     }
-    const response = await axios.post(newUrl, data);
-    if (response.data.success) {
-      setToken(response.data.token);
-      // save the token on local storage
-      localStorage.setItem('token', response.data.token);
-      setData({
-        name: "",
-        email: "",
-        password: "",
-      })
-      closeModal()
-      toast.success(response.data.message);
-    } else {
-      toast.error(response.data.message);
+    try {
+      await axios
+        .post(
+          newUrl,
+          { name, email, password },
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setToken(res.data.token);
+          // save the token on local storage
+          localStorage.setItem("token", res.data.token);
+          // Clear input fields
+          setName("");
+          setEmail("");
+          setPassword("");
+          // Close the form
+          closeModal();
+        });
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
   return (
@@ -90,7 +95,7 @@ const LoginPopup = () => {
                     name="name"
                     placeholder="Your name"
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                    onChange={onChangeHandler} value={data.name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </>
@@ -103,7 +108,7 @@ const LoginPopup = () => {
                 name="email"
                 placeholder="Email"
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                onChange={onChangeHandler} value={data.email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             {/* password */}
@@ -114,7 +119,7 @@ const LoginPopup = () => {
                 name="password"
                 placeholder="Password"
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                onChange={onChangeHandler} value={data.password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             {/* login btn */}
@@ -157,24 +162,14 @@ const LoginPopup = () => {
               </>
             )}
 
-            <button
+            <div
               htmlFor="my_modal_5"
               onClick={() => document.getElementById("my_modal_5").close()}
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             >
               ✕
-            </button>
+            </div>
           </form>
-
-          {/* social sign in */}
-          {/* <div className="text-center space-x-3 mb-5">
-            <button className="btn btn-circle hover:bg-green hover:text-white">
-              <FaGoogle />
-            </button>
-            <button className="btn btn-circle hover:bg-green hover:text-white">
-              <FaFacebookF />
-            </button>
-          </div> */}
         </div>
       </div>
     </dialog>

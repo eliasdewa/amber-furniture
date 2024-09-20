@@ -213,7 +213,7 @@ const Footer = () => {
                     className="text-gray-700 transition hover:opacity-75"
                   >
                     {" "}
-                    amberfurniture@gmail.com{" "}
+                    ambarfurniture@gmail.com{" "}
                   </a>
                 </li>
               </ul>
@@ -222,7 +222,7 @@ const Footer = () => {
         </div>
 
         <p className="text-xs text-gray-500">
-          &copy; 2024. Amber Furniture. All rights reserved.
+          &copy; 2024. Ambar Furniture. All rights reserved.
         </p>
       </div>
     </footer>

@@ -10,6 +10,17 @@ const ShopContextProvider = (props) => {
   const deliveryFee = 10;
   // Create a variable
   const [cartItems, setCartItems] = useState({});
+
+  const [token, setToken] = useState("");
+  const url = 'http://localhost:5000';
+  // Not to logout when we refresh the page
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setToken(token);
+    }
+  }, []);
+
   // Function to add to cart items
   const addToCart = (itemId, size) => {
     // Make a copy of the current state of cart items
@@ -31,9 +42,6 @@ const ShopContextProvider = (props) => {
     }
     setCartItems(cartData);
   };
-  // useEffect(() => {
-  //   console.log(cartItems);
-  // }, [cartItems]);
   // To change the cart number based on the selected items
   const getCartCount = () => {
     let totalCount = 0;
@@ -83,7 +91,7 @@ const ShopContextProvider = (props) => {
   };
   // Create a variable
   const value = {
-    ProductItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount
+    ProductItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, url, token, setToken
   }
   return (
     <ShopContext.Provider value={value}>
