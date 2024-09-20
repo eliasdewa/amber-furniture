@@ -1,20 +1,64 @@
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
+import  axios from "axios";
+import { toast } from "react-toastify";
 const LoginPopup = () => {
   const [currentState, setCurrentState] = useState("Login");
-  const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // create  a state variable to store user information
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData(data => ({...data, [name]: value }));
   };
 
+  // Check if the user data stored
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data]);
+  
+  const closeModal = () => {
+    document.getElementById("my_modal_5").close();
+  };
+
+  const url = 'http://localhost:5000';
+  const [token, setToken] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let newUrl = url;
+    if (currentState === "Login") {
+      newUrl += '/api/user/login';
+    } else {
+      newUrl += '/api/user/register';
+    }
+    const response = await axios.post(newUrl, data);
+    if (response.data.success) {
+      setToken(response.data.token);
+      // save the token on local storage
+      localStorage.setItem('token', response.data.token);
+      setData({
+        name: "",
+        email: "",
+        password: "",
+      })
+      closeModal()
+      toast.success(response.data.message);
+    } else {
+      toast.error(response.data.message);
+    }
+  };
   return (
     <dialog id="my_modal_5" className="modal modal-middle sm:modal-middle">
       <div className="modal-box">
         <div className="modal-action flex flex-col justify-center mt-0">
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit}
             className="card-body py-4"
             method="dialog"
           >
@@ -43,10 +87,10 @@ const LoginPopup = () => {
                   <CiUser className="w-8 h-16" />
                   <input
                     type="text"
+                    name="name"
                     placeholder="Your name"
-                    required
                     className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                    {...register("text")}
+                    onChange={onChangeHandler} value={data.name}
                   />
                 </div>
               </>
@@ -56,10 +100,10 @@ const LoginPopup = () => {
               <CiMail className="w-8 h-16" />
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
-                required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                {...register("email")}
+                onChange={onChangeHandler} value={data.email}
               />
             </div>
             {/* password */}
@@ -67,15 +111,15 @@ const LoginPopup = () => {
               <CiLock className="w-8 h-16" />
               <input
                 type="password"
+                name="password"
                 placeholder="Password"
-                required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                {...register("password")}
+                onChange={onChangeHandler} value={data.password}
               />
             </div>
             {/* login btn */}
             <div className="form-control mt-4">
-              <button className="btn bg-green text-white">
+              <button type="submit" className="btn bg-green text-white">
                 {currentState === "Sign Up" ? "Create account" : "Login"}
               </button>
             </div>

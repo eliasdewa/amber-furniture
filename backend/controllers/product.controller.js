@@ -4,17 +4,18 @@ import fs from "fs";
 // add the product
 const addProduct = async (req, res) => {
   let imageFilename = `${req.file.filename}`;
+  // create a product
   const product = new productModel({
     image: imageFilename,
     title: req.body.title,
     description: req.body.description,
-    prevPrice: req.body.prevPrice,
-    newPrice: req.body.newPrice,
-    sizes: req.body.sizes,
     category: req.body.category,
     subCategory: req.body.subCategory,
+    sizes: req.body.sizes,
+    price: req.body.price,
     bestSeller: req.body.bestSeller,
   })
+  // save the product to the database and handle errors
   try {
     await product.save();
     res.status(201).json({success: true, message: "Product added successfully"});

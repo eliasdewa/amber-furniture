@@ -10,7 +10,7 @@ import PlaceOrder from './pages/PlaceOrder';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
