@@ -27,8 +27,8 @@ const registerUser = asyncHandler(async (req, res, next) => {
   if (!validator.isEmail(email)) {
     return next(errorHandler("Invalid email format", 400));
   }
-  if (!validator.isLength(password, { min: 8, max: 50 })) {
-    return next(errorHandler("Password must be between 8 and 50 characters", 400));
+  if (!validator.isLength(password, { min: 8, max: 30 })) {
+    return next(errorHandler("Password must be between 8 and 30 characters", 400));
   }
   // Check if user already exists
   const existingUser = await userModel.findOne({ email });
@@ -72,7 +72,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
   }
   // Generate and send JWT token
   const token = createToken(user._id);
-  res.json({ success: true, message: "Logged in successfully", token });
+  res.json({ success: true, message: "User logged in successfully", token });
 });
 
 export { registerUser, loginUser }

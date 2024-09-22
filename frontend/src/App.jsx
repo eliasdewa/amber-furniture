@@ -15,7 +15,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <div className='px-4 sm:px-6 md:px-8 xl:px-12'>
-      <ToastContainer />
+      <ToastContainer
+        autoClose={2000}
+        theme="dark" />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

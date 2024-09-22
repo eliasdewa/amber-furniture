@@ -9,7 +9,7 @@ const Product = () => {
   const {productId} = useParams();
   // console.log(productId);
   // get all products
-  const {ProductItems, addToCart } = useContext(ShopContext);
+  const {productItems, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
 
   const [image, setImage] = useState('');
@@ -17,7 +17,7 @@ const Product = () => {
   const [size, setSize] = useState('');
 
   const fetchProductData = async () => {
-    ProductItems.map((item) => {
+    productItems.map((item) => {
       if (item._id === parseInt(productId)) {
         setProductData(item);
         // console.log(item);
@@ -28,7 +28,7 @@ const Product = () => {
   }
   useEffect(() => {
     fetchProductData();
-  }, [productId, ProductItems]);
+  }, [productId, productItems]);
   
   return productData ? (
     <div className="pt-10 transition-opacity ease-in duration-500 opacity-100">

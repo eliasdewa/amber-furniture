@@ -4,11 +4,11 @@ import Title from "../Title";
 import ProductCard from "../ProductCard";
 
 const ProductSection = () => {
-  const { ProductItems } = useContext(ShopContext);
-  // console.log(ProductItems);
+  const { productItems } = useContext(ShopContext);
+  // console.log(productItems);
   const [productList, setProductList] = useState([]);
   useEffect(() => {
-    setProductList(ProductItems.slice(0, 10));
+    setProductList(productItems.slice(0, 10));
     // eslint-disable-next-line
   }, []);
 

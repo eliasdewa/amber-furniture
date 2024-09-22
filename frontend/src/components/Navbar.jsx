@@ -37,7 +37,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setToken("");
     navigate("/");
-    toast.success("Successfully logged out")
+    toast.success("User logged out successfully");
   };
 
   return (
@@ -85,7 +85,9 @@ const Navbar = () => {
               </button>
             ) : (
               <div>
-                <FaCircleUser size={35} />
+                <div className="flex items-center gap-2">
+                  <FaCircleUser size={35} /> <span>Hello, Ed</span>
+                </div>
                 <div className="group-hover:block hidden absolute dropdown-menu ring-0 pt-4">
                   <div className="flex flex-col gap-2 w-36 py-3 px-2 bg-slate-100 text-gray-500 rounded">
                     <p className="cursor-pointer hover:text-black flex gap-1">

@@ -5,19 +5,19 @@ import ProductCard from "./ProductCard";
 
 const RelatedProducts = ({ category, subCategory}) => {
   // Get all products
-  const { ProductItems } = useContext(ShopContext);
+  const { productItems } = useContext(ShopContext);
   // State variable to store related products
   const [relatedProduct, setRelatedProduct] = useState([]);
   // Filter out related products based on category and subCategory
   useEffect(() => {
-    if (ProductItems.length > 0) {
-      let productCopy = ProductItems.slice();
+    if (productItems.length > 0) {
+      let productCopy = productItems.slice();
       productCopy = productCopy.filter((item) => category === item.category)
       productCopy = productCopy.filter((item) => subCategory === item.subCategory)
       // console.log(productCopy.slice(1, 6));
       setRelatedProduct(productCopy.slice(1, 6));
     }
-  }, [ProductItems]);
+  }, [productItems]);
   return (
     <div className="my-6">
       <div className="text-center text-3xl py-2">

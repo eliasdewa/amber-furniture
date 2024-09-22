@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { ProductItems } from "../data/data";
 import { toast } from "react-toastify";
+import { productItems } from "../data/data.js";
+// import axios from "axios";
 
 // Create context variable
 export const ShopContext = createContext();
@@ -9,17 +10,12 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
   const deliveryFee = 10;
   // Create a variable
+  // const [productItems, setProductItems] = useState([]);
+
   const [cartItems, setCartItems] = useState({});
 
   const [token, setToken] = useState("");
   const url = 'http://localhost:5000';
-  // Not to logout when we refresh the page
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setToken(token);
-    }
-  }, []);
 
   // Function to add to cart items
   const addToCart = (itemId, size) => {
@@ -69,11 +65,11 @@ const ShopContextProvider = (props) => {
     let cartTotalAmount = 0;
     for (const items in cartItems) {
       // console.log(items)
-      // let itemsInfo = ProductItems.find((product) => product._id === items);
+      // let itemsInfo = productItems.find((product) => product._id === items);
       let itemsInfo = {};
-      for (let i = 0; i < ProductItems.length; i++) {
-        if (ProductItems[i]._id === Number(items)) {
-          Object.assign(itemsInfo, ProductItems[i]);
+      for (let i = 0; i < productItems.length; i++) {
+        if (productItems[i]._id === Number(items)) {
+          Object.assign(itemsInfo, productItems[i]);
           break;
         }
       }
@@ -89,9 +85,29 @@ const ShopContextProvider = (props) => {
     }
     return cartTotalAmount;
   };
+
+  // Fetch product items
+  // const getProductItems = async () => {
+  //   const response = await axios.get(url + "/api/product/list");
+  //   console.log(response.data.data);
+  //   setProductItems(response.data.data);
+  // };
+  
+  // When the page loads
+  useEffect(() => {
+    async function loadData() {
+      // await getProductItems(); // Fetch product data
+      // Not to logout when we refresh the page
+      const token = localStorage.getItem('token');
+      if (token) {
+        setToken(token);
+      }
+    }
+    loadData();
+  }, []);
   // Create a variable
   const value = {
-    ProductItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, url, token, setToken
+    productItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, url, token, setToken
   }
   return (
     <ShopContext.Provider value={value}>

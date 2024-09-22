@@ -4,11 +4,11 @@ import Title from "../Title";
 import ProductCard from "../ProductCard";
 
 const BestSeller = () => {
-  const { ProductItems } = useContext(ShopContext);
+  const { productItems } = useContext(ShopContext);
   // Filter products by best seller status
   const [bestSeller, setBestSeller] = useState([]);
   useEffect(() => {
-    const bestSellerItems = ProductItems.filter((item) => item.bestSeller);
+    const bestSellerItems = productItems.filter((item) => item.bestSeller);
     setBestSeller(bestSellerItems.slice(0, 5));
     // eslint-disable-next-line
   }, []);

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   // get Product items and cart items from shop context api
-  const { ProductItems, cartItems, updateQuantity } = useContext(ShopContext);
+  const { productItems, cartItems, updateQuantity } = useContext(ShopContext);
   // Change the items to array of products
   const [cartData, setCartData] = useState([]);
   // useEffect to update cartData when cartItems change
@@ -52,9 +52,9 @@ const Cart = () => {
         <tbody>
           {cartData.map((item, index) => {
             let productData = {};
-            for (let i = 0; i < ProductItems.length; i++) {
-              if (ProductItems[i]._id === Number(item.id)) {
-                Object.assign(productData, ProductItems[i]);
+            for (let i = 0; i < productItems.length; i++) {
+              if (productItems[i]._id === Number(item.id)) {
+                Object.assign(productData, productItems[i]);
                 break;
               }
             }

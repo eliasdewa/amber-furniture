@@ -6,7 +6,7 @@ import ProductCard from "../components/ProductCard";
 
 const Products = () => {
   // Get the data of all products using context api
-  const { ProductItems } = useContext(ShopContext);
+  const { productItems } = useContext(ShopContext);
   // State variable
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -49,7 +49,7 @@ const Products = () => {
   // Apply filter
   const applyFilter = () => {
     // Make a copy of all products
-    let productItemsCopy = ProductItems.slice();
+    let productItemsCopy = productItems.slice();
     if (search) {
       productItemsCopy = productItemsCopy.filter((item) =>
         item.title.toLowerCase().includes(search.toLowerCase())
@@ -100,7 +100,7 @@ const Products = () => {
   };
   // To show all products
   // useEffect(() => {
-  //   setFilterProducts(ProductItems);
+  //   setFilterProducts(productItems);
   // }, []);
 
   // To filter out all products based on category

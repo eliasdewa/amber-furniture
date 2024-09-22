@@ -18,7 +18,7 @@ export const NavItems = [
   }
 ]
 //Product Items
-export const ProductItems = [
+export const productItems = [
   {
     _id: 1,
     image: ["/images/home1.jpg"],
