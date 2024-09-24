@@ -5,10 +5,13 @@ import productRouter from './routes/product.route.js';
 import userRouter from './routes/user.route.js';
 import 'dotenv/config';
 import errorMiddleware from './middleware/errorMiddleware.js';
+import connectCloudinary from './config/cloudinary.js';
 
 // app configuration
 const app = express();
-const port = 5000
+const port = process.env.PORT || 5000
+connectDB(); // Database connection
+connectCloudinary(); // cloudinary connection
 
 // middleware
 app.use(express.json());
@@ -18,18 +21,12 @@ app.use(cors({
   credentials: true,
 })); // we can access the backend from any frontend
 
-// Database connection
-connectDB();
-
-
 // api endpoint
 app.use("/api/product", productRouter)
 app.use("/api/user", userRouter)
 
-// To access the product images on frontend
-app.use("/images", express.static('uploads')) //http://localhost:5000/images/imageFilename
-
 // Error handlers middleware
 app.use(errorMiddleware);
 
+// port Listener
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
