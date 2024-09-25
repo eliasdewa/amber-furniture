@@ -30,15 +30,13 @@ const Nav = () => {
   return (
     <div className="w-full sticky top-0 z-50 flex justify-between items-center shadow-md bg-white px-4 py-2 sm:px-6 md:px-8 xl:px-12">
       {/* Logo */}
-      <div>
-        <Link to="/">
-          <img
-            src={logo}
-            alt="logo"
-            className="w-full h-12 sm:h-16 md:h-20 cursor-pointer"
-          />
-        </Link>
-      </div>
+      <Link to="/">
+        <img
+          src={logo}
+          alt="logo"
+          className="w-full h-12 sm:h-16 md:h-20 cursor-pointer"
+        />
+      </Link>
       {/* Nav links */}
       <div className="flex justify-between items-center gap-5">
         <ul className="hidden md:inline-flex items-center gap-6 lg:gap-10">

@@ -23,7 +23,7 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
-          <ToastContainer />
+          <ToastContainer autoClose={2000} theme="dark"  />
           <Navbar setToken={setToken}/>
           <hr className="bg-[#a9a9a9] h-0.5" />
           <div className="flex w-full">
