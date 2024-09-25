@@ -8,8 +8,8 @@
 body {
   font-family: 'Inter', sans-serif;
 }
-a.active {
-  font-weight: bolder;
+.active {
+  @apply font-bold underline underline-offset-4
 }
 .bg-container {
   @apply bg-gradient-to-r from-0% from-[#FAFAFA] to-[#FCFCFC] to-100%;

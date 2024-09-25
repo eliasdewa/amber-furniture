@@ -1,22 +1,30 @@
 // NavItems
 export const NavItems = [
   {
-    label: "HOME",
-    path: "/"
+    id: 1,
+    title: 'HOME',
+    to: '/',
+    path: '',
   },
   {
-    label: "PRODUCTS",
-    path: "/products"
+    id: 2,
+    title: 'PRODUCTS',
+    to: '/products',
+    path: 'products',
   },
   {
-    label: "ABOUT US",
-    path: "/about"
+    id: 3,
+    title: 'ABOUT US',
+    to: '/about',
+    path: 'about',
   },
   {
-    label: "CONTACT US",
-    path: "/contact"
-  }
-]
+    id: 4,
+    title: 'CONTACT US',
+    to: '/contact',
+    path: '/',
+  },
+];
 //Product Items
 export const productItems = [
   {

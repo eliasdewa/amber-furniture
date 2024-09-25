@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary";
 
-// Connect to Cloudinary
+// Connect to cloudinary
 const connectCloudinary = () => {
   cloudinary.v2.config({
     cloud_name: process.env.CLOUDINARY_NAME,

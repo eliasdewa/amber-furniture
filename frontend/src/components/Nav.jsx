@@ -52,7 +52,7 @@ const Nav = () => {
         </ul>
       </div>
       {/* Login & register */}
-      <div className="flex items-center justify-center gap-1 sm:gap-2">
+      <div className="flex items-center justify-center gap-2 sm:gap-4">
         {/* Login button */}
         <div className="group relative">
           {!token ? (

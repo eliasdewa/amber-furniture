@@ -129,7 +129,7 @@ const LoginPopup = () => {
             {currentState === "Login" ? (
               <>
                 {/* login btn */}
-                <button className="btn w-56 mx-auto mt-2 bg-green text-white">
+                <button className="btn w-56 mx-auto mt-2 bg-green text-white hover:scale-105">
                   Login
                 </button>
                 <p className="text-center my-2">
@@ -149,7 +149,7 @@ const LoginPopup = () => {
             ) : (
               <>
                 {/* Sign up btn */}
-                <button className="btn w-56 mx-auto mt-2 bg-green text-white">
+                <button className="btn w-56 mx-auto mt-2 bg-green text-white hover:scale-105">
                   Create account
                 </button>
                 <p className="text-center my-2">

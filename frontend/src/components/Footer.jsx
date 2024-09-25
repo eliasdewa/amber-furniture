@@ -9,7 +9,7 @@ import logo from "/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t">
+    <footer className="bg-white border-t px-4 sm:px-6 md:px-8 xl:px-12">
       <div className="relative space-y-8 px-2 py-14 lg:space-y-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
@@ -220,7 +220,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
         <p className="text-xs text-gray-500">
           &copy; 2024. Ambar Furniture. All rights reserved.
         </p>
