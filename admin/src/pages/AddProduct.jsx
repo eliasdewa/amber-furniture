@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { backendUrl } from "../App";
 
 const AddProduct = ({token}) => {
   // To store all images
@@ -28,8 +29,6 @@ const AddProduct = ({token}) => {
   //   console.log(data)
   // }, [data]);
   
-  // Our backend URL
-  const url = 'http://localhost:5000';
   // Submit handlers function
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -66,10 +65,10 @@ const AddProduct = ({token}) => {
       image4 && formData.append('image4', image4);
 
       // Send these data to our api
-      const response = await axios.post(`${url}/api/product/add`, formData, {headers: {token: token}});
-      if (response.data.success) {
-        toast.success(response.data.message);
+      await axios.post(`${backendUrl}/api/product/add`, formData)
+      .then((response) => {
         // console.log(response.data);
+        toast.success(response.data.message);
         // To remove the entered data from the field
         setTitle('');
         setDescription('');
@@ -82,13 +81,9 @@ const AddProduct = ({token}) => {
         setImage2(false);
         setImage3(false);
         setImage4(false);
-      }
-      else {
-        toast.error(response.data.message);
-      }
+      });
     } catch (error) {
-      console.log(error)
-      toast.error(error.message);
+      toast.error(error.response.data.message);
     }
   };
 

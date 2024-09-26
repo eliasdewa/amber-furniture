@@ -13,8 +13,8 @@ productRouter.post('/add', upload.fields(
     { name: 'image4', maxCount: 1 }
   ]
 ), addProduct);
-productRouter.get('/:productId', getSingleProduct);
 productRouter.get('/list', getAllProducts);
-productRouter.delete('/delete/:id', adminAuth, removeProduct);
+productRouter.get('/:productId', getSingleProduct);
+productRouter.delete('/delete/:id', removeProduct);
 
 export default productRouter;

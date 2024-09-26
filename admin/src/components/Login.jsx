@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { CiLock, CiMail } from "react-icons/ci";
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { backendUrl } from '../App';
 
-// Our backend URL
-const url = 'http://localhost:5000';
+
 export default function Login({setToken}) {
 	// Initialize the input
 	const [email, setEmail] = useState('');
@@ -14,23 +14,24 @@ export default function Login({setToken}) {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      // Api call
-      const response = await axios.post(`${url}/api/user/admin`, {email, password})
-      // console.log(response);
-      if (response.data.success) {
+      // Api call for admin login
+      await axios
+      .post(`${backendUrl}/api/user/admin`, {email, password})
+      .then((response) => {
+        toast.success(response.data.message);
+        // Clear input fields
+        setEmail("");
+        setPassword("");
         // And redirect to the dashboard page
         setToken(response.data.token);
-      } else {
-        // If failure, show an error message
-        toast.error(response.data.message);
-      }
+      });
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error.response.message);
     }
   };
 	return (
-		<div className='min-h-screen'>
-			<section className='flex gap-2 max-w-4xl mx-auto p-10'>
+		<div className='min-h-screen flex items-center justify-center'>
+			<section className='flex gap-2 w-[800px] mx-auto p-10'>
 				{/* Lefts side */}
 				<section className='relative w-1/3 items-center flex-col gap-3 container mx-auto'>
 					<img

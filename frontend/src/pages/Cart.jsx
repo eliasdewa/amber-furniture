@@ -53,7 +53,7 @@ const Cart = () => {
           {cartData.map((item, index) => {
             let productData = {};
             for (let i = 0; i < productItems.length; i++) {
-              if (productItems[i]._id === Number(item.id)) {
+              if (productItems[i]._id === item.id) {
                 Object.assign(productData, productItems[i]);
                 break;
               }
@@ -73,7 +73,7 @@ const Cart = () => {
                   {productData.title}
                 </td>
                 <td className="table-cell">
-                  ${productData.newPrice}
+                  ${productData.price}
                 </td>
                 <td className="table-cell">
                   {item.size}
@@ -96,7 +96,7 @@ const Cart = () => {
                   />
                 </td>
                 <td className="table-cell">
-                  ${productData.newPrice * item.quantity}
+                  ${productData.price * item.quantity}
                 </td>
                 {/* delete btn */}
                 <td className="table-cell">

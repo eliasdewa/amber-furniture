@@ -113,7 +113,7 @@ const Products = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search]);
+  }, [category, subCategory, search, productItems]);
 
   useEffect(() => {
     sortProducts();
@@ -279,9 +279,8 @@ const Products = () => {
               id={item._id}
               image={item.image}
               title={item.title}
-              prevPrice={item.prevPrice}
-              newPrice={item.newPrice}
-              category={item.category}
+              description={item.description}
+              price={item.price}
             />
           ))}
         </div>

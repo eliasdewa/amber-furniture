@@ -10,7 +10,7 @@ const ProductSection = () => {
   useEffect(() => {
     setProductList(productItems.slice(0, 10));
     // eslint-disable-next-line
-  }, []);
+  }, [productItems]);
 
   return (
     <section className="mt-16">
@@ -29,9 +29,7 @@ const ProductSection = () => {
             image={product.image}
             title={product.title}
             description={product.description}
-            prevPrice={product.prevPrice}
-            newPrice={product.newPrice}
-            category={product.category}
+            price={product.price}
           />
         ))}
       </div>

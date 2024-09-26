@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
-const ProductCard = ({ id, image, title, description, prevPrice, newPrice, category }) => {
+const ProductCard = ({ id, image, title, description, price }) => {
   // Give a heart like for the product
   const [like, setLike] = useState(false);
   const handleLike = () => {
@@ -34,9 +34,8 @@ const ProductCard = ({ id, image, title, description, prevPrice, newPrice, categ
           <div className="flex flex-col lg:flex-row justify-between lg:items-center">
             {/* Price */}
             <div className="flex gap-2 px-2">
-              <del className="mt-1.5 text-sm text-gray-700">{prevPrice}</del>
               <p className="mt-1.5 text-sm text-gray-700 font-semibold">
-                ${newPrice}
+                ${price}
               </p>
             </div>
             {/* add to cart btn */}

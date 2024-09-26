@@ -2,63 +2,60 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
+import { backendUrl } from "../App";
 
 const ListProduct = () => {
   // To store all the list product
 	const [list, setList] = useState([]);
-
-  // Our backend URL
-  const url = 'http://localhost:5000';
 	// call api to get all the list product
 	const fetchList = async () => {
-		const response = await axios.get(`${url}/api/product/list`);
-    if (response.data.success) {
-      setList(response.data.data);
-    } else {
-      toast.error(response.data.message);
+    try {
+      await axios.get(`${backendUrl}/api/product/list`)
+      .then(response => {
+        // console.log(response.data.products);
+        setList(response.data.products);
+      });
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
 	}
-  // To delete a blog from the admin dashboard
-	const deleteProduct = async (mongoId) => {
-		const response = await axios.delete(`${url}/api/product/delete/${mongoId}`)
-    if (response.data.success) {
-      // Show success message and fetch the list again after deletion
-      toast.success(response.data.message);
-      await fetchList();
-    } else {
-      toast.error(response.data.message);
-    }
-	};
   // Call the fetchList function when the component mounts
   useEffect(() => {
     fetchList();
   }, []);
+  // To delete a product from the admin dashboard
+	const deleteProduct = async (mongoId) => {
+    try {
+      await axios.delete(`${backendUrl}/api/product/delete/${mongoId}`)
+      .then((response) => {
+        // Show success message and fetch the list again after deletion
+        toast.success(response.data.message);
+        fetchList();
+      })
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+	};
   return (
     <div>
 			<h1>All Products</h1>
-			<div className='relative h-[80vh] w-full overflow-x-auto mt-4 border border-gray-400 scrollbar-hide'>
-				<table className='w-full text-sm text-gray-500'>
-					<thead className='text-sm text-gray-700 text-left uppercase bg-gray-50'>
+			<div className='relative h-[90vh] w-full overflow-x-auto mt-4 border border-gray-400 scrollbar-hide'>
+				<table className='w-full text-md text-gray-500'>
+					<thead className='text-lg text-gray-300 text-center bg-gray-500'>
 						<tr>
-							<th scope='col' className='hidden sm:block px-6 py-3'>
+							<th scope='col' className='px-6 py-3 border-r'>
                 Image
 							</th>
-							<th scope='col' className='px-6 py-3'>
+							<th scope='col' className='px-6 py-3 border-r'>
                 Title
 							</th>
-							<th scope='col' className='px-6 py-3'>
+							<th scope='col' className='px-6 py-3 border-r'>
 								Description
 							</th>
-							<th scope='col' className='px-6 py-3'>
+							<th scope='col' className='px-6 py-3 border-r'>
 								Category
 							</th>
-							<th scope='col' className='px-6 py-3'>
-								Sub-Category
-							</th>
-							<th scope='col' className='px-6 py-3'>
-								Size
-							</th>
-							<th scope='col' className='px-6 py-3'>
+							<th scope='col' className='px-6 py-3 border-r'>
 								Price
 							</th>
 							<th scope='col' className='px-6 py-3'>
@@ -73,9 +70,9 @@ const ListProduct = () => {
                   <td className="table-cell">
                     {" "}
                     <img
-                      src={`${url}/images/` + item.image}
+                      src={item.image[0]}
                       alt=""
-                      className="w-32 mx-auto"
+                      className="w-16 mx-auto"
                     />
                   </td>
                   <td className="table-cell">
@@ -86,12 +83,6 @@ const ListProduct = () => {
                   </td>
                   <td className="table-cell">
                     {item.category}
-                  </td>
-                  <td className="table-cell">
-                    {item.subCategory}
-                  </td>
-                  <td className="table-cell">
-                    {item.sizes}
                   </td>
                   <td className="table-cell">
                     ${item.price ? item.price : 0}

@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import Login from "./components/Login";
 
+// Backend url
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const App = () => {
   // Authentication
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');

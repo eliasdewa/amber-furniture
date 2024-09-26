@@ -29,11 +29,7 @@ const LoginPopup = () => {
       await axios
       .post(
         newUrl,
-        { name, email, password },
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
+        { name, email, password }
       )
       .then((res) => {
         // Clear input fields

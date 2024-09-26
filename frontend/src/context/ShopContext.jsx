@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { productItems } from "../data/data.js";
-// import axios from "axios";
+// import { productItems } from "../data/data.js";
+import axios from "axios";
 
 // Create context variable
 export const ShopContext = createContext();
@@ -9,13 +9,11 @@ export const ShopContext = createContext();
 // Context provider function
 const ShopContextProvider = (props) => {
   const deliveryFee = 10;
-  // Create a variable
-  // const [productItems, setProductItems] = useState([]);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [cartItems, setCartItems] = useState({});
 
   const [token, setToken] = useState("");
-  const url = 'http://localhost:5000';
 
   // Function to add to cart items
   const addToCart = (itemId, size) => {
@@ -68,7 +66,7 @@ const ShopContextProvider = (props) => {
       // let itemsInfo = productItems.find((product) => product._id === items);
       let itemsInfo = {};
       for (let i = 0; i < productItems.length; i++) {
-        if (productItems[i]._id === Number(items)) {
+        if (productItems[i]._id === items) {
           Object.assign(itemsInfo, productItems[i]);
           break;
         }
@@ -76,7 +74,7 @@ const ShopContextProvider = (props) => {
       for (const size in cartItems[items]) {
         try {
           if (cartItems[items][size] > 0) {
-            cartTotalAmount += itemsInfo.newPrice * cartItems[items][size];
+            cartTotalAmount += itemsInfo.price * cartItems[items][size];
           }
         } catch (error) {
           console.log(error);
@@ -86,28 +84,29 @@ const ShopContextProvider = (props) => {
     return cartTotalAmount;
   };
 
+  // Create a variable
+  const [productItems, setProductItems] = useState([]);
+
   // Fetch product items
-  // const getProductItems = async () => {
-  //   const response = await axios.get(url + "/api/product/list");
-  //   console.log(response.data.data);
-  //   setProductItems(response.data.data);
-  // };
+  const getProductsData = async () => {
+    try {
+      await axios.get(`${backendUrl}/api/product/list`)
+      .then((response) => {
+          // console.log(response.data.data);
+          setProductItems(response.data.products);
+        })
+    } catch (error) {
+      toast.error(error.response.message);
+    }
+  };
   
   // When the page loads
   useEffect(() => {
-    async function loadData() {
-      // await getProductItems(); // Fetch product data
-      // Not to logout when we refresh the page
-      const token = localStorage.getItem('token');
-      if (token) {
-        setToken(token);
-      }
-    }
-    loadData();
+    getProductsData(); // Fetch product data;
   }, []);
   // Create a variable
   const value = {
-    productItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, url, token, setToken
+    productItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, backendUrl, token, setToken
   }
   return (
     <ShopContext.Provider value={value}>

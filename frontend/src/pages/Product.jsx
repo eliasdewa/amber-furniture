@@ -18,7 +18,9 @@ const Product = () => {
 
   const fetchProductData = async () => {
     productItems.map((item) => {
-      if (item._id === parseInt(productId)) {
+      // console.log(item._id);
+      // console.log(productId)
+      if (item._id === productId) {
         setProductData(item);
         // console.log(item);
         setImage(item.image[0]); // Assuming first image is the main image for now
@@ -28,7 +30,7 @@ const Product = () => {
   }
   useEffect(() => {
     fetchProductData();
-  }, [productId, productItems]);
+  }, [productId]);
   
   return productData ? (
     <div className="pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -69,7 +71,7 @@ const Product = () => {
             <FaRegStar />
             <p className="pl-2">(125)</p>
           </div>
-          <p className="mt-5 text-3xl font-medium">${productData.newPrice}</p>
+          <p className="mt-5 text-3xl font-medium">${productData.price}</p>
           <div className="flex flex-col gap-4 my-8">
             <p className="font-semibold">Select Size of Product</p>
             <div className="flex gap-2">
