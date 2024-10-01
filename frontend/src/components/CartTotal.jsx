@@ -4,7 +4,7 @@ import Title from "./Title"
 
 const CartTotal = () => {
   // get the total cart amount and delivery fee from context api
-  const { deliveryFee, getCartTotalAmount } = useContext(ShopContext)
+  const { deliveryFee, getCartTotalAmount } = useContext(ShopContext);
   return (
     <div className="w-full">
       <div className="text-2xl">

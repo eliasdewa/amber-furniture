@@ -6,6 +6,8 @@ import userRouter from './routes/user.route.js';
 import dotenv from "dotenv";
 import errorMiddleware from './middleware/errorMiddleware.js';
 import connectCloudinary from './config/cloudinary.js';
+import cartRouter from './routes/cart.route.js';
+import orderRouter from './routes/order.route.js';
 
 // app configuration
 const app = express();
@@ -28,6 +30,8 @@ app.use(cors({
 // api endpoint
 app.use("/api/product", productRouter)
 app.use("/api/user", userRouter)
+app.use("/api/cart", cartRouter)
+app.use("/api/order", orderRouter)
 
 // Error handlers middleware
 app.use(errorMiddleware);

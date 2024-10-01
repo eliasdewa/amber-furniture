@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import { MdOutlineShoppingBag } from "react-icons/md";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { NavItems } from "../data/data";
 import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
@@ -12,17 +12,15 @@ import { BiPowerOff } from "react-icons/bi";
 import LoginPopup from "./LoginPopup";
 import { IoCartOutline } from "react-icons/io5";
 
-const Nav = () => {
+const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-
   // de-structure getCartCount from context api
-  const { getCartCount, token, setToken } = useContext(ShopContext);
-
-  const navigate = useNavigate();
+  const { getCartCount, token, setToken, setCartItems, navigate } = useContext(ShopContext);
   // Logout functionality
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    setCartItems({});
     navigate("/");
     toast.success("User logged out successfully");
   };
@@ -42,7 +40,7 @@ const Nav = () => {
         <ul className="hidden md:inline-flex items-center gap-6 lg:gap-10">
           {NavItems.map(({ id, title, to }) => (
             <li key={id}>
-              <NavLink to={to} activeClassName="active">
+              <NavLink to={to}>
                 {title}
               </NavLink>
             </li>
@@ -65,10 +63,11 @@ const Nav = () => {
               <div className="flex items-center gap-2">
                 <FaCircleUser size={35} /> <span>Hello, Ed</span>
               </div>
+              {/* Dropdown menu */}
               <div className="group-hover:block hidden absolute dropdown-menu ring-0 pt-4">
                 <div className="flex flex-col gap-2 w-36 py-3 px-2 bg-slate-100 text-gray-500 rounded">
-                  <p className="cursor-pointer hover:text-black flex gap-1">
-                    <MdOutlineShoppingBag size={25} /> Orders
+                  <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black flex gap-1">
+                    <MdOutlineShoppingBag size={25} />My Orders
                   </p>
                   <p
                     className="cursor-pointer hover:text-black flex gap-1"
@@ -140,4 +139,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Navbar;

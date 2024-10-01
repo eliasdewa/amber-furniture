@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 // import { productItems } from "../data/data.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Create context variable
 export const ShopContext = createContext();
@@ -14,6 +15,8 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
 
   const [token, setToken] = useState("");
+
+  const navigate = useNavigate();
 
   // Function to add to cart items
   const addToCart = (itemId, size) => {
@@ -35,6 +38,19 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
+    if (token) {
+      // Update the cart on the backend
+      axios
+        .post(
+          `${backendUrl}/api/cart/add`,
+          { itemId, size },
+          { headers: { token } }
+        )
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
   };
   // To change the cart number based on the selected items
   const getCartCount = () => {
@@ -57,7 +73,20 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems); // one copy of the state
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
-  }
+
+    if (token) {
+      // Update the cart on the backend
+      axios
+        .post(
+          `${backendUrl}/api/cart/update`,
+          { itemId, size, quantity},
+          { headers: { token } }
+        )
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
+  };
   // To get the total amount of the selected items
   const getCartTotalAmount = () => {
     let cartTotalAmount = 0;
@@ -83,6 +112,21 @@ const ShopContextProvider = (props) => {
     }
     return cartTotalAmount;
   };
+  // When the page loads, to display cart data number from database
+  const getUserCartData = async (token) => {
+    axios
+      .post(
+        `${backendUrl}/api/cart/get`,
+        {},
+        { headers: { token } }
+      )
+      .then((response) => {
+        setCartItems(response.data.cartData);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
 
   // Create a variable
   const [productItems, setProductItems] = useState([]);
@@ -90,29 +134,45 @@ const ShopContextProvider = (props) => {
   // Fetch product items
   const getProductsData = async () => {
     try {
-      await axios.get(`${backendUrl}/api/product/list`)
-      .then((response) => {
-          // console.log(response.data.data);
-          setProductItems(response.data.products);
-        })
+      await axios.get(`${backendUrl}/api/product/list`).then((response) => {
+        // console.log(response.data.data);
+        setProductItems(response.data.products);
+      });
     } catch (error) {
-      toast.error(error.response.message);
+      toast.error(error.message);
     }
   };
   
-  // When the page loads
   useEffect(() => {
     getProductsData(); // Fetch product data;
   }, []);
+  // Check if user is logged in and set the token from local storage
+  useEffect(() => {
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getUserCartData(localStorage.getItem("token"));
+    }
+  }, []);
   // Create a variable
   const value = {
-    productItems, deliveryFee, cartItems, addToCart, getCartCount, updateQuantity, getCartTotalAmount, backendUrl, token, setToken
-  }
+    productItems,
+    deliveryFee,
+    cartItems,
+    setCartItems,
+    addToCart,
+    getCartCount,
+    updateQuantity,
+    getCartTotalAmount,
+    backendUrl,
+    token,
+    setToken,
+    navigate,
+  };
   return (
     <ShopContext.Provider value={value}>
       {/* Render children components */}
       {props.children}
     </ShopContext.Provider>
   );
-}
+};
 export default ShopContextProvider;

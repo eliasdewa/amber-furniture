@@ -168,32 +168,31 @@ const AddProduct = ({token}) => {
             </select>
           </div>
         </div>
-        <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4">
-          {/* Product Size */}
-          <div className="flex-1">
-            <p className="text-xl mt-4">Product Size</p>
-            <select
-              name="sizes"
-              className="w-full max-w-[500px] mt-4 px-4 py-3 border text-gray-500"
-              onChange={(e) => setSizes(e.target.value)}
-            >
-              <option value="">Select Size</option>
-              <option value="Small">Small</option>
-              <option value="Medium">Medium</option>
-              <option value="Large">Large</option>
-            </select>
+        {/* Product Size */}
+        <div>
+          <p className="text-xl mb-2 mt-4">Product Size</p>
+          <div className="flex gap-3">
+            <div onClick={() => setSizes(prev => prev.includes("Small") ? prev.filter(size => size !== "Small") : [...prev, "Small"])}>
+              <p className={`${sizes.includes("Small") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Small</p>
+            </div>
+            <div onClick={() => setSizes(prev => prev.includes("Medium") ? prev.filter(size => size !== "Medium") : [...prev, "Medium"])}>
+              <p className={`${sizes.includes("Medium") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Medium</p>
+            </div>
+            <div onClick={() => setSizes(prev => prev.includes("Large") ? prev.filter(size => size !== "Large") : [...prev, "Large"])}>
+              <p className={`${sizes.includes("Large") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Large</p>
+            </div>
           </div>
-          {/* Product Price */}
-          <div className="flex-1">
-            <p className="text-xl mt-4">Product Price</p>
-            <input
-              name="price"
-              type="number"
-              placeholder="$20"
-              className="w-full max-w-[500px] mt-4 px-4 py-3 border"
-              onChange={(e) => setPrice(e.target.value)} value={price}
-            />
-          </div>
+        </div>
+        {/* Product Price */}
+        <div className="flex-1">
+          <p className="text-xl mt-4">Product Price</p>
+          <input
+            name="price"
+            type="number"
+            placeholder="$20"
+            className="w-full max-w-[500px] mt-4 px-4 py-3 border"
+            onChange={(e) => setPrice(e.target.value)} value={price}
+          />
         </div>
         {/* Best seller product */}
         <div className="w-full flex items-center gap-2 mt-2">
@@ -202,7 +201,7 @@ const AddProduct = ({token}) => {
             type="checkbox"
             onChange={() => setBestSeller(prev => !prev)} checked={bestSeller}
           />
-          <label htmlFor="bestseller" className="cursor-pointer">Is a best seller product?</label>
+          <label htmlFor="bestseller" className="cursor-pointer">Add to best seller products</label>
         </div>
         {/* Add button */}
         <div className="w-full">

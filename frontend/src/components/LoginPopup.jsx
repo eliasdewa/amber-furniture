@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import { ShopContext } from "../context/ShopContext";
 const LoginPopup = () => {
   const [currentState, setCurrentState] = useState("Login");
-  
-  const { url, setToken } = useContext(ShopContext);
+  const { backendUrl, setToken } = useContext(ShopContext);
   // Check if the user data stored
   // useEffect(() => {
   //   console.log(data)
@@ -19,7 +18,7 @@ const LoginPopup = () => {
   // Handle submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let newUrl = url;
+    let newUrl = backendUrl;
     if (currentState === "Login") {
       newUrl += "/api/user/login";
     } else {
@@ -31,15 +30,16 @@ const LoginPopup = () => {
         newUrl,
         { name, email, password }
       )
-      .then((res) => {
+      .then((response) => {
         // Clear input fields
         setName("");
         setEmail("");
         setPassword("");
-        toast.success(res.data.message);
-        setToken(res.data.token);
+        toast.success(response.data.message);
+        // send the token
+        setToken(response.data.token);
         // save the token on local storage
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", response.data.token);
         // Close the form
         closeModal();
       });

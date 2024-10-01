@@ -3,10 +3,11 @@ import { ShopContext } from "../context/ShopContext";
 import { IoMdArrowDropright, IoMdSearch } from "react-icons/io";
 import { FaFilter } from "react-icons/fa";
 import ProductCard from "../components/ProductCard";
+import Login from "./Login";
 
 const Products = () => {
   // Get the data of all products using context api
-  const { productItems } = useContext(ShopContext);
+  const { productItems, token } = useContext(ShopContext);
   // State variable
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
@@ -119,7 +120,7 @@ const Products = () => {
     sortProducts();
   }, [sortType]);
 
-  return (
+  return token ? (
     <div className="px-2 flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10">
       {/* Filter Options */}
       <div className="min-w-60">
@@ -289,13 +290,23 @@ const Products = () => {
           {Array.from({
             length: Math.ceil(filterProducts.length / itemsPerPage),
           }).map((_, idx) => (
-            <button key={idx + 1} onClick={() => paginate(idx + 1)} className={`px-3 py-1 rounded-full ${currentPage === idx + 1 ? "bg-green text-white" : "bg-gray-200" }`}>
+            <button
+              key={idx + 1}
+              onClick={() => paginate(idx + 1)}
+              className={`px-3 py-1 rounded-full ${
+                currentPage === idx + 1 ? "bg-green text-white" : "bg-gray-200"
+              }`}
+            >
               {idx + 1}
             </button>
           ))}
         </div>
       </div>
     </div>
+  ) : (
+    <>
+      <Login />
+    </>
   );
 };
 export default Products;

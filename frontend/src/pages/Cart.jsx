@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   // get Product items and cart items from shop context api
-  const { productItems, cartItems, updateQuantity } = useContext(ShopContext);
+  const { productItems, cartItems, updateQuantity, navigate } =
+    useContext(ShopContext);
   // Change the items to array of products
   const [cartData, setCartData] = useState([]);
   // useEffect to update cartData when cartItems change
@@ -27,8 +28,6 @@ const Cart = () => {
     setCartData(tempData);
     // console.log(tempData);
   }, [cartItems]);
-
-  const navigate = useNavigate();
 
   return (
     <div className="pt-14">
@@ -69,15 +68,9 @@ const Cart = () => {
                   />
                 </td>
                 {/* Item details */}
-                <td className="table-cell">
-                  {productData.title}
-                </td>
-                <td className="table-cell">
-                  ${productData.price}
-                </td>
-                <td className="table-cell">
-                  {item.size}
-                </td>
+                <td className="table-cell">{productData.title}</td>
+                <td className="table-cell">${productData.price}</td>
+                <td className="table-cell">{item.size}</td>
                 <td className="table-cell">
                   <input
                     onChange={(e) =>
@@ -116,7 +109,10 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end">
-            <button onClick={() => navigate('/place-order')} className="bg-black text-white text-sm my-8 px-8 py-3 hover:scale-105">
+            <button
+              onClick={() => navigate("/place-order")}
+              className="bg-black text-white text-sm my-8 px-8 py-3 hover:scale-105"
+            >
               PROCEED TO CHECKOUT
             </button>
           </div>
