@@ -1,142 +1,178 @@
-import logo from "/ambar.png";
-import { useContext, useState } from "react";
-import { FiMenu } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
-import { MdOutlineShoppingBag } from "react-icons/md";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { NavItems } from "../data/data";
-import { ShopContext } from "../context/ShopContext";
+import avatarImg from "../assets/avatar.png";
 import { toast } from "react-toastify";
-import { FaCircleUser, FaRegUser } from "react-icons/fa6";
-import { BiPowerOff } from "react-icons/bi";
-import LoginPopup from "./LoginPopup";
-import { IoCartOutline } from "react-icons/io5";
+import { auth } from "../firebase/firebase.config";
+import { useAuth } from "../context/AuthContext";
 
+const dropdownMenu = [
+  { name: "Dashboard", path: "/user-dashboard" },
+  { name: "Orders", path: "/orders" },
+  { name: "Cart", path: "/cart" },
+  { name: "CheckOut", path: "/checkout" },
+];
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  // de-structure getCartCount from context api
-  const { getCartCount, token, setToken, setCartItems, navigate } = useContext(ShopContext);
-  // Logout functionality
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken("");
-    setCartItems({});
-    navigate("/");
-    toast.success("User logged out successfully");
-  };
+  // dropdown menu
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  // to get car items
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  // console.log(cartItems)
 
+  // get user
+  const { currentUser } = useAuth()
+
+  // handle logout
+  const handleLogOut = async () => {
+    await auth.signOut();
+    toast.success("User logged out successfully");
+    setIsDropDownOpen(false);
+  };
   return (
-    <div className="w-full sticky top-0 z-50 flex justify-between items-center shadow-md bg-white px-4 py-2 sm:px-6 md:px-8 xl:px-12">
-      {/* Logo */}
-      <Link to="/">
-        <img
-          src={logo}
-          alt="logo"
-          className="w-full h-12 sm:h-16 md:h-20 cursor-pointer"
-        />
-      </Link>
-      {/* Nav links */}
-      <div className="flex justify-between items-center gap-5">
-        <ul className="hidden md:inline-flex items-center gap-6 lg:gap-10">
-          {NavItems.map(({ id, title, to }) => (
-            <li key={id}>
-              <NavLink to={to}>
-                {title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* Login & register */}
-      <div className="flex items-center justify-center gap-1 sm:gap-2">
-        {/* Login button */}
-        <div className="group relative">
-          {!token ? (
-            <button
-              onClick={() => document.getElementById("my_modal_5").showModal()}
-              className="btn bg-light-golden p-2 flex items-center"
-            >
-              <FaRegUser /> Sign In
-            </button>
-          ) : (
-            <div>
-              <div className="flex items-center gap-2">
-                <FaCircleUser size={35} /> <span>Hello, Ed</span>
-              </div>
-              {/* Dropdown menu */}
-              <div className="group-hover:block hidden absolute dropdown-menu ring-0 pt-4">
-                <div className="flex flex-col gap-2 w-36 py-3 px-2 bg-slate-100 text-gray-500 rounded">
-                  <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black flex gap-1">
-                    <MdOutlineShoppingBag size={25} />My Orders
-                  </p>
-                  <p
-                    className="cursor-pointer hover:text-black flex gap-1"
-                    onClick={logout}
-                  >
-                    <BiPowerOff size={25} /> Logout
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        <LoginPopup />
-        {/* cart */}
-        <Link to="/cart">
-          <label
-            tabIndex={0}
-            role="button"
-            className="flex items-center gap-2 btn btn-ghost btn-circle"
+    <header className="sticky top-0 z-50 bg-white max-w-screen-2xl mx-auto px-4 py-2">
+      <nav className="max-w-screen-2xl mx-auto flex justify-between items-center">
+        {/* Logo */}
+        <div>
+          <Link
+            to="/"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold md:font-extrabold"
           >
-            <div className="indicator">
-              <IoCartOutline size={30} />
-              <span className="badge badge-md indicator-item bg-blue-400 w-4 text-center leading-4 text-white text-[12px]">
-                {getCartCount()}
-              </span>
-            </div>
-          </label>
-        </Link>
-        {/* Toggle menu */}
-        <div className="text-center">
+            <img src="/ambar-logo.png" alt="" className="w-20 h-16" />
+          </Link>
+        </div>
+        {/* Navigation Links */}
+        <div>
+          <ul className="hidden [list-style:none] md:flex items-center gap-2 lg:gap-8">
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/products">Products</NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">Contact Us</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">About Us</NavLink>
+            </li>
+          </ul>
+        </div>
+        {/* nav Icon */}
+        <div className="flex items-center justify-end gap-4 relative">
+          {/* search icon */}
+          <span>
+            <Link
+              to="/search"
+              className="hidden sm:block text-xl hover:text-[#ed3849]"
+            >
+              <i className="ri-search-line"></i>
+            </Link>
+          </span>
+          {/* cart icon */}
+          <span>
+            <Link to="/cart">
+              <button className="text-xl hover:text-[#ed3849]">
+                <i className="ri-shopping-cart-line"></i>
+                <sup
+                  className="text-sm inline-block px-1.5 text-white rounded-full
+                bg-[#ed3849] text-center"
+                >
+                  {cartItems.length}
+                </sup>
+              </button>
+            </Link>
+          </span>
+          {/* user icon */}
+          <span>
+            {currentUser && currentUser ? (
+              <>
+                <div className="flex items-center gap-1">
+                  <img
+                    src={currentUser?.profileImage || avatarImg}
+                    alt="profile image"
+                    onClick={() => setIsDropDownOpen(!isDropDownOpen)}
+                    className="size-6 object-cover rounded-full cursor-pointer"
+                  />
+                  <p className="text-sm">{currentUser?.displayName}</p>
+                </div>
+                {isDropDownOpen && (
+                  <div className="absolute right-0 mt-3 p-4 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <ul className="font-medium space-y-4 p-2">
+                      {dropdownMenu.map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to={item.path}
+                            onClick={() => setIsDropDownOpen(false)}
+                            className="block w-full text-left px-2 py-1 text-sm hover:bg-gray-100"
+                          >
+                            {item.name}
+                          </Link>
+                        </li>
+                      ))}
+                      <li>
+                        <button
+                          onClick={handleLogOut}
+                          className="block w-full text-left px-2 py-1 text-sm hover:bg-red-300"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <Link to="/login" className="text-xl hover:text-[#ed3849]">
+                <i className="ri-user-line"></i>
+              </Link>
+            )}
+          </span>
+          {/* Toggle menu */}
           <span
             onClick={() => setShowMenu(!showMenu)}
-            className="text-2xl md:hidden inline-flex items-center justify-center p-2 rounded-md cursor-pointer hover:bg-gray-400"
+            className="text-2xl md:hidden inline-flex items-center justify-center cursor-pointer text-[#000] hover:text-primary"
           >
-            <FiMenu />
+            <i className="ri-menu-line"></i>
           </span>
         </div>
-      </div>
-      {/* Toggle menu */}
-      {showMenu && (
-        <div className="md:hidden w-[50%] h-screen absolute top-0 right-0 bg-gray-900 text-white p-4 z-50">
-          <div className="flex flex-col gap-8 py-4 relative">
-            <ul className="flex flex-col gap-4 pt-3">
-              {NavItems.map(({ id, title, to }) => (
-                <li
-                  key={id}
-                  className="font-semibold hover:bg-teal-600 cursor-pointer duration-300 p-1"
-                >
-                  <NavLink
-                    to={to}
-                    activeClassName="active"
-                    onClick={() => setShowMenu(false)}
-                  >
-                    {title}
+        {/* Toggle menu */}
+        {showMenu && (
+          <div className="md:hidden w-[50%] h-screen absolute top-0 -right-6 bg-slate-400 p-4">
+            <div className="flex flex-col gap-8 py-4 relative">
+              <ul className="flex flex-col gap-4 pt-3">
+                <li className="link">
+                  <NavLink to="/" onClick={() => setShowMenu(false)}>
+                    Home
                   </NavLink>
                 </li>
-              ))}
-            </ul>
-            <span
-              onClick={() => setShowMenu(false)}
-              className="absolute top-0 right-3 text-gray-400 hover:bg-red-500 rounded-full text-2xl cursor-pointer hover:bg-gray-300"
-            >
-              <MdClose />
-            </span>
+                <li className="link">
+                  <NavLink to="/products" onClick={() => setShowMenu(false)}>
+                    Products
+                  </NavLink>
+                </li>
+                <li className="link">
+                  <NavLink to="/contact" onClick={() => setShowMenu(false)}>
+                    Contact Us
+                  </NavLink>
+                </li>
+                <li className="link">
+                  <NavLink to="/about" onClick={() => setShowMenu(false)}>
+                    About Us
+                  </NavLink>
+                </li>
+              </ul>
+              <span
+                onClick={() => setShowMenu(false)}
+                className="absolute top-0 right-3 text-black text-2xl cursor-pointer hover:text-primary"
+              >
+                <i className="ri-close-line"></i>
+              </span>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </nav>
+    </header>
   );
 };
-
 export default Navbar;

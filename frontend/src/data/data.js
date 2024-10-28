@@ -1,265 +1,106 @@
-// NavItems
-export const NavItems = [
-  {
-    id: 1,
-    title: 'HOME',
-    to: '/',
-    path: '',
-  },
-  {
-    id: 2,
-    title: 'PRODUCTS',
-    to: '/products',
-    path: 'products',
-  },
-  {
-    id: 3,
-    title: 'ABOUT US',
-    to: '/about',
-    path: 'about',
-  },
-  {
-    id: 4,
-    title: 'CONTACT US',
-    to: '/contact',
-    path: '/',
-  },
-];
-//Product Items
-export const productItems = [
-  {
-    _id: 1,
-    image: ["/images/home1.jpg"],
-    title: "Dresser beside sofa",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Home",
-    subCategory: "Sofa and Couch",
-    bestSeller: true,
-  },
-  {
-    _id: 2,
-    image: ["/images/home2.jpg"],
-    title: "Wooden Table",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Home",
-    subCategory: "Tables"
-  },
-  {
-    _id: 3,
-    image: ["/images/home3.jpg"],
-    title: "Grey couch",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Home",
-    subCategory: "Sofa and Couch",
-    bestSeller: true,
-  },
-  {
-    _id: 4,
-    image: ["/images/home4.jpg"],
-    title: "Gray chairs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Home",
-    subCategory: "Chairs",
-    bestSeller: true,
-  },
-  {
-    _id: 5,
-    image: ["/images/bedroom1.jpg"],
-    title: "Wooden headboard",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Bedroom",
-    subCategory: "Beds",
-    bestSeller: true,
-  },
-  {
-    _id: 6,
-    image: ["/images/bedroom2.jpg"],
-    title: "Beautiful modern bed",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "50",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Bedroom",
-    subCategory: "Beds"
-  },
-  {
-    _id: 7,
-    image: ["/images/bedroom3.jpg"],
-    title: "A large bed",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "50",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Bedroom",
-    subCategory: "Beds",
-    bestSeller: true,
-  },
-  {
-    _id: 8,
-    image: ["/images/bedroom4.jpg"],
-    title: "Double bed",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Bedroom",
-    subCategory: "Beds"
-  },
+// Products data
+// export const products = [
+//   {
+//     "name": "Leather Handbag",
+//     "category": "accessories",
+//     "description": "Stylish leather handbag with ample storage space.",
+//     "price": 79.99,
+//     "oldPrice": 99.99,
+//     "image": "https://images.unsplash.com/photo-1512201078372-9c6b2a0d528a?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "black",
+//     "rating": 4.5,
+//     "author":"admin"
+//   },
+//   {
+//     "name": "Evening Gown",
+//     "category": "dress",
+//     "description": "Elegant evening gown for special occasions.",
+//     "price": 149.99,
+//     "oldPrice": 199.99,
+//     "image": "https://images.unsplash.com/photo-1568251188392-ae32f898cb3b?q=80&w=2062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "red",
+//     "rating": 4.0
+//   },
+//   {
+//     "name": "Gold Necklace",
+//     "category": "jewellers",
+//     "description": "Exquisite gold necklace with intricate design.",
+//     "price": 199.99,
+//     "image": "https://images.unsplash.com/photo-1631097969294-c38afba59496?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "gold",
+//     "rating": 4.7
+//   },
+//   {
+//     "name": "Matte Lipstick",
+//     "category": "cosmetics",
+//     "description": "Long-lasting matte lipstick in various shades.",
+//     "price": 19.99,
+//     "image": "https://images.unsplash.com/photo-1631214500115-598fc2cb8d2d?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "red",
+//     "rating": 4.2
+//   },
+//   {
+//     "name": "Silk Scarf",
+//     "category": "accessories",
+//     "description": "Luxurious silk scarf with vibrant colors.",
+//     "price": 29.99,
+//     "oldPrice": 39.99,
+//     "image": "https://images.unsplash.com/photo-1485527691629-8e370684924c?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "blue",
+//     "rating": 4.3
+//   },
+//   {
+//     "name": "Cocktail Dress",
+//     "category": "dress",
+//     "description": "Chic cocktail dress for parties and events.",
+//     "price": 89.99,
+//     "image": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "black",
+//     "rating": 4.4
+//   },
+//   {
+//     "name": "Diamond Earrings",
+//     "category": "jewellers",
+//     "description": "Sparkling diamond earrings that add elegance to any outfit.",
+//     "price": 299.99,
+//     "oldPrice": 349.99,
+//     "image": "https://images.unsplash.com/photo-1587467442586-7bcc51828a10?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "silver",
+//     "rating": 4.8
+//   },
+//   {
+//     "name": "Foundation",
+//     "category": "cosmetics",
+//     "description": "High-coverage foundation for a flawless finish.",
+//     "price": 39.99,
+//     "image": "https://images.unsplash.com/photo-1599733589046-10c005739ef9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "beige",
+//     "rating": 4.1
+//   },
+//   {
+//     "name": "Sunglasses",
+//     "category": "accessories",
+//     "description": "Trendy sunglasses with UV protection.",
+//     "price": 49.99,
+//     "image": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "black",
+//     "rating": 4.6
+//   },
+//   {
+//     "name": "Casual Pants",
+//     "category": "dress",
+//     "description": "Comfortable maxi dress for casual outings.",
+//     "price": 59.99,
+//     "oldPrice": 79.99,
+//     "image": "https://plus.unsplash.com/premium_photo-1664298355914-bc65d2c9af64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     "color": "green",
+//     "rating": 3
+//   }
+// ];
 
-  {
-    _id: 9,
-    image: ["/images/dining1.jpg"],
-    title: "Wooden dining",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "200",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Dining",
-    subCategory: "Chairs"
-  },
+// Blogs data
 
-  {
-    _id: 10,
-    image: ["/images/dining2.jpg"],
-    title: "Rectangular brown table",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "150",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Dining",
-    subCategory: "Tables",
-    bestSeller: true,
-  },
-  {
-    _id: 11,
-    image: ["/images/dining3.jpg"],
-    title: "Dining table beside two chairs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "150",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Dining",
-    subCategory: ["Chairs", "Tables"],
-    bestSeller: true,
-  },
-  {
-    _id: 12,
-    image: ["/images/dining4.jpg"],
-    title: "Dining table set",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "150",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Dining",
-    subCategory: "Tables"
-  },
-  {
-    _id: 13,
-    image: ["/images/cafe1.jpg"],
-    title: "Orange chairs and a white table",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "150",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Cafe",
-    subCategory: ["Chairs", "Tables"]
-  },
-  {
-    _id: 14,
-    image: ["/images/cafe2.jpg"],
-    title: "Comfort Chairs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "150",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Cafe",
-    subCategory: "Chairs",
-    bestSeller: true,
-  },
 
-  {
-    _id: 15,
-    image: ["/images/cafe3.jpg"],
-    title: "Wooden table with chairs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "100",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Cafe",
-    subCategory: ["Chairs", "Tables"]
-  },
-  {
-    _id: 16,
-    image: ["/images/cafe4.jpg"],
-    title: "Beautiful chairs and table",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "100",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Cafe",
-    subCategory: ["Chairs", "Tables"]
-  },
-  {
-    _id: 17,
-    image: ["/images/office1.jpg"],
-    title: "Office rolling chairs and table",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "100",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Office",
-    subCategory: ["Chairs", "Tables"]
-  },
-  {
-    _id: 18,
-    image: ["/images/office2.jpg"],
-    title: "Desk with a glass top and wooden legs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "100",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Office",
-    subCategory: "Tables"
-  },
-  {
-    _id: 19,
-    image: ["/images/office3.jpg"],
-    title: "Office Space, front desk",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "50",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Office",
-    subCategory: ["Chairs", "Tables"]
-  },
-  {
-    _id: 20,
-    image: ["/images/office4.jpg"],
-    title: "Ottomans and chairs",
-    description: "Description about the product",
-    prevPrice: "$140,00",
-    newPrice: "50",
-    sizes: ["Small", "Medium", "Large"],
-    category: "Office",
-    subCategory: "Chairs",
-    bestSeller: true,
-  },
-];
 // Testimonials
 export const testimonials = [
   {
@@ -267,53 +108,69 @@ export const testimonials = [
     name: "John Doe",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user1.jpg",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel velit in purus semper cursus.",
+    image: "/user/user1.jpg",
   },
   {
     id: 2,
     name: "Jane Smith",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user2.jpg",
-    description:
-      "Nullam auctor, purus sed gravida congue, justo velit faucibus lectus, ac aliquet metus arcu eu felis.",
+    image: "/user/user2.jpg",
   },
   {
     id: 3,
     name: "Mike Johnson",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user3.jpg",
-    description:
-      "Morbi ac purus vel ipsum consectetur fermentum. Donec vitae orci at dolor consectetur molestie.",
+    image: "/user/user3.jpg",
   },
   {
     id: 4,
     name: "Sarah Williams",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user4.jpg",
-    description:
-      "In vel arcu at neque viverra congue. Nulla facilisi. Sed vel velit in purus semper cursus.",
+    image: "/user/user4.jpg",
   },
   {
     id: 5,
     name: "David Brown",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user5.jpg",
-    description:
-      "Nullam auctor, purus sed gravida congue, justo velit faucibus lectus, ac aliquet metus arcu eu felis.",
+    image: "/user/user5.jpg",
   },
   {
     id: 6,
     name: "Emily Davis",
     title: "John Doe",
     description: "Description about the product",
-    image: "/images/user6.jpg",
-    description:
-      "Morbi ac purus vel ipsum consectetur fermentum. Donec vitae orci at dolor consectetur molestie.",
+    image: "/user/user6.jpg",
+  },
+];
+
+// Steps data
+export const steps = [
+  {
+    status: 'pending',
+    label: 'Pending',
+    description: 'Your order has been created and is awaiting processing.',
+    icon: { iconName: 'time-line', bgColor: 'red-500', textColor: 'gray-800' },
+  },
+  {
+    status: 'processing',
+    label: 'Processing',
+    description: 'Your order is currently being processed.',
+    icon: { iconName: 'loader-line', bgColor: 'yellow-800', textColor: 'yellow-800' },
+  },
+  {
+    status: 'shipped',
+    label: 'Shipped',
+    description: 'Your order has been shipped.',
+    icon: { iconName: 'truck-line', bgColor: 'blue-800', textColor: 'blue-800' },
+  },
+  {
+    status: 'completed',
+    label: 'Completed',
+    description: 'Your order has been successfully completed.',
+    icon: { iconName: 'check-line', bgColor: 'green-800', textColor: 'green-900' },
   },
 ];

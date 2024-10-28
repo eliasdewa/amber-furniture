@@ -1,50 +1,83 @@
 import asyncHandler from "express-async-handler";
+import errorHandler from "../middleware/errorHandler.js";
 import orderModel from "../models/order.model.js";
-import userModel from "../models/user.model.js";
 
-// Place orders using COD(cash on delivery) method
-const placeOrder = asyncHandler(async (res, req, next) => {
-  const { userId, items, amount, address } = req.body;
-  // Place order using COD method (for demonstration purposes)
-  const orderData = {
-    userId,
-    items,
-    amount,
-    address,
-    paymentMethod: "cash",
-    payment: false,
-    date: Date.now(),
-  };
-  const newOrder = new orderModel(orderData);
-  await newOrder.save();
-  // create cart data
-  await userModel.findByIdAndUpdate(userId, { cartData: {}})
-  res.status(201).json({ success: true, message: "Order placed successfully" });
-});
-// Place order using Telebirr method
-const placeOrderTelebirr = asyncHandler(async (res, req, next) => {
-  
-});
-// Place order using CBEbirr method
-const placeOrderCbebirr = asyncHandler(async (res, req, next) => {
-  
-});
-// All orders data for admin panel
-const allOrders = asyncHandler(async (res, req, next) => {
-  const orders = await orderModel.find({});
-  res.status(200).json({ success: true, orders });
-});
- // User orders data
-const userOrders = asyncHandler(async (res, req, next) => {
-  const { userId } = req.body;
-  const orders = await orderModel.find({userId});
-  res.status(200).json({ success: true, orders });
-});
- // Update order status from admin panel
-const updateStatus = asyncHandler(async (res, req, next) => {
-  const { orderId, status } = req.body;
-  await orderModel.findByIdAndUpdate(orderId, {status});
-  res.status(200).json({ success: true, message: "Order status updated" });
+// create a order
+const createOrder = asyncHandler(async (req, res, next) => {
+  const newOrder = await orderModel(req.body)
+  const savedOrder = await newOrder.save();
+  res.status(201).json({ message: "A new order added", savedOrder});
 });
 
-export { placeOrder, placeOrderCbebirr, placeOrderTelebirr, allOrders, userOrders, updateStatus };
+// get order by user email
+const getOrderByEmail = asyncHandler(async (req, res, next) => {
+  const {email} = req.params;
+  const orders = await orderModel.find({email}).sort({createdAt: -1})
+  if (!orders) {
+    return next(errorHandler("No orders found", 404));
+  }
+  res.status(200).json(orders);
+});
+// // get all orders
+// const getAllOrders = asyncHandler(async (req, res, next) => {
+//   const orders = await orderModel.find({}).sort({createdAt: -1});
+//   res.status(200).json({success: true, orders});
+// });
+
+// // get a single order
+// const getSingleOrder = asyncHandler(async (req, res, next) => {
+//   const orderId = req.params.id;
+//   const order = await orderModel.findById(orderId).populate("author", "name email");
+//   if (!order) {
+//     return next(errorHandler("Order not found"), 404);
+//   }
+//   const reviews = await reviewModel.find({orderId}).populate("userId", "name email")
+//   res.status(200).json({order, reviews});
+// });
+
+// // update a single order
+// const updateOrder = asyncHandler(async (req, res, next) => {
+//   const orderId = req.params.id;
+//   const updatedOrder = await orderModel.findByIdAndUpdate(orderId, {...req.body}, {new: true});
+//   if (!updatedOrder) {
+//     return next(errorHandler("Order not found"), 404);
+//   }
+//   res.status(200).json({message: "Order updated successfully", updatedOrder});
+// });
+
+// // delete a order
+// const deleteOrder = asyncHandler(async (req, res, next) => {
+//   const orderId = req.params.id;
+//   const deletedOrder = await orderModel.findByIdAndDelete(orderId);
+//   if (!deletedOrder) {
+//     return next(errorHandler("Order not found"), 404);
+//   }
+//   // delete reviews related to the order
+//   await reviewModel.deleteMany({ orderId });
+//   res.status(200).json({ message: "Order deleted successfully", deletedOrder});
+// });
+
+// // get related orders
+// const getRelatedOrders = asyncHandler(async (req, res, next) => {
+//   const orderId = req.params.id;
+//   if (!orderId) {
+//     return next(errorHandler("Order ID is required", 400));
+//   }
+//   const order = await orderModel.findById(orderId);
+//   if (!order) {
+//     return next(errorHandler("Order not found", 404));
+//   }
+//   const titleRegex = new RegExp(
+//     order.name.split(" ").filter(word => word.length > 1).join("|"), "i"
+//   );
+//   const relatedOrders = await orderModel.find({
+//     _id: { $ne: orderId }, // exclude the current order
+//     $or: [
+//       {name: {$regex: titleRegex}}, // match similar names
+//       {category: order.category} // match similar categories
+//     ]
+//   }).limit(6);
+//   res.status(200).json(relatedOrders);
+// });
+
+export { createOrder, getOrderByEmail };

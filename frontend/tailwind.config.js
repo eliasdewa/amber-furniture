@@ -1,23 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        "green": "#39DB4A",
-        "red": "#FF6868",
-        "golden": "#FFD700",
-        "light-golden": "#FFDF7D",
-        "secondary": "#555",
-        "primaryBG": "#FCFCFC",
+        primary: '#ed3849',
+        secondary: '#0D0842',
+        blackBg: '#F3F3F3',
+        favorite: '#FF5841',
+      },
+      fontFamily: {
+        'primary': ["Montserrat", "sans-serif"],
+        'secondary': ["Poppins", "sans-serif"],
+        'favorite': ["Nunito Sans", "sans-serif"]
       }
     },
   },
-  plugins: [require('daisyui')],
-  daisyui: {
-    themes: ["light"],
-  },
-}
+  plugins: [],
+};
