@@ -3,7 +3,7 @@ import emailModel from "../models/emailSubscribe.model.js";
 import errorHandler from "../middleware/errorHandler.js";
 
 // create a order
-const emailSubscribe = asyncHandler(async (req, res, next) => {
+export const emailSubscribe = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
   if (!email) {
     return next(errorHandler("Email is required!", 400));
@@ -17,9 +17,7 @@ const emailSubscribe = asyncHandler(async (req, res, next) => {
   res.status(201).json({ message: "Subscribed successfully" });
 });
 
-const getAllSubscribedUsers = asyncHandler(async (req, res, next) => {
+export const getAllSubscribedUsers = asyncHandler(async (req, res, next) => {
   const subscribedUsers = await emailModel.find({});
   res.status(200).json({ subscribedUsers });
 });
-
-export {emailSubscribe, getAllSubscribedUsers}

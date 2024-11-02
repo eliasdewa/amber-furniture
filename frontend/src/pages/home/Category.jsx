@@ -4,7 +4,7 @@ import category1 from "/category/home.jpg";
 import category2 from "/category/office.jpg";
 import category3 from "/category/cafe.jpg";
 import category4 from "/category/bedroom.jpg";
-import category5 from "/category/dinning.jpg";
+import category5 from "/category/dining.jpg";
 
 const Category = () => {
   const categories = [
@@ -12,7 +12,7 @@ const Category = () => {
     { name: "Office Furniture", path: "office", image: category2 },
     { name: "Cafe Furniture", path: "cafe", image: category3 },
     { name: "Bedroom Furniture", path: "bedroom", image: category4 },
-    { name: "Dining and Kitchen Furniture", path: "dining", image: category5 },
+    { name: "Kitchen Furniture", path: "dining", image: category5 },
   ];
   return (
     <section className="p-4 sm:p-8 mt-4">

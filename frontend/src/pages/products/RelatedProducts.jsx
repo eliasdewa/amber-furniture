@@ -29,7 +29,7 @@ const RelatedProducts = ({ category }) => {
           <ProductCard products={relatedProducts} />
         </div>
       ) : (
-        <div className="text-center">No related products found.</div>
+        <div className="text-lg font-semibold my-6 p-4 border">No related products found</div>
       )}
     </div>
   );

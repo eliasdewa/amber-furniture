@@ -40,7 +40,7 @@ const SingleProduct = () => {
             <Link to="/products">products</Link>
           </span>
           <i className="ri-arrow-right-s-line"></i>
-          <span className="hover:text-primary">{singleProduct.name}</span>
+          <span className="hover:text-primary">{singleProduct.title}</span>
         </div>
       </section>
       <section className="mb-12">
@@ -49,17 +49,17 @@ const SingleProduct = () => {
           <div className="w-full md:w-1/2">
             <img
               src={singleProduct?.image}
-              alt={singleProduct.name}
+              alt={singleProduct.title}
               className="h-auto w-full object-cover"
             />
           </div>
           {/* Product details */}
           <div className="w-full md:w-1/2">
             <h3 className="text-2xl font-semibold mb-4">
-              {singleProduct.name}
+              {singleProduct.title}
             </h3>
             <p className="text-xl text-primary mb-4">
-              ${singleProduct.price}{" "}
+              ${singleProduct.newPrice}{" "}
               {singleProduct?.oldPrice && (
                 <s className="text-sm text-gray-700">
                   ${singleProduct.oldPrice}

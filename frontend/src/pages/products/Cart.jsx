@@ -68,8 +68,8 @@ const CartPage = () => {
                     <div className="ml-4 flex flex-col">
                       {/* Product name */}
                       <p className="mt-1 text-sm text-gray-500 capitalize">
-                        <strong>Product name: </strong>
-                        <Link to="/">{product?.name}</Link>
+                        <strong>Product title: </strong>
+                        <Link to="/">{product?.title}</Link>
                       </p>
                       {/* category */}
                       <p className="mt-1 text-sm text-gray-500 capitalize">
@@ -107,7 +107,7 @@ const CartPage = () => {
                       {/* Product price */}
                       <p className="mt-1 text-sm text-gray-500 capitalize">
                         <strong>Price: </strong>$
-                        {Number((product?.price * product?.quantity).toFixed(2))}
+                        {Number((product?.newPrice * product?.quantity).toFixed(2))}
                       </p>
                       {/* Remove button */}
                       <button

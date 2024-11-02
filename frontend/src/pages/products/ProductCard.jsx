@@ -18,15 +18,15 @@ const ProductCard = ({ products }) => {
             <Link to={`/products/${product._id}`}>
               <img
                 src={product.image}
-                alt={product.name}
+                alt={product.title}
                 className="max-h-96 md:h-64 w-full object-cover hover:scale-105 transition-all duration-300"
               />
             </Link>
             {/* description */}
             <div className="text-center p-4 flex flex-col justify-between">
-              <h4 className="mb-1 text-xl font-semibold">{product.name}</h4>
+              <h4 className="mb-1 text-xl font-semibold">{product.title}</h4>
               <p className="font-medium mb-1">
-                ${product.price}{" "}
+                ${product.newPrice}{" "}
                 {product?.oldPrice ? (
                   <s className="text-sm font-normal text-[#64748b]">
                     ${product?.oldPrice}

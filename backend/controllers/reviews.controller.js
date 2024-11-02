@@ -4,7 +4,7 @@ import reviewModel from '../models/reviews.model.js';
 import productModel from '../models/products.model.js';
 
 // Post a review
-const postReview = asyncHandler(async (req, res, next) => {
+export const postReview = asyncHandler(async (req, res, next) => {
   const { comment, rating, productId } = req.body;
   if (!comment ||!rating) {
     return next(errorHandler('Rating and comment are required!', 400));
@@ -36,14 +36,13 @@ const postReview = asyncHandler(async (req, res, next) => {
   console.log(reviews)
   res.status(201).json({ message: 'Review saved successfully', review: reviews });
 });
-
 // Get all the reviews
-const getTotalReview = asyncHandler(async (req, res, next) => {
+export const getTotalReview = asyncHandler(async (req, res, next) => {
   const totalReviews = await reviewModel.countDocuments({ });
   res.status(200).json({ totalReviews });
 });
 
-const getUserReviews = asyncHandler(async (req, res, next) => {
+export const getUserReviews = asyncHandler(async (req, res, next) => {
   const {userId} = req.params;
   if (!userId) {
     return next(errorHandler('User ID is required!', 400));
@@ -54,5 +53,3 @@ const getUserReviews = asyncHandler(async (req, res, next) => {
   }
   res.status(200).json({ userReviews });
 });
-
-export { postReview, getTotalReview, getUserReviews };

@@ -11,7 +11,7 @@ const ProductsFiltering = ({
     <div className="space-y-5 flex-shrink-0">
       <p
         onClick={() => setShowFilter(!showFilter)}
-        className="my-2 text-xl flex items-center cursor-pointer gap-2"
+        className="my-2 text-xl font-semibold flex items-center cursor-pointer gap-2"
       >
         Filters{" "}
         <span className="block sm:hidden">

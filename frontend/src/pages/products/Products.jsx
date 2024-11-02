@@ -103,7 +103,7 @@ const Products = () => {
           {/* Right side - Products display */}
           <div>
             <h3 className="text-xl font-medium mb-4">
-              Showing: {currentItems.length} out of {products.length} products
+              Showing: {currentItems.length} of {products.length} products
             </h3>
             <ProductCard products={currentItems} />
             {/* Pagination */}

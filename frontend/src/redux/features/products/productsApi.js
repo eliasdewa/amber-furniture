@@ -44,8 +44,8 @@ const productsApi = createApi({
     // Update a product by id
     updateProduct: builder.mutation({
       query: ({ id, ...rest }) => ({
-        url: `/update-product/${id}`,
-        method: "PATCH",
+        url: `/edit/${id}`,
+        method: "PUT",
         body: rest,
         headers: {
           "Content-Type": "application/json",
