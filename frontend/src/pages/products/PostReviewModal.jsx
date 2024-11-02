@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../../redux/features/products/productsApi";
 import { usePostReviewMutation } from "../../redux/features/reviews/reviewsApi";
 import { toast } from "react-toastify";
-import { useAuth } from "../../context/AuthContext";
 
 const PostReviewModal = ({isModalOpen, handleReviewModalClose}) => {
   // get id

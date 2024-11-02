@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-// import { products } from "../../data/data";
 import ProductCard from "./ProductCard";
 import ProductsFiltering from "./ProductsFiltering";
 import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
-import { current } from "@reduxjs/toolkit";
 
 const filters = {
   categories: ["all", "home", "office", "cafe", "bedroom", "dining"],

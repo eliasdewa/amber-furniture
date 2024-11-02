@@ -1,216 +1,159 @@
-import axios from "axios";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { backendUrl } from "../App";
+import axios from "axios";
+import InputField from "../components/InputField";
+import SelectField from "../components/SelectField";
 
-const AddProduct = ({token}) => {
-  // To store all images
-  const [image1, setImage1] = useState(false);
-  const [image2, setImage2] = useState(false);
-  const [image3, setImage3] = useState(false);
-  const [image4, setImage4] = useState(false);
-  // State variables for the input fields
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [subCategory, setSubCategory] = useState('');
-  const [sizes, setSizes] = useState([]);
-  const [price, setPrice] = useState('');
-  const [bestSeller, setBestSeller] = useState(false);
-
-  // const onChangeHandler = (e) => {
-  //   // Using the event we can extract name and value properties
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   setData(data => ({...data, [name]: value}))
-  // }
-  // To check the data were updated
-  // useEffect(() => {
-  //   console.log(data)
-  // }, [data]);
+const AddProduct = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   
-  // Submit handlers function
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      // Check if image is selected or not
-      if (!image1 && !image2 && !image3 && !image4) {
-        toast.error('Please select an image');
-        return;
-      }
-      // Check if all required fields are filled
-      if (!title ||!description ||!category ||!subCategory ||!sizes ||!price) {
-        toast.error('Please fill all required fields');
-        return;
-      }
-      // Check if the price is positive
-      if (price <= 0) {
-        toast.error('Price should be positive');
-        return;
-      }
-      // Create a form data => to stored data
-      const formData = new FormData();
-      // To add the all input data in form data
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('category', category);
-      formData.append('subCategory', subCategory);
-      formData.append('sizes', JSON.stringify(sizes));
-      formData.append('price', Number(price));
-      formData.append('bestseller', bestSeller);
+  const [imageFile, setImageFile] = useState(null);
+  const [imageFileName, setImageFileName] = useState("");
 
-      image1 && formData.append('image1', image1);
-      image2 && formData.append('image2', image2);
-      image3 && formData.append('image3', image3);
-      image4 && formData.append('image4', image4);
-
-      // Send these data to our api
-      await axios.post(`${backendUrl}/api/product/add`, formData)
-      .then((response) => {
-        // console.log(response.data);
-        toast.success(response.data.message);
-        // To remove the entered data from the field
-        setTitle('');
-        setDescription('');
-        setCategory('');
-        setSubCategory('');
-        setSizes([]);
-        setPrice('');
-        setBestSeller(false);
-        setImage1(false);
-        setImage2(false);
-        setImage3(false);
-        setImage4(false);
-      });
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+  const onSubmit = async (data) => {
+    const newProductData = {
+      ...data,
+      image: imageFile,
+    };
+    // console.log(newProductData);
+    axios
+    .post("http://localhost:5000/api/products/create-product", newProductData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      toast.success(response.data.message);
+      reset();
+      setImageFileName("");
+      setImageFile(null);
+    })
+    .catch((error) => {
+      console.error(error.message);
+      toast.error(error.message);
+    });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImageFileName(file.name);
+    }
+  };
   return (
-    <div>
-      <form className="flex flex-col w-full items-start gap-3" onSubmit={onSubmitHandler}>
-        {/* Upload image */}
-        <div>
-          <p className="text-xl mb-4">Upload Image</p>
-          <div className="flex gap-2">
-            <label htmlFor="image1">
-              <img src={image1 ? URL.createObjectURL(image1) : "/upload_area.png"} alt="" className="w-48 h-40 object-contain cursor-pointer" />
-              <input type="file" id="image1" hidden onChange={(e) => setImage1(e.target.files[0])} />
-            </label>
-            <label htmlFor="image2">
-              <img src={image2 ? URL.createObjectURL(image2) : "/upload_area.png"} alt="" className="w-48 h-40 object-contain cursor-pointer" />
-              <input type="file" id="image2" hidden onChange={(e) => setImage2(e.target.files[0])} />
-            </label>
-            <label htmlFor="image3">
-              <img src={image3 ? URL.createObjectURL(image3) : "/upload_area.png"} alt="" className="w-48 h-40 object-contain cursor-pointer" />
-              <input type="file" id="image3" hidden onChange={(e) => setImage3(e.target.files[0])} />
-            </label>
-            <label htmlFor="image4">
-              <img src={image4 ? URL.createObjectURL(image4) : "/upload_area.png"} alt="" className="w-48 h-40 object-contain cursor-pointer" />
-              <input type="file" id="image4" hidden onChange={(e) => setImage4(e.target.files[0])} />
-            </label>
-          </div>
+    <div className="mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Product</h2>
+      {/* Form starts here */}
+      <form onSubmit={handleSubmit(onSubmit)} className="">
+        {/* Reusable Input Field for Title */}
+        <InputField
+          label="Title"
+          name="title"
+          placeholder="Enter product title"
+          register={register}
+        />
+
+        {/* Reusable Textarea for Description */}
+        <InputField
+          label="Description"
+          name="description"
+          placeholder="Enter product description"
+          type="textarea"
+          register={register}
+        />
+
+        {/* Reusable Select Field for Category */}
+        <SelectField
+          label="Category"
+          name="category"
+          options={[
+            { value: "", label: "Choose a category" },
+            { value: "home", label: "Home" },
+            { value: "office", label: "Office" },
+            { value: "cafe", label: "Cafe" },
+            { value: "dining", label: "Dining" },
+            { value: "bedroom", label: "Bedroom" },
+          ]}
+          register={register}
+        />
+
+        {/* Trending Checkbox */}
+        <div className="mb-4">
+          <label className="inline-flex items-center">
+            <input
+              type="checkbox"
+              {...register("trending")}
+              className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm font-semibold text-gray-700">
+              Trending
+            </span>
+          </label>
         </div>
-        {/* Product Title */}
-        <div className="w-full">
-          <p className="text-xl mt-4">Product Title</p>
+        {/* Old Price */}
+        <InputField
+          label="Old Price"
+          name="oldPrice"
+          type="number"
+          placeholder="Old Price"
+          register={register}
+        />
+        {/* New Price */}
+        <InputField
+          label="New Price"
+          name="newPrice"
+          type="number"
+          placeholder="New Price"
+          register={register}
+        />
+        {/* color */}
+        <SelectField
+          label="Color"
+          name="color"
+          options={[
+            { value: "", label: "Choose color" },
+            { value: "gold", label: "Gold" },
+            { value: "brown", label: "Brown" },
+            { value: "gray", label: "Gray" },
+            { value: "white", label: "White" },
+            { value: "yellow", label: "Yellow" },
+          ]}
+          register={register}
+        />
+        {/* Image Upload */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Image of product
+          </label>
           <input
-            name="title"
-            type="text"
-            placeholder="Type here"
-            className="w-full max-w-[500px] mt-4 px-4 py-3"
-            onChange={(e) => setTitle(e.target.value)} value={title}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mb-2 w-full"
           />
+          {imageFileName && (
+            <p className="text-sm text-gray-500">Selected: {imageFileName}</p>
+          )}
         </div>
-        {/* Product Description */}
-        <div className="w-full">
-          <p className="text-xl mt-4">Product Description</p>
-          <textarea
-            name="description"
-            type="text"
-            placeholder="write content here"
-            rows={6}
-            className="w-full max-w-[500px] mt-4 px-4 py-3 border"
-            onChange={(e) => setDescription(e.target.value)} value={description}
-          />
-        </div>
-        <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4">
-          {/* Product Category */}
-          <div className="flex-1">
-            <p className="text-xl mt-4">Product Category</p>
-            <select
-              name="category"
-              className="w-full max-w-[500px] mt-4 px-4 py-3 border text-gray-500"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">Select Category</option>
-              <option value="Home Furniture">Home Furniture</option>
-              <option value="Bedroom Furniture">Bedroom Furniture</option>
-              <option value="Dinning Furniture">Dinning Furniture</option>
-              <option value="Cafe Furniture">Cafe Furniture</option>
-              <option value="Office Furniture">Office Furniture</option>
-            </select>
-          </div>
-          {/* Product Sub-Category */}
-          <div className="flex-1">
-            <p className="text-xl mt-4">Product Sub-Category</p>
-            <select
-              name="subCategory"
-              className="w-full mt-4 px-4 py-3 border text-gray-500"
-              onChange={(e) => setSubCategory(e.target.value)}
-            >
-              <option value="">Select Sub-Category</option>
-              <option value="Chairs">Chairs</option>
-              <option value="Tables">Tables</option>
-              <option value="Sofa and Couch">Sofa and Couch</option>
-              <option value="Beds">Beds</option>
-            </select>
-          </div>
-        </div>
-        {/* Product Size */}
-        <div>
-          <p className="text-xl mb-2 mt-4">Product Size</p>
-          <div className="flex gap-3">
-            <div onClick={() => setSizes(prev => prev.includes("Small") ? prev.filter(size => size !== "Small") : [...prev, "Small"])}>
-              <p className={`${sizes.includes("Small") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Small</p>
-            </div>
-            <div onClick={() => setSizes(prev => prev.includes("Medium") ? prev.filter(size => size !== "Medium") : [...prev, "Medium"])}>
-              <p className={`${sizes.includes("Medium") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Medium</p>
-            </div>
-            <div onClick={() => setSizes(prev => prev.includes("Large") ? prev.filter(size => size !== "Large") : [...prev, "Large"])}>
-              <p className={`${sizes.includes("Large") ? "bg-pink-200" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Large</p>
-            </div>
-          </div>
-        </div>
-        {/* Product Price */}
-        <div className="flex-1">
-          <p className="text-xl mt-4">Product Price</p>
-          <input
-            name="price"
-            type="number"
-            placeholder="$20"
-            className="w-full max-w-[500px] mt-4 px-4 py-3 border"
-            onChange={(e) => setPrice(e.target.value)} value={price}
-          />
-        </div>
-        {/* Best seller product */}
-        <div className="w-full flex items-center gap-2 mt-2">
-          <input
-            id="bestseller"
-            type="checkbox"
-            onChange={() => setBestSeller(prev => !prev)} checked={bestSeller}
-          />
-          <label htmlFor="bestseller" className="cursor-pointer">Add to best seller products</label>
-        </div>
-        {/* Add button */}
-        <div className="w-full">
-          <button type="submit" className="mt-4 mb-2 w-40 h-12 bg-black text-white hover:scale-105">
-            Add Product
-          </button>
-        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full py-2 bg-green-500 text-white font-bold rounded-md"
+        >
+          Add Product
+        </button>
       </form>
     </div>
   );
 };
+
 export default AddProduct;

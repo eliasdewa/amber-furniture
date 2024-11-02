@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 const AdminLogin = () => {
@@ -40,7 +38,7 @@ const AdminLogin = () => {
           localStorage.removeItem("token");
           localStorage.removeItem("adminUser");
           toast.error("Token has been expired!, Please login again.");
-          navigate("/admin");
+          navigate("/");
         }, 3600 * 1000);
       }
       // console.log(localStorage.getItem("adminUser"));
@@ -55,7 +53,6 @@ const AdminLogin = () => {
   };
   return (
     <>
-      <ToastContainer autoClose={2000} theme="dark" />
       <div className="h-screen flex justify-center items-center ">
         <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="text-xl font-semibold text-center mb-6">

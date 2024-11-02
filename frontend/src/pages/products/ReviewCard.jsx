@@ -1,7 +1,7 @@
 import { useState } from "react";
-import avatar from "../../assets/avatar.png"
+// import avatar from "../../assets/avatar.png"
 import RatingStars from "../../components/RatingStars";
-import { formatDate } from "../../utils/formatDate";
+// import { formatDate } from "../../utils/formatDate";
 import PostReviewModal from "./PostReviewModal";
 const ReviewCard = ({ productReviews }) => {
   const reviews = productReviews || [];

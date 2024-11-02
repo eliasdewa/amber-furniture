@@ -4,9 +4,7 @@ import { useDispatch } from "react-redux";
 // import ReviewCard from "./ReviewCard";
 import { useGetSingleProductQuery } from "../../redux/features/products/productsApi";
 import { addToCart } from "../../redux/features/cart/cartSlice";
-import ReviewCard from "./ReviewCard";
 import RelatedProducts from "./RelatedProducts";
-import ProductCard from "./ProductCard";
 
 const SingleProduct = () => {
   const { id } = useParams();

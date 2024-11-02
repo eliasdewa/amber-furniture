@@ -1,11 +1,13 @@
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import 'remixicon/fonts/remixicon.css'
+import { RouterProvider } from 'react-router-dom'
+import router from './routers/router.jsx'
 
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from 'react'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
-);
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router}/>
+  </StrictMode>
+)

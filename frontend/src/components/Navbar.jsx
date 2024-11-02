@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import avatarImg from "../assets/avatar.png";
+import avatarImg from "/avatar.png";
 import { toast } from "react-toastify";
 import { auth } from "../firebase/firebase.config";
 import { useAuth } from "../context/AuthContext";

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useCreateOrderMutation } from "../../redux/features/orders/ordersApi";
-import Swal from 'sweetalert2'
 import { toast } from "react-toastify";
 
 const Checkout = () => {
