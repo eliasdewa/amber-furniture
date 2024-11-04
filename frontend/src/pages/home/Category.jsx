@@ -16,15 +16,15 @@ const Category = () => {
   ];
   return (
     <section className="p-4 sm:p-8 mt-4">
-      <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold text-center">
+      <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold sm:text-center">
         Popular Categories
       </h2>
-      <p className="w-full m-auto text-center">
+      <p className="w-full m-auto sm:text-center">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       </p>
       <div className="mx-auto mt-6 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
         {categories.map((category) => (
-          <div key={category.path} className="shadow-xl rounded-md hover:scale-105 transition-all duration-300">
+          <div key={category.path}>
             <Link to={`/categories/${category.path}`} className="text-center">
               <img
                 src={category.image}

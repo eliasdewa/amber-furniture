@@ -37,7 +37,7 @@ const Footer = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full md:w-auto py-2 px-8 bg-primary text-white rounded"
+          className="w-full md:w-auto py-2 px-8 bg-primary/80 hover:bg-primary text-white rounded"
         >
           {isLoading ? "Subscribing..." : "Subscribe"}
         </button>

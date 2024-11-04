@@ -55,7 +55,12 @@ const Checkout = () => {
   if (isLoading) return <div>Loading....</div>;
   if (error) return <div>Error: {error.message}</div>;
   return (
-    <section>
+    <>
+      <section className="bg-[#f4e5ec] p-8 mb-8">
+        <h2 className="mb-4 text-2xl font-extrabold text-center capitalize">
+          Checkout Page
+        </h2>
+      </section>
       <div className="min-h-screen p-6 bg-[#f4e5ec] flex items-center justify-center">
         <div className="container max-w-screen-lg mx-auto">
           {/* total price and items */}
@@ -293,7 +298,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 

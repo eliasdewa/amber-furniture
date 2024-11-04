@@ -30,10 +30,12 @@ const CartPage = () => {
   };
 
   return (
-    <section>
-      <h2 className="mb-4 text-3xl font-extrabold text-center">
-        Your shopping cart
-      </h2>
+    <>
+      <section className="bg-[#f4e5ec] p-8 mb-8">
+        <h2 className="mb-4 text-2xl font-extrabold text-center capitalize">
+          Cart Page
+        </h2>
+      </section>
       <div className="flex flex-col md:flex-row mx-auto mt-6 h-full overflow-hidden bg-white shadow-xl">
         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
           <div className="mt-4">
@@ -143,21 +145,18 @@ const CartPage = () => {
                 <div>
                   <Link to="/checkout">
                     <button className="bg-green-600 px-3 py-1.5 text-white mt-2 rounded-md">
-                      Proceed To Checkout
+                      Proceed To Checkout {" "}
                     </button>
                   </Link>
-                  <div>
-                    <Link to="/products">
-                      or
+                  <Link to="/products">
+                    {" "}or
                       <button
                         type="button"
-                        className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
+                        className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline ml-1"
                       >
                         Continue Shopping
-                        <i className="ri-arrow-right-fill"></i>
                       </button>
                     </Link>
-                  </div>
                 </div>
                 {/* Clear Cart button */}
                 <button
@@ -174,7 +173,7 @@ const CartPage = () => {
           </div>
         )}
       </div>
-    </section>
+    </>
   );
 };
 

@@ -31,8 +31,8 @@ const AdminLogin = () => {
       // console.log(adminUser);
       // console.log(token);
       if (token) {
-        // Store user info as a JSON string
-        localStorage.setItem("adminUser", JSON.stringify(adminUser))
+        // Store user info as a JSON string and token
+        localStorage.setItem("adminUser", JSON.stringify(adminUser));
         localStorage.setItem("token", token);
         setTimeout(() => {
           localStorage.removeItem("token");
@@ -52,12 +52,25 @@ const AdminLogin = () => {
     }
   };
   return (
-    <>
-      <div className="h-screen flex justify-center items-center ">
-        <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <h2 className="text-xl font-semibold text-center mb-6">
-            Admin Dashboard Login{" "}
+    <div className="min-h-screen">
+      <section className="flex max-w-3xl mx-auto p-10">
+        {/* Lefts side */}
+        <section className="relative w-2/5 items-center flex-col gap-3 container mx-auto">
+          <img
+            alt=""
+            src="/ambar.jpg"
+            className="absolute inset-0 h-full w-full object-cover rounded-tl-3xl rounded-bl-3xl shadow-xl"
+          />
+        </section>
+        {/* Right side */}
+        <div className="w-3/5 items-center flex-col gap-3 container mx-auto p-4 shadow-xl bg-[#d8dada]  rounded-tr-3xl rounded-br-3xl">
+          <h2 className="text-xl font-semibold text-center">
+            Admin Dashboard
           </h2>
+          <p className="text-gray-600 text-sm my-4">
+            Welcome to the Amber Furniture Admin Dashboard. Please login to access
+            your account.
+          </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* email */}
             <div className="mb-4">
@@ -108,8 +121,8 @@ const AdminLogin = () => {
             ©2025 Book Store. All rights reserved.
           </p>
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 };
 

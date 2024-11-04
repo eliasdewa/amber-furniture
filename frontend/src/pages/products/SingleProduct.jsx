@@ -25,7 +25,7 @@ const SingleProduct = () => {
 
   return (
     <>
-      <section className="bg-[#f4e5ec] p-8 mt-8 mb-12">
+      <section className="bg-[#f4e5ec] p-8 mb-8">
         <h2 className="mb-4 text-2xl font-extrabold text-center capitalize">
           Single Product
         </h2>

@@ -1,4 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const DashboardLayout = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
+    toast.success("Admin logged out successfully")
   };
 
   return (

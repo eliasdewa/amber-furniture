@@ -40,11 +40,11 @@ const Search = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
             placeholder="Search for products..."
-            className="search-bar w-full max-w-4xl p-2 border rounded"
+            className="w-full max-w-4xl p-2 border rounded"
           />
           <button
             onClick={handleSearch}
-            className="search-button w-full md:w-auto py-2 px-8 bg-primary text-white rounded"
+            className="w-full md:w-auto py-2 px-8 bg-primary/80 hover:bg-primary text-white rounded"
           >
             Search
           </button>

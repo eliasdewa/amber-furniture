@@ -23,7 +23,7 @@ const CategoryPage = () => {
 
   return (
     <>
-      <section className="bg-[#f4e5ec] p-8 mt-8 mb-12">
+      <section className="bg-[#f4e5ec] p-8 mb-8">
         <h2 className="mb-4 text-2xl font-extrabold text-center capitalize">{categoryName}</h2>
         <p className="max-w-[500px] m-auto text-center text-[#64748b]">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae,
