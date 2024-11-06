@@ -38,7 +38,7 @@ const DashboardLayout = () => {
           <div className="flex flex-shrink-0 items-center ml-auto">
             <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
               <span className="font-semibold">Hello, {user.username}</span>
-              <span className="text-sm text-gray-400">Admin</span>
+              <span className="text-sm text-gray-300">Admin</span>
             </div>
             {/* user image */}
             <div className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
@@ -63,7 +63,7 @@ const DashboardLayout = () => {
         <div className="flex">
           {/* left-side sidebar */}
           <aside className="hidden w-40 sm:flex sm:flex-col border-r-2">
-            <nav className="flex flex-col gap-2 mx-4 py-6 sm:py-10">
+            <nav className="flex flex-col gap-2 mr-4 py-6 sm:py-10">
               {/* Dashboard */}
               <Link
                 to="/dashboard"

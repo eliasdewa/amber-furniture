@@ -1,5 +1,5 @@
 import express from 'express';
-import { emailSubscribe, getAllSubscribedUsers } from '../controllers/emailSubscribe.controller.js';
+import { deleteEmail, emailSubscribe, getAllSubscribedUsers } from '../controllers/emailSubscribe.controller.js';
 
 const emailRouter = express.Router();
 
@@ -7,6 +7,8 @@ const emailRouter = express.Router();
 emailRouter.post('/subscribe', emailSubscribe);
 // get all subscriptions
 emailRouter.get('/list', getAllSubscribedUsers);
+// delete subscribed email
+emailRouter.delete('/:id', deleteEmail);
 
 
 export default emailRouter;

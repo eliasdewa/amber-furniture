@@ -8,6 +8,8 @@ import UpdateProduct from "../pages/UpdateProduct";
 import AddProduct from "../pages/AddProduct";
 import AllOrders from "../pages/AllOrders";
 import DashboardLayout from "../components/DashboardLayout";
+import EmailSubscribers from "../pages/EmailSubscribers";
+import Users from "../pages/Users";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,22 @@ const router = createBrowserRouter([
             element: (
               <AdminRoute>
                 <AllOrders />
+              </AdminRoute>
+            ),
+          },
+          {
+            path: "users",
+            element: (
+              <AdminRoute>
+                <Users />
+              </AdminRoute>
+            ),
+          },
+          {
+            path: "emails",
+            element: (
+              <AdminRoute>
+                <EmailSubscribers />
               </AdminRoute>
             ),
           },

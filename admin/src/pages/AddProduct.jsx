@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import InputField from "../components/InputField";
 import SelectField from "../components/SelectField";
+import Loading from "../components/Loading";
 
 const AddProduct = () => {
   const {
@@ -12,7 +13,8 @@ const AddProduct = () => {
     formState: { errors },
     reset,
   } = useForm();
-  
+  const [loading, setLoading] = useState(true);
+
   const [imageFile, setImageFile] = useState(null);
   const [imageFileName, setImageFileName] = useState("");
 
@@ -34,6 +36,7 @@ const AddProduct = () => {
       reset();
       setImageFileName("");
       setImageFile(null);
+      setLoading(false);
     })
     .catch((error) => {
       console.error(error.message);
@@ -48,6 +51,8 @@ const AddProduct = () => {
       setImageFileName(file.name);
     }
   };
+
+  if (loading) return <Loading />;
   return (
     <div className="mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Product</h2>

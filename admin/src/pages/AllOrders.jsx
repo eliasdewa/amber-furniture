@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import Loading from "../components/Loading";
 
 const AllOrders = () => {
+  const [loading, setLoading] = useState(true);
+
   const [orders, setOrders] = useState([]);
   // get all orders
   axios
@@ -9,11 +12,13 @@ const AllOrders = () => {
     .then((response) => {
       // console.log(response.data);
       setOrders(response.data);
+      setLoading(false);
     })
     .catch((error) => {
       console.log(error);
     });
 
+  if (loading) return <Loading />;
   return (
     <section className="w-full mb-12 xl:mb-0 mx-auto">
       <div className="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

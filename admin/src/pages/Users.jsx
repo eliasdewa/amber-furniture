@@ -1,36 +1,31 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import Loading from "../components/Loading";
 
-const ManageProducts = () => {
+const Users = () => {
   const [loading, setLoading] = useState(true);
 
-  const [products, setProducts] = useState([]);
-  // get all products
+  const [userInfo, setUserInfo] = useState([]);
+  // get all users
   axios
-    .get("http://localhost:5000/api/products")
+    .get("http://localhost:5000/api/auth/users")
     .then((response) => {
-      // console.log(response.data.products);
-      setProducts(response.data.products);
+      // console.log(response.data)
+      setUserInfo(response.data);
       setLoading(false);
     })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  // Handle deleting a product
-  const handleDeleteProduct = async (id) => {
+    .catch((error) => console.error(error));
+  // handle user deletion
+  const handleDeleteUser = async (id) => {
     axios
-      .delete(`http://localhost:5000/api/products/${id}`)
+      .delete(`http://localhost:5000/api/auth/users/${id}`)
       .then((response) => {
         toast.success(response.data.message);
+        // update users list after deletion
+        setUserInfo(userInfo.filter((user) => user._id !== id));
       })
-      .catch((error) => {
-        console.error(error);
-        toast.error(error.message);
-      });
+      .catch((error) => console.error(error));
   };
 
   if (loading) return <Loading />;
@@ -38,7 +33,7 @@ const ManageProducts = () => {
     <section className="w-full mb-12 xl:mb-0 mx-auto">
       <div className="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <h3 className="font-semibold text-base">All Products</h3>
+          <h3 className="font-semibold text-base">All Users</h3>
         </div>
 
         <div className="block w-full overflow-x-auto">
@@ -46,19 +41,16 @@ const ManageProducts = () => {
             <thead>
               <tr>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  #
+                  Id
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Product Image
+                  Name
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Product Title
+                  Email
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Category
-                </th>
-                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Price
+                  Role
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Actions
@@ -67,46 +59,36 @@ const ManageProducts = () => {
             </thead>
 
             <tbody>
-              {products ? (
-                products.map((product, index) => (
+              {userInfo ? (
+                userInfo.map((user, index) => (
                   <tr key={index}>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                      {index + 1}
+                      {user._id}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                      <img
-                        src={product.image}
-                        alt=""
-                        className="w-28 h-20 object-cover"
-                      />
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                      {user.username}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                      {product.title}
+                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                      {user.email}
                     </td>
-                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {product.category.toUpperCase()}
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                      {user.role}
                     </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      ${product.newPrice}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 space-x-4">
-                      <Link
-                        to={`/dashboard/edit-product/${product._id}`}
-                        className="font-medium text-indigo-600 hover:text-indigo-700 mr-2 hover:underline underline-offset-2"
-                      >
-                        Edit
-                      </Link>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 space-x-4 text-left">
                       <button
-                        onClick={() => handleDeleteProduct(product._id)}
+                        onClick={() => handleDeleteUser(user._id)}
                         className="font-medium hover:text-red-500"
                       >
                         <i className="ri-delete-bin-6-line ri-xl"></i>
                       </button>
                     </td>
                   </tr>
-                ))) : (
-                  <div className="text-center p-8 text-lg font-bold">No Products found</div>
-                )}
+                ))
+              ) : (
+                <div className="text-center p-8 text-lg font-bold">
+                  No Users found
+                </div>
+              )}
             </tbody>
           </table>
         </div>
@@ -114,5 +96,4 @@ const ManageProducts = () => {
     </section>
   );
 };
-
-export default ManageProducts;
+export default Users;

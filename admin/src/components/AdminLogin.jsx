@@ -17,7 +17,7 @@ const AdminLogin = () => {
     // console.log(data)
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/admin/login",
+        "http://localhost:5000/api/auth/admin/login",
         data,
         {
           headers: {

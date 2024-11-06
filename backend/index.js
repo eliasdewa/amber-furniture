@@ -39,7 +39,7 @@ app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/emails", emailRouter);
-app.use("/api/users", userRouter);
+app.use("/api/auth", userRouter);
 app.use("/api/admin", adminRouter);
 
 // Error handlers middleware
