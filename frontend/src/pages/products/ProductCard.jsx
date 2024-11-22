@@ -44,7 +44,7 @@ const ProductCard = ({ products }) => {
                   className="w-4/5 px-2 py-1 bg-black/60 hover:bg-black text-white rounded-md"
                 >
                   <i className="ri-shopping-cart-2-line text-xl"></i>
-                  ADD TO CART
+                  ADD
                 </button>
               </div>
             </div>

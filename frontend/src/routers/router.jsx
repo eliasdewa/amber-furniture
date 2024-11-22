@@ -1,39 +1,54 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Home from "../pages/home/Home";
-import About from "../pages/about/About";
-import Contact from "../pages/contact/Contact";
-import Login from "../components/Login";
-import Register from "../components/Register";
-import Cart from "../pages/products/Cart";
-import Checkout from "../pages/products/Checkout";
-import SingleProduct from "../pages/products/SingleProduct";
-import PrivateRoute from "./PrivateRoute";
-import Orders from "../pages/products/Orders";
-import Products from "../pages/products/Products";
+import LoginPage from "../components/LoginPage";
+import SingleProductPage from "../pages/products/SingleProductPage";
+import AboutPage from "../pages/AboutPage";
+import ContactPage from "../pages/ContactPage";
+import HomePage from "../pages/home/HomePage";
+import CartPage from "../pages/products/CartPage";
 import CategoryPage from "../pages/products/CategoryPage";
-import Search from "../pages/products/Search";
+import CheckoutPage from "../pages/products/CheckoutPage";
+import OrderPage from "../pages/products/OrderPage";
+import ProductsPage from "../pages/products/ProductsPage";
+import SearchPage from "../pages/products/SearchPage";
+import SingUpPage from "../components/SingUpPage";
+import PrivateRoute from "./PrivateRoute";
+import DashboardPage from "../pages/dashboard/DashboardPage";
+import AddProduct from "../pages/dashboard/AddProduct";
+import AllOrders from "../pages/dashboard/AllOrders";
+import AllUsers from "../pages/dashboard/AllUsers";
+import AllSubscribers from "../pages/dashboard/AllSubscribers";
+import AdminRoute from "./AdminRoute";
+import UpdateProduct from "../pages/dashboard/UpdateProduct";
+import AllProducts from "../pages/dashboard/AllProducts";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <HomePage /> },
       { path: "/categories/:categoryName", element: <CategoryPage /> },
-      { path: "/products", element: <Products /> },
-      { path: "/products/:id", element: <SingleProduct /> },
-      { path: "/login", element: <Login /> },
-      { path: "/register", element: <Register /> },
-      { path: "/cart", element: <Cart /> },
-      { path: "/search", element: <Search /> },
-      { path: "/about", element: <About /> },
-      { path: "/contact", element: <Contact /> },
+      { path: "/products", element: <ProductsPage /> },
+      { path: "/products/:id", element: <SingleProductPage /> },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <SingUpPage /> },
+      { path: "/search", element: <SearchPage /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/contact", element: <ContactPage /> },
+      {
+        path: "/cart",
+        element: (
+          <PrivateRoute>
+            <CartPage />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/checkout",
         element: (
           <PrivateRoute>
-            <Checkout />
+            <CheckoutPage />
           </PrivateRoute>
         ),
       },
@@ -41,10 +56,66 @@ const router = createBrowserRouter([
         path: "/orders",
         element: (
           <PrivateRoute>
-            <Orders />
+            <OrderPage />
           </PrivateRoute>
         ),
-      }
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <AdminRoute>
+            <DashboardPage />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-products",
+        element: (
+          <AdminRoute>
+            <AllProducts />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-orders",
+        element: (
+          <AdminRoute>
+            <AllOrders />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-subscribers",
+        element: (
+          <AdminRoute>
+            <AllSubscribers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-new-product",
+        element: (
+          <AdminRoute>
+            <AddProduct />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/edit-product/:id",
+        element: (
+          <AdminRoute>
+            <UpdateProduct />
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);

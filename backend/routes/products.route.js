@@ -1,7 +1,6 @@
 import express from 'express';
-import { createProduct, deleteProduct, getAllProducts, getRelatedProducts, getSingleProduct, updateProduct } from '../controllers/products.controller.js';
+import { createProduct, deleteProduct, getAllProducts, getSingleProduct, updateProduct } from '../controllers/products.controller.js';
 import upload from '../config/multerConfig.js';
-
 
 const productRouter = express.Router();
 
@@ -11,8 +10,6 @@ productRouter.post('/create-product', upload.single("image"), createProduct);
 productRouter.get('/', getAllProducts);
 // get a single product by ID
 productRouter.get('/:id', getSingleProduct);
-// get related product by ID
-productRouter.get('/related/:id', getRelatedProducts);
 // update a product by ID
 productRouter.put('/edit/:id', updateProduct);
 // delete a product by ID

@@ -15,11 +15,11 @@ export const getOrderByEmail = asyncHandler(async (req, res, next) => {
   if (!orders) {
     return next(errorHandler("No orders found", 404));
   }
-  res.status(200).json(orders);
+  res.status(200).json({ orders });
 });
 
 // get all orders
 export const getAllOrders = asyncHandler(async (req, res, next) => {
   const orders = await orderModel.find().sort({createdAt: -1});
-  res.status(200).json(orders);
+  res.status(200).json({orders});
 });

@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
-import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
+import axios from "axios";
+import Loading from "../../components/Loading";
+import { useProductStore } from "../../stores/useProductStore";
 
 const TrendingProducts = () => {
-  const {data, error, isLoading} = useGetAllProductsQuery();
-  // console.log(data);
-  const products = data?.products || [];
-  const [visibleProducts, setVisibleProducts] = useState(8);
+  // get all products
+  const { getAllProducts, products, loading } = useProductStore();
+
+	useEffect(() => {
+		getAllProducts();
+	}, [getAllProducts]);
+
+  const [visibleProducts, setVisibleProducts] = useState(4);
   const handleShowMore = () => {
     setVisibleProducts((prevCount) => prevCount + 4);
   };
 
-  if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <h1>Error: {error.message}</h1>;
-
+  if (loading) return <Loading />;
   return (
     <section className="p-4 sm:p-8 mt-4">
       <h2 className="mb-4 text-3xl font-extrabold">All Our Products</h2>

@@ -2,12 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import avatarImg from "/avatar.png";
-import { toast } from "react-toastify";
-import { auth } from "../firebase/firebase.config";
-import { useAuth } from "../context/AuthContext";
+import { useUserStore } from "../stores/useUserStore";
 
 const dropdownMenu = [
-  { name: "Dashboard", path: "/user-dashboard" },
+  { name: "Profile", path: "/profile" },
   { name: "Orders", path: "/orders" },
   { name: "Cart", path: "/cart" },
   { name: "CheckOut", path: "/checkout" },
@@ -19,14 +17,13 @@ const Navbar = () => {
   // to get car items
   const cartItems = useSelector((state) => state.cart.cartItems);
   // console.log(cartItems)
+  const { logout, currentUser } = useUserStore();
 
-  // get user
-  const { currentUser } = useAuth()
-
+  const isAdmin = currentUser?.role === "admin";
+  // console.log(currentUser)
   // handle logout
   const handleLogOut = async () => {
-    await auth.signOut();
-    toast.success("User logged out successfully");
+    await logout();
     setIsDropDownOpen(false);
   };
   return (
@@ -83,6 +80,16 @@ const Navbar = () => {
               </button>
             </Link>
           </span>
+          {/* Admin dashboard */}
+          {isAdmin && (
+            <Link
+              className="bg-primary/60 hover:bg-primary text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
+              to={"/dashboard"}
+            >
+              <i className="ri-dashboard-fill ri-xl"></i>
+              <span className="hidden sm:inline">Dashboard</span>
+            </Link>
+          )}
           {/* user icon */}
           <span>
             {currentUser && currentUser ? (
@@ -94,7 +101,7 @@ const Navbar = () => {
                     onClick={() => setIsDropDownOpen(!isDropDownOpen)}
                     className="size-6 object-cover rounded-full cursor-pointer"
                   />
-                  <p className="text-sm">{currentUser?.displayName}</p>
+                  <p className="text-sm">{currentUser?.username}</p>
                 </div>
                 {isDropDownOpen && (
                   <div className="absolute right-0 mt-3 p-4 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50">

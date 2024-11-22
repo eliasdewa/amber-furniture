@@ -3,12 +3,12 @@ import { createOrder, getAllOrders, getOrderByEmail } from '../controllers/order
 
 const orderRouter = express.Router();
 // create order
-orderRouter.post('/', createOrder);
+orderRouter.post('/create', createOrder);
 
 // get orders by user email
 orderRouter.get('/email/:email', getOrderByEmail);
 
 // get all orders
-orderRouter.get('/allOrders', getAllOrders);
+orderRouter.get('/', getAllOrders);
 
 export default orderRouter;

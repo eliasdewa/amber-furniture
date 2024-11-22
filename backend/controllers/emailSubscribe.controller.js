@@ -35,6 +35,6 @@ export const deleteEmail = asyncHandler(async (req, res, next) => {
 
 // get all subscribed users
 export const getAllSubscribedUsers = asyncHandler(async (req, res, next) => {
-  const emailSubscribers = await emailModel.find({});
-  res.status(200).json(emailSubscribers);
+  const emails = await emailModel.find({});
+  res.status(200).json({ emails });
 });

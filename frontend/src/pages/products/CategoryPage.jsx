@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../products/ProductCard";
-import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
+import Loading from "../../components/Loading";
+import axios from "axios";
+import { useProductStore } from "../../stores/useProductStore";
 
 const CategoryPage = () => {
   const { categoryName } = useParams();
   // console.log(categoryName);
-  const { data, error, isLoading } = useGetAllProductsQuery();
-  // console.log(data);
-  const products = data?.products || [];
+  // get all products
+  const { getAllProducts, products, loading } = useProductStore();
 
+	useEffect(() => {
+		getAllProducts();
+	}, [getAllProducts]);
+  
   const [filteredProducts, setFilteredProducts] = useState([]);
+  
+  // Filter products based on category on component mount
   useEffect(() => {
-    // Fetch products based on category
-    const categoryProducts = products.filter(product => product.category === categoryName.toLowerCase());
+    const categoryProducts = products.filter(product => product.category.toLowerCase() === categoryName.toLowerCase());
     // Set filteredProducts state with filtered products
     setFilteredProducts(categoryProducts);
   }, [categoryName]);
   
-  if (error) return <p>Error: {error.message}</p>;
-  if (isLoading) return <p>Loading...</p>;
-
+  // Handle sorting products
+  if (loading) return <Loading />;
   return (
     <>
       <section className="bg-[#f4e5ec] p-8 mb-8">

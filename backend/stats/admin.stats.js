@@ -1,6 +1,8 @@
 import express from "express";
 import orderModel from "../models/order.model.js";
 import productModel from "../models/products.model.js";
+import userModel from "../models/user.model.js";
+import emailModel from "../models/emailSubscribe.model.js";
 
 const adminRouter = express.Router();
 
@@ -33,8 +35,11 @@ adminRouter.get("/", async (req, res) => {
 
     // 5. Total number of products
     const totalProducts = await productModel.countDocuments();
-
-    // 6. Monthly sales (group by month and sum total sales for each month)
+    // 6. Total number of users
+    const totalUsers = await userModel.countDocuments();
+    // 7. Total number of subscribers
+    const totalSubscribers = await emailModel.countDocuments();
+    // 8. Monthly sales (group by month and sum total sales for each month)
     const monthlySales = await orderModel.aggregate([
       {
         $group: {
@@ -52,8 +57,10 @@ adminRouter.get("/", async (req, res) => {
       .json({
         totalOrders,
         totalSales: totalSales[0]?.totalSales || 0,
-        trendingProducts,
         totalProducts,
+        totalUsers,
+        totalSubscribers,
+        trendingProducts,
         monthlySales,
       });
   } catch (error) {

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
+import Loading from "../../components/Loading";
+import axios from "axios";
+import { useProductStore } from "../../stores/useProductStore";
 
 const RelatedProducts = ({ category }) => {
-  // Get all products
-  const { data } = useGetAllProductsQuery();
-  // console.log(data);
-  const products = data?.products || [];
+  // get all products
+  const { getAllProducts, products, loading } = useProductStore();
 
+	useEffect(() => {
+		getAllProducts();
+	}, [getAllProducts]);
   // State variable to store related products
   const [relatedProducts, setRelatedProducts] = useState([]);
   // Filter out related products based on category and subCategory
@@ -19,6 +22,8 @@ const RelatedProducts = ({ category }) => {
       setRelatedProducts(productCopy.slice(1, 6));
     }
   }, [products]);
+
+  if (loading) return <Loading />;
   return (
     <div className="my-12">
       <h2 className="mb-4 text-2xl font-extrabold capitalize">

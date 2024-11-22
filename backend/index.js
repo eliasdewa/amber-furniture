@@ -8,7 +8,6 @@ import errorMiddleware from "./middleware/errorMiddleware.js";
 
 import productRouter from "./routes/products.route.js";
 import orderRouter from "./routes/orders.route.js";
-import reviewRouter from "./routes/reviews.route.js";
 import emailRouter from "./routes/emailSubscribe.route.js";
 import userRouter from "./routes/users.route.js";
 import adminRouter from "./stats/admin.stats.js";
@@ -35,11 +34,10 @@ app.use(
 ); // we can access the backend from any frontend
 
 // api endpoint
+app.use("/api/auth", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/reviews", reviewRouter);
 app.use("/api/emails", emailRouter);
-app.use("/api/auth", userRouter);
 app.use("/api/admin", adminRouter);
 
 // Error handlers middleware
