@@ -17,7 +17,7 @@ const Category = () => {
   return (
     <section className="p-4 sm:p-8 mt-4">
       <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold sm:text-center">
-        Popular Categories
+        Explore Our Popular Categories
       </h2>
       <p className="w-full m-auto sm:text-center">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit.

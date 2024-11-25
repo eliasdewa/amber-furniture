@@ -11,13 +11,13 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
-      <ToastContainer autoClose={2000} theme="dark" />
       <Navbar />
-      <main className="min-h-screen max-w-screen-2xl mx-auto px-2 sm:px-4 py-2 sm:py-6 font-primary">
+      <div>
         <Outlet />
-      </main>
+      </div>
       <Footer />
       <ToTopBtn />
+      <ToastContainer autoClose={2000} theme="dark" />
     </>
   );
 };
