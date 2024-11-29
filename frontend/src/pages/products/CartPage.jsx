@@ -69,17 +69,17 @@ const CartPage = () => {
                     {/* product details */}
                     <div className="ml-4 flex flex-col">
                       {/* Product name */}
-                      <p className="mt-1 text-sm text-gray-500 capitalize">
+                      <div className="mt-1 text-sm text-gray-500 capitalize">
                         <strong>Product title: </strong>
                         <Link to="/">{product?.title}</Link>
-                      </p>
+                      </div>
                       {/* category */}
-                      <p className="mt-1 text-sm text-gray-500 capitalize">
+                      <div className="mt-1 text-sm text-gray-500 capitalize">
                         <strong>Category: </strong>
                         {product?.category}
-                      </p>
+                      </div>
                       {/* Product quantity - incr or decr */}
-                      <p className="mt-1 text-sm text-gray-500 capitalize">
+                      <div className="mt-1 text-sm text-gray-500 capitalize">
                         <div className="flex items-center gap-1">
                           <strong>Quantity: </strong>
                           {/* Decrease quantity */}
@@ -105,12 +105,12 @@ const CartPage = () => {
                             +
                           </button>
                         </div>
-                      </p>
+                      </div>
                       {/* Product price */}
-                      <p className="mt-1 text-sm text-gray-500 capitalize">
+                      <div className="mt-1 text-sm text-gray-500 capitalize">
                         <strong>Price: </strong>$
                         {Number((product?.newPrice * product?.quantity).toFixed(2))}
-                      </p>
+                      </div>
                       {/* Remove button */}
                       <button
                         onClick={() => handleRemoveFromCart(product)}

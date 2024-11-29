@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 const initialState = {
-  cartItems: [], // to store cart items in array
+  cartItems: JSON.parse(localStorage.getItem('cart-items')) || [], // Load from localStorage or initialize as empty
   totalPrice: 0,
   tax: 0,
   taxRate: 0.05,
@@ -25,6 +25,7 @@ export const cartSlice = createSlice({
       } else {
         toast.error("Item already exists in the Cart");
       }
+      localStorage.setItem('cart-items', JSON.stringify(state.cartItems)); // Persist cart to localStorage
       state.totalPrice = setTotalPrice(state);
       state.tax = setTax(state);
       state.grandTotalPrice = setGrandTotalPrice(state);
@@ -46,6 +47,7 @@ export const cartSlice = createSlice({
           return product;
         }
       );
+      localStorage.setItem('cart-items', JSON.stringify(state.cartItems)); // Persist cart to localStorage
       state.totalPrice = setTotalPrice(state);
       state.tax = setTax(state);
       state.grandTotalPrice = setGrandTotalPrice(state);
@@ -55,6 +57,7 @@ export const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item._id !== action.payload._id
       );
+      localStorage.setItem('cart-items', JSON.stringify(state.cartItems)); // Persist cart to localStorage
       state.totalPrice = setTotalPrice(state);
       state.tax = setTax(state);
       state.grandTotalPrice = setGrandTotalPrice(state);
@@ -65,6 +68,7 @@ export const cartSlice = createSlice({
       state.totalPrice = 0;
       state.tax = 0;
       state.grandTotalPrice = 0;
+      localStorage.setItem('cart-items', JSON.stringify(state.cartItems)); // Persist cart to localStorage
     },
   },
 });

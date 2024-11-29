@@ -1,43 +1,32 @@
-import { create } from "zustand"; // zustand is used for global state management
-import { toast } from "react-toastify";
-import axios from "axios";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export const useCartStore = create((set) => ({
-	cart: [], // to store cart items in array
-  totalPrice: 0,
-  tax: 0,
-  taxRate: 0.05,
-  grandTotalPrice: 0,
-
-	// add to cart items
-	// Add item to cart or update quantity if the item exists
-  addToCart: (item) =>
-    set((state) => {
-      const existingItem = state.cart.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        // Update quantity if item exists
-        return {
-          cart: state.cart.map((cartItem) =>
-            cartItem.id === item.id
-              ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-              : cartItem
+export const useCartStore = create(
+  persist(
+    (set) => ({
+      cart: [], // Holds cart items
+      addToCart: (item) =>
+        set((state) => {
+          const existingItem = state.cart.find((cartItem) => cartItem._id === item._id);
+          if (!existingItem) {
+            // Add new item to cart
+            return { cart: [...state.cart, quantity = 1] };
+          }
+        }),
+      updateCartQuantity: (id, quantity) =>
+        set((state) => ({
+          cart: state.cart.map((item) =>
+            item._id === id ? { ...item, quantity } : item
           ),
-        };
-      } else {
-        // Add new item
-        return { cart: [...state.cart, { ...item, quantity: item.quantity || 1 }] };
-      }
+        })),
+      removeFromCart: (id) =>
+        set((state) => ({
+          cart: state.cart.filter((item) => item._id !== id),
+        })),
+      clearCart: () => set({ cart: [] }), // Clear all items
     }),
-
-  // Update quantity of an item
-  updateQuantity: (id, quantity) =>
-    set((state) => ({
-      cart: state.cart.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      ),
-    })),
-
-  // Clear the cart
-  clearCart: () => set({ cart: [] }),
-}));
-
+    {
+      name: 'cart-storage', // Key for localStorage
+    }
+  )
+);

@@ -45,7 +45,7 @@ const Banner = () => {
           </SwiperSlide>
         </Swiper>
       </section>
-      <div class="absolute inset-0 bg-gray-700 opacity-50 rounded-md"></div>
+      <div className="absolute inset-0 bg-gray-700 opacity-50 rounded-md"></div>
       {/* Content */}
       <div className="absolute inset-0 flex flex-col mx-auto justify-center w-[80%] z-30">
         <h4 className="text-lg sm:text-xl font-medium text-[#ed3849] mb-2">

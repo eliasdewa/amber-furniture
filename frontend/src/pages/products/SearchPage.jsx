@@ -17,7 +17,7 @@ const SearchPage = () => {
   const handleSearch = () => {
     const filtered = products.filter(
       (product) =>
-        product.name.includes(searchQuery) ||
+        product.title.includes(searchQuery) ||
         product.description.includes(searchQuery)
     );
     setFilteredProducts(filtered);
