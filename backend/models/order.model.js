@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       required: true,
@@ -23,16 +24,24 @@ const orderSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
-    productIds: [
+    products: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        type: String,
         required: true,
       },
     ],
     totalPrice: {
       type: Number,
       required: true,
+    },
+    orderDate: {
+      type: Date,
+      default: Date.now,
+    },
+    orderStatus: {
+      type: String,
+      enum: ["pending", "processing", "shipped", "delivered", "cancelled"],
+      default: "pending",
     },
   },
   {

@@ -8,7 +8,6 @@ import axios from "axios";
 import Loading from "../../components/Loading";
 
 const CheckoutPage = () => {
-  // Get cart items
   // Get the user information
   const {
     register,
@@ -25,9 +24,6 @@ const CheckoutPage = () => {
   // console.log(currentUser)
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-
-  // const [loading, setLoading] = useState(true);
-  
   const onSubmit = async (data) => {
     const newOrder = {
       name: currentUser?.username,
@@ -39,7 +35,8 @@ const CheckoutPage = () => {
         zipcode: data.zipcode,
       },
       phone: data.phone,
-      productIds: cartItems.map((item) => item?._id),
+      // products: cartItems.map((item) => item?._id),
+      products: cartItems.map((item) => item?.title),
       totalPrice: grandTotalPrice.toFixed(2),
     };
     // console.log(newOrder)
