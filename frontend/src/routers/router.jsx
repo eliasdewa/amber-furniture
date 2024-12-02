@@ -109,7 +109,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/edit-product/:id",
+        path: "/dashboard/edit/:id",
         element: (
           <AdminRoute>
             <UpdateProduct />

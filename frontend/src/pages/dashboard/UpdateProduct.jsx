@@ -1,12 +1,18 @@
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useProductStore } from "../../stores/useProductStore";
+import Loading from "../../components/Loading";
 
 const UpdateProduct = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
+  // console.log(id);
+  const navigate = useNavigate();
+  const updateProduct = useProductStore((state) => state.updateProduct);
+  const product = useProductStore((state) =>
+    state.products.find((prod) => prod._id === id)
+  );
+  const { loading } = useProductStore();
 
   const [imageFile, setImageFile] = useState(null);
   const [imageFileName, setImageFileName] = useState("");
@@ -18,54 +24,30 @@ const UpdateProduct = () => {
     formState: { errors },
     reset,
   } = useForm();
-  // get a product that going to be updated
-  const [productData, setProductData] = useState([]);
-  axios
-    .get(`http://localhost:5000/api/products/${id}`)
-    .then((response) => {
-      // console.log(response.data);
-      setProductData(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 
   const onSubmit = async (data) => {
-    if (productData) {
-      setValue("title", productData.title);
-      setValue("description", productData.description);
-      setValue("category", productData?.category);
-      setValue("trending", productData.trending);
-      setValue("oldPrice", productData.oldPrice);
-      setValue("newPrice", productData.newPrice);
-      setValue("image", productData.image);
+    if (product) {
+      setValue("title", product.title);
+      setValue("description", product.description);
+      setValue("category", product.category);
+      setValue("trending", product.trending);
+      setValue("oldPrice", product.oldPrice);
+      setValue("newPrice", product.newPrice);
+      setValue("image", product.image);
     }
 
     const updateProductData = {
-      title: data.title || productData.title,
-      description: data.description || productData.description,
-      category: data.category || productData.category,
-      trending: data.trending || productData.trending,
-      oldPrice: Number(data.oldPrice) || productData.oldPrice,
-      newPrice: Number(data.newPrice) || productData.newPrice,
-      image: imageFile || productData.image,
+      title: data.title || product.title,
+      description: data.description || product.description,
+      category: data.category || product.category,
+      trending: data.trending || product.trending,
+      oldPrice: Number(data.oldPrice) || product.oldPrice,
+      newPrice: Number(data.newPrice) || product.newPrice,
+      image: imageFile || product.image,
     };
-
-    await axios
-      .put(`http://localhost:5000/api/products/edit/${id}`, updateProductData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        toast.success(response.data.message);
-        navigate("/dashboard/all-products");
-      })
-      .catch((error) => {
-        console.log(error.message);
-        toast.error(error.message);
-      });
+    
+    await updateProduct(id, updateProductData);
+    navigate("/dashboard/all-products");
   };
 
   const handleFileChange = (e) => {
@@ -76,14 +58,19 @@ const UpdateProduct = () => {
     }
   };
 
+  if (loading) return <Loading />;
   return (
     <section className="flex flex-col min-h-screen overflow-hidden">
-      <header className="flex justify-between items-center text-white border-2 my-4">
-        <div className="flex my-2">
-          <div className="flex items-center px-4 py-2 mx-2 rounded-md transition-colors duration-200 bg-emerald-600 text-white">
-            <span className="ml-1">Update Product</span>
-          </div>
-        </div>
+      <header className="flex justify-end items-center text-white border-2 p-2 my-4">
+        {/* <div className="px-4 py-2 mx-2 rounded-md bg-emerald-600">
+          Update Product
+        </div> */}
+        <Link
+          to="/dashboard"
+          className="px-4 py-2 bg-primary/60 hover:bg-primary  rounded-md"
+        >
+          Back to Dashboard
+        </Link>
       </header>
       <div className="px-2 py-4 border-2">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,6 +81,7 @@ const UpdateProduct = () => {
             </label>
             <input
               type="text"
+              defaultValue={product.title}
               {...register("title")}
               className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Enter product title"
@@ -106,6 +94,7 @@ const UpdateProduct = () => {
             </label>
             <input
               type="textarea"
+              defaultValue={product.description}
               {...register("description")}
               className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Enter product title"
@@ -148,6 +137,7 @@ const UpdateProduct = () => {
             </label>
             <input
               type="number"
+              defaultValue={product.oldPrice}
               {...register("oldPrice")}
               className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Old Price"
@@ -160,6 +150,7 @@ const UpdateProduct = () => {
             </label>
             <input
               type="number"
+              defaultValue={product.newPrice}
               {...register("newPrice")}
               className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
               placeholder="new Price"

@@ -5,11 +5,12 @@ import axios from "axios";
 import Loading from "../../components/Loading";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
+import { useProductStore } from "../../stores/useProductStore";
 // import Loading from "../components/Loading";
 
 const AddProduct = () => {
-  // const [loading, setLoading] = useState(true);
-  
+  const { createProduct, loading } = useProductStore();
+
   const {
     register,
     handleSubmit,
@@ -26,24 +27,10 @@ const AddProduct = () => {
       image: imageFile,
     };
     // console.log(newProductData);
-    axios
-    .post("http://localhost:5000/api/products/create-product", newProductData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      toast.success(response.data.message);
-      reset();
-      setImageFileName("");
-      setImageFile(null);
-      // setLoading(false);
-    })
-    .catch((error) => {
-      console.error(error.message);
-      toast.error(error.message);
-    });
+    createProduct(newProductData)
+    reset();
+    setImageFileName("");
+    setImageFile(null);
   };
 
   const handleFileChange = (e) => {

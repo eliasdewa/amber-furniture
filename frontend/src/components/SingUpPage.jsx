@@ -17,7 +17,6 @@ const SingUpPage = () => {
   // navigate to login page
   if (loading) return <div>Loading...</div>;
   if (currentUser) return <Navigate to="/login" />;
-
   return (
     <div className="max-h-screen flex justify-center items-center">
       <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded-md px-8 pt-6 pb-8 mb-4 border-2">

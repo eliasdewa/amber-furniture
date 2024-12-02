@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import avatarImg from "/avatar.png";
 import { useUserStore } from "../stores/useUserStore";
+import { clearCart } from "../redux/features/cart/cartSlice";
 
 const dropdownMenu = [
   { name: "Profile", path: "/profile" },
@@ -21,9 +22,12 @@ const Navbar = () => {
 
   const isAdmin = currentUser?.role === "admin";
   // console.log(currentUser)
+  const dispatch = useDispatch();
   // handle logout
   const handleLogOut = async () => {
     await logout();
+    // Clear the cart
+    dispatch(clearCart());
     setIsDropDownOpen(false);
   };
   return (
@@ -80,16 +84,6 @@ const Navbar = () => {
               </button>
             </Link>
           </span>
-          {/* Admin dashboard */}
-          {isAdmin && (
-            <Link
-              className="bg-primary/60 hover:bg-primary text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
-              to={"/dashboard"}
-            >
-              <i className="ri-dashboard-fill ri-xl"></i>
-              <span className="hidden sm:inline">Dashboard</span>
-            </Link>
-          )}
           {/* user icon */}
           <span>
             {currentUser && currentUser ? (
@@ -106,6 +100,18 @@ const Navbar = () => {
                 {isDropDownOpen && (
                   <div className="absolute right-0 mt-3 p-4 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                     <ul className="font-medium space-y-4 p-2">
+                      <li>
+                        {/* Admin dashboard */}
+                        {isAdmin && (
+                          <Link
+                            onClick={() => setIsDropDownOpen(false)}
+                            className="bg-primary/60 hover:bg-primary text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out flex items-center"
+                            to={"/dashboard"}
+                          >
+                            <span className="hidden sm:inline">Dashboard</span>
+                          </Link>
+                        )}
+                      </li>
                       {dropdownMenu.map((item, index) => (
                         <li key={index}>
                           <Link

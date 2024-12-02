@@ -11,8 +11,8 @@ export const useProductStore = create((set) => ({
 	getAllProducts: async () => {
 		set({ loading: true });
 		try {
-			const response = await axios.get("http://localhost:5000/api/products");
-			set({ products: response.data.products, loading: false });
+			const res = await axios.get("http://localhost:5000/api/products");
+			set({ products: res.data.products, loading: false });
 		} catch (error) {
 			set({ error: "Failed to fetch products", loading: false });
 			toast.error(error.response.data.error || "Failed to fetch products");
@@ -23,11 +23,11 @@ export const useProductStore = create((set) => ({
 		product: null;
 		set({ loading: true });
 		try {
-			const response = await axios.get(`http://localhost:5000/api/products/${productId}`).
+			const res = await axios.get(`http://localhost:5000/api/products/${productId}`).
 			then((res) =>
 				res.json()
 			)
-			set({ product: response, loading: false });
+			set({ product: res, loading: false });
 		} catch (error) {
 			set({ loading: false });
 			toast.error(error.response.data.error || "Failed to get a product");
@@ -37,11 +37,16 @@ export const useProductStore = create((set) => ({
 	createProduct: async (productData) => {
 		set({ loading: true });
 		try {
-			const res = await axios.post("http://localhost:5000/api/products/create-product", productData);
+			const res = await axios.post("http://localhost:5000/api/products/create-product", productData, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			});
 			set((prevState) => ({
 				products: [...prevState.products, res.data],
 				loading: false,
 			}));
+			toast.success(res.data.message || "Product created successfully");
 		} catch (error) {
 			toast.error(error.response.data.error);
 			set({ loading: false });
@@ -65,11 +70,11 @@ export const useProductStore = create((set) => ({
 	updateProduct: async (productId, updatedProduct) => {
 		set({ loading: true });
 		try {
-			const response = await axios.patch(`http://localhost:5000/api/products/edit/${productId}`);
+			const res = await axios.put(`http://localhost:5000/api/products/edit/${productId}`);
 			// this will update the isFeatured prop of the product
 			set((state) => ({
 				products: state.products.map((product) =>
-					product._id === productId ? updatedProduct : response.data.product
+					product._id === productId ? updatedProduct : product
 				),
 				loading: false,
 			}))

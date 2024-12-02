@@ -55,7 +55,7 @@ export const useUserStore = create(
           );
         } catch (error) {
           set({ loading: false });
-          toast.error(error.response?.message || "An error occurred");
+          toast.error(error.response.data.message || "An error occurred");
         }
       },
       login: async (email, password) => {
