@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const generateTokens = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "3h",
   });
 };
 
@@ -14,7 +14,7 @@ const setCookies = (res, accessToken) => {
     httpOnly: true, // prevent XSS attacks, cross site scripting attack
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict", // prevents CSRF attack, cross-site request forgery attack
-    maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
+    maxAge: 3 * 60 * 60 * 1000, // 3 hr
   });
 };
 

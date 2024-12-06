@@ -1,187 +1,197 @@
-import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProductStore } from "../../stores/useProductStore";
 import Loading from "../../components/Loading";
 
 const UpdateProduct = () => {
-  const { id } = useParams();
-  // console.log(id);
+  const { id } = useParams(); // Product ID from URL
+  const { products, updateProduct, getAllProducts, loading } =
+    useProductStore();
   const navigate = useNavigate();
-  const updateProduct = useProductStore((state) => state.updateProduct);
-  const product = useProductStore((state) =>
-    state.products.find((prod) => prod._id === id)
-  );
-  const { loading } = useProductStore();
 
-  const [imageFile, setImageFile] = useState(null);
-  const [imageFileName, setImageFileName] = useState("");
+  // Find the product by ID
+  const product = products.find((p) => p._id === id);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const [formData, setFormData] = useState({
+    title: product?.title || "",
+    description: product?.description || "",
+    category: product?.category || "",
+    trending: product?.trending || false,
+    oldPrice: product?.oldPrice || "",
+    newPrice: product?.newPrice || "",
+    color: product?.color || "",
+  });
 
-  const onSubmit = async (data) => {
-    if (product) {
-      setValue("title", product.title);
-      setValue("description", product.description);
-      setValue("category", product.category);
-      setValue("trending", product.trending);
-      setValue("oldPrice", product.oldPrice);
-      setValue("newPrice", product.newPrice);
-      setValue("image", product.image);
-    }
+  const [image, setImage] = useState(null);
 
-    const updateProductData = {
-      title: data.title || product.title,
-      description: data.description || product.description,
-      category: data.category || product.category,
-      trending: data.trending || product.trending,
-      oldPrice: Number(data.oldPrice) || product.oldPrice,
-      newPrice: Number(data.newPrice) || product.newPrice,
-      image: imageFile || product.image,
-    };
-    
-    await updateProduct(id, updateProductData);
-    navigate("/dashboard/all-products");
+  useEffect(() => {
+    if (!product) getAllProducts();
+  }, [product, getAllProducts]);
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setImageFileName(file.name);
-    }
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const updatedData = new FormData();
+    Object.keys(formData).forEach((key) =>
+      updatedData.append(key, formData[key])
+    );
+    if (image) updatedData.append("image", image);
+
+    await updateProduct(id, updatedData);
+    navigate("/dashboard"); // Navigate to product list
   };
 
   if (loading) return <Loading />;
   return (
-    <section className="flex flex-col min-h-screen overflow-hidden">
-      <header className="flex justify-end items-center text-white border-2 p-2 my-4">
-        {/* <div className="px-4 py-2 mx-2 rounded-md bg-emerald-600">
-          Update Product
-        </div> */}
-        <Link
-          to="/dashboard"
-          className="px-4 py-2 bg-primary/60 hover:bg-primary  rounded-md"
-        >
-          Back to Dashboard
-        </Link>
-      </header>
-      <div className="px-2 py-4 border-2">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* title */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700">
-              Title
-            </label>
-            <input
-              type="text"
-              defaultValue={product.title}
-              {...register("title")}
-              className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="Enter product title"
-            />
-          </div>
-          {/* description */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700">
-              Description
-            </label>
-            <input
-              type="textarea"
-              defaultValue={product.description}
-              {...register("description")}
-              className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="Enter product title"
-            />
-          </div>
-          {/* category */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700">
-              Category
-            </label>
-            <select
-              {...register("category")}
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            >
-              <option value="">Choose a category</option>
-              <option value="home">Home</option>
-              <option value="office">Office</option>
-              <option value="cafe">Cafe</option>
-              <option value="dining">Dining</option>
-              <option value="bedroom">Bedroom</option>
-            </select>
-          </div>
-          {/* trending */}
-          <div className="mb-4">
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                {...register("trending")}
-                className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm font-semibold text-gray-700">
-                Trending
-              </span>
-            </label>
-          </div>
-          {/* old price */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700">
-              Old Price
-            </label>
-            <input
-              type="number"
-              defaultValue={product.oldPrice}
-              {...register("oldPrice")}
-              className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="Old Price"
-            />
-          </div>
-          {/* new price */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700">
-              New Price
-            </label>
-            <input
-              type="number"
-              defaultValue={product.newPrice}
-              {...register("newPrice")}
-              className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="new Price"
-            />
-          </div>
-
-          {/* Image Upload */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Image of product
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="mb-2 w-full"
-            />
-            {imageFileName && (
-              <p className="text-sm text-gray-500">Selected: {imageFileName}</p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white font-bold rounded-md"
+    <div className="mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Product</h2>
+      <form onSubmit={handleSubmit}>
+        {/* title */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            Title
+          </label>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter product title"
+          />
+        </div>
+        {/* description */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            Description
+          </label>
+          <input
+            type="textarea"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter product title"
+          />
+        </div>
+        {/* category */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            Category
+          </label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
           >
-            Update Product
-          </button>
-        </form>
-      </div>
-    </section>
+            <option value="">Choose a category</option>
+            <option value="home">Home</option>
+            <option value="office">Office</option>
+            <option value="cafe">Cafe</option>
+            <option value="dining">Dining</option>
+            <option value="bedroom">Bedroom</option>
+          </select>
+        </div>
+        {/* trending */}
+        <div className="mb-4">
+          <label className="inline-flex items-center">
+            <input
+              type="checkbox"
+              name="trending"
+              value={formData.trending}
+              onChange={handleInputChange}
+              className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm font-semibold text-gray-700">
+              Trending
+            </span>
+          </label>
+        </div>
+        {/* old price */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            Old Price
+          </label>
+          <input
+            type="number"
+            name="oldPrice"
+            value={formData.oldPrice}
+            onChange={handleInputChange}
+            className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Old Price"
+          />
+        </div>
+        {/* new price */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            New Price
+          </label>
+          <input
+            type="number"
+            name="newPrice"
+            value={formData.newPrice}
+            onChange={handleInputChange}
+            className=" p-2 border w-full rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="new Price"
+          />
+        </div>
+        {/* color */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700">
+            Color
+          </label>
+          <select
+            name="color"
+            value={formData.color}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          >
+            <option value="">Choose a color</option>
+            <option value="black">Black</option>
+            <option value="gold">Gold</option>
+            <option value="grey">Grey</option>
+            <option value="white">White</option>
+            <option value="brown">Brown</option>
+            <option value="yellow">Yellow</option>
+          </select>
+        </div>
+
+        {/* Image Upload */}
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Image of product
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleFileChange}
+            className="mb-2 w-full"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-2 bg-blue-500 text-white font-bold rounded-md"
+          disabled={loading}
+        >
+          {loading ? "Updating..." : "Update Product"}
+        </button>
+      </form>
+    </div>
   );
 };
 

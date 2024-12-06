@@ -8,6 +8,7 @@ userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
 userRouter.post('/profile', protectRoute, getProfile);
+userRouter.delete('/profile', protectRoute, deleteUser);
 
 // admin routes
 userRouter.get('/users', getUsers);

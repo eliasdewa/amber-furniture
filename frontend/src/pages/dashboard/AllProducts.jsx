@@ -19,12 +19,14 @@ const AllProducts = () => {
 
   if (loading) return <Loading />;
   return (
-    <section className="w-full mb-12 xl:mb-0 mx-auto">
-      <div className="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+    <section className="w-full">
+      <div className="flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <h3 className="font-semibold text-base">All Products</h3>
+          <h2 className="text-2xl font-bold text-gray-800 my-2">
+            All Products
+          </h2>
         </div>
-        <div className="container mx-auto p-6">
+        <div className="px-4 py-3">
           {products.length === 0 ? (
             <div>No product found!</div>
           ) : (
@@ -77,7 +79,8 @@ const AllProducts = () => {
                           ${product.newPrice}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 space-x-4">
-                          <Link to={`/dashboard/edit/${product._id}`}
+                          <Link
+                            to={`/dashboard/update-product/${product._id}`}
                             className="font-medium hover:text-indigo-700 mr-2"
                           >
                             <i className="ri-edit-box-line ri-xl"></i>

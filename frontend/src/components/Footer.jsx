@@ -3,45 +3,8 @@ import { toast } from "react-toastify";
 import { useSendEmailSubscriptionMutation } from "../redux/features/emails/emailsApi";
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [sendEmailSubscription, { isLoading }] =
-    useSendEmailSubscriptionMutation();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await sendEmailSubscription(email).unwrap();
-      toast.success(response.message);
-      setEmail("");
-    } catch (error) {
-      console.log(error.data.message);
-      toast.error(error.data.message);
-    }
-  };
   return (
     <footer className="mt-8">
-      <h4 className="mb-6 text-[1.2rem] font-extrabold text-gray-900 text-center">
-        Subscribe To Get Latest Updates
-      </h4>
-      <form
-        onSubmit={handleSubmit}
-        className="w-[60%] mx-auto flex flex-col md:flex-row items-center justify-center gap-1 mb-4"
-      >
-        <input
-          type="email"
-          placeholder="Enter your email..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="search-bar w-full p-2 border rounded"
-        />
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full md:w-auto py-2 px-8 bg-primary/80 hover:bg-primary text-white rounded"
-        >
-          {isLoading ? "Subscribing..." : "Subscribe"}
-        </button>
-      </form>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 py-8 place-items-center sm:place-content-start align-baseline">
         {/* Contact info */}
         <div className="text-center sm:text-start">

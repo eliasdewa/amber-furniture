@@ -11,7 +11,7 @@ productRouter.get('/', getAllProducts);
 // get a single product by ID
 productRouter.get('/:id', getSingleProduct);
 // update a product by ID
-productRouter.put('/edit/:id', updateProduct);
+productRouter.put('/:id', upload.single("image"), updateProduct);
 // delete a product by ID
 productRouter.delete('/:id', deleteProduct);
 

@@ -31,7 +31,7 @@ const Navbar = () => {
     setIsDropDownOpen(false);
   };
   return (
-    <header className="sticky top-0 z-50 bg-white max-w-screen-2xl mx-auto px-4 py-2">
+    <header className="sticky top-0 z-50 bg-white max-w-screen-2xl mx-auto p-2">
       <nav className="max-w-screen-2xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div>

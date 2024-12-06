@@ -17,12 +17,14 @@ const AllSubscribers = () => {
 
   if (loading) return <Loading />;
   return (
-    <section className="w-full mb-12 xl:mb-0 mx-auto">
-      <div className="flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+    <section className="w-full">
+      <div className="flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <h3 className="font-semibold text-base">All email subscribers</h3>
+          <h2 className="text-2xl font-bold text-gray-800 my-2">
+            All Subscribers
+          </h2>
         </div>
-        <div className="container mx-auto p-6">
+        <div className="px-4 py-3">
           {emails.length === 0 ? (
             <div>No subscriber found!</div>
           ) : (

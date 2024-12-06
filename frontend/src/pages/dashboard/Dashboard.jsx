@@ -29,10 +29,9 @@ const Dashboard = () => {
   }, []);
 
   if (loading) return <Loading />;
-
   return (
     <>
-      <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {/* Total products */}
         <div className="flex flex-col gap-1 items-center p-8 bg-[white] shadow rounded-lg">
           <i className="ri-box-3-fill px-4 py-2 text-purple-600 bg-purple-100 rounded-full ri-2x"></i>

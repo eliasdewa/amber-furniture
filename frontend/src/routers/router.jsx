@@ -21,6 +21,8 @@ import AllSubscribers from "../pages/dashboard/AllSubscribers";
 import AdminRoute from "./AdminRoute";
 import UpdateProduct from "../pages/dashboard/UpdateProduct";
 import AllProducts from "../pages/dashboard/AllProducts";
+import Dashboard from "../pages/dashboard/Dashboard";
+import ProfilePage from "../pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -28,16 +30,37 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/categories/:categoryName", element: <CategoryPage /> },
-      { path: "/products", element: <ProductsPage /> },
-      { path: "/products/:id", element: <SingleProductPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <SingUpPage /> },
-      { path: "/search", element: <SearchPage /> },
-      { path: "/about", element: <AboutPage /> },
-      { path: "/contact", element: <ContactPage /> },
+      { path: "categories/:categoryName", element: <CategoryPage /> },
+      { path: "products", element: <ProductsPage /> },
+      { path: "products/:id", element: <SingleProductPage /> },
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <SingUpPage /> },
+      { path: "search", element: <SearchPage /> },
+      { path: "about", element: <AboutPage /> },
+      { path: "contact", element: <ContactPage /> },
       {
-        path: "/cart",
+        path: "dashboard",
+        element: <AdminRoute><DashboardPage /></AdminRoute>,
+        children: [
+          { path: "", element: <Dashboard /> },
+          { path: "all-products", element: <AllProducts /> },
+          { path: "all-orders", element: <AllOrders /> },
+          { path: "all-users", element: <AllUsers /> },
+          { path: "all-subscribers", element: <AllSubscribers /> },
+          { path: "add-product", element: <AddProduct /> },
+          { path: "update-product/:id", element: <UpdateProduct /> },
+        ],
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "cart",
         element: (
           <PrivateRoute>
             <CartPage />
@@ -45,7 +68,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/checkout",
+        path: "checkout",
         element: (
           <PrivateRoute>
             <CheckoutPage />
@@ -53,67 +76,11 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/orders",
+        path: "orders",
         element: (
           <PrivateRoute>
             <OrderPage />
           </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <AdminRoute>
-            <DashboardPage />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-products",
-        element: (
-          <AdminRoute>
-            <AllProducts />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-orders",
-        element: (
-          <AdminRoute>
-            <AllOrders />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-users",
-        element: (
-          <AdminRoute>
-            <AllUsers />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/all-subscribers",
-        element: (
-          <AdminRoute>
-            <AllSubscribers />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/add-new-product",
-        element: (
-          <AdminRoute>
-            <AddProduct />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "/dashboard/edit/:id",
-        element: (
-          <AdminRoute>
-            <UpdateProduct />
-          </AdminRoute>
         ),
       },
     ],
