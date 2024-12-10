@@ -6,7 +6,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login , currentUser, loading} = useUserStore();
+  const { login , currentUser} = useUserStore();
 
   // sign in
   const onSubmit = async (e) => {
@@ -15,7 +15,6 @@ const LoginPage = () => {
   };
 
   // navigate to home page if already logged in
-  if (loading) return <div>Loading...</div>;
   if (currentUser) return <Navigate to="/" />;
   return (
     <div>

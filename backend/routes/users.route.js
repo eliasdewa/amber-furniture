@@ -1,20 +1,18 @@
 import express from "express";
-import { deleteUser, getProfile, getUsers, loginUser, logoutUser, registerUser, updateUser, updateUserProfile } from "../controllers/users.controller.js";
+import { deleteUser, getUsers, loginUser, logoutUser, registerUser, updateUser } from "../controllers/users.controller.js";
 import { adminRoute, protectRoute } from "../middleware/auth.middleware.js";
+import upload from "../config/multerConfig.js";
 
 const userRouter = express.Router();
 
 userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
-userRouter.post('/profile', protectRoute, getProfile);
-userRouter.delete('/profile', protectRoute, deleteUser);
+userRouter.put('/update-profile', protectRoute, upload.single("image"), updateUser);
 
 // admin routes
-userRouter.get('/users', getUsers);
-userRouter.delete('/users/:id', deleteUser);
+userRouter.get('/users', adminRoute, getUsers);
+userRouter.delete('/delete/:id', protectRoute, deleteUser);
 
-userRouter.put('/users/:id', protectRoute, adminRoute, updateUser);
-userRouter.patch('/edit-profile', protectRoute, adminRoute, updateUserProfile);
 
 export default userRouter;

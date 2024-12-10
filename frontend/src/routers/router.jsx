@@ -39,25 +39,8 @@ const router = createBrowserRouter([
       { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactPage /> },
       {
-        path: "dashboard",
-        element: <AdminRoute><DashboardPage /></AdminRoute>,
-        children: [
-          { path: "", element: <Dashboard /> },
-          { path: "all-products", element: <AllProducts /> },
-          { path: "all-orders", element: <AllOrders /> },
-          { path: "all-users", element: <AllUsers /> },
-          { path: "all-subscribers", element: <AllSubscribers /> },
-          { path: "add-product", element: <AddProduct /> },
-          { path: "update-product/:id", element: <UpdateProduct /> },
-        ],
-      },
-      {
-        path: "profile",
-        element: (
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
-        ),
+        path: "update-profile",
+        element: <ProfilePage />,
       },
       {
         path: "cart",
@@ -82,6 +65,23 @@ const router = createBrowserRouter([
             <OrderPage />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "dashboard",
+        element: (
+          <AdminRoute>
+            <DashboardPage />
+          </AdminRoute>
+        ),
+        children: [
+          { path: "", element: <Dashboard /> },
+          { path: "all-products", element: <AllProducts /> },
+          { path: "all-orders", element: <AllOrders /> },
+          { path: "all-users", element: <AllUsers /> },
+          { path: "all-subscribers", element: <AllSubscribers /> },
+          { path: "add-product", element: <AddProduct /> },
+          { path: "update-product/:id", element: <UpdateProduct /> },
+        ],
       },
     ],
   },

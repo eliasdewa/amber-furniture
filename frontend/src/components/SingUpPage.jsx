@@ -7,7 +7,7 @@ const SingUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signup, currentUser, loading } = useUserStore();
+  const { signup, currentUser } = useUserStore();
   // console.log(username, email, password);
   // register user
   const onSubmit = async (e) => {
@@ -15,7 +15,6 @@ const SingUpPage = () => {
     await signup(username, email, password);
   };
   // navigate to login page
-  if (loading) return <div>Loading...</div>;
   if (currentUser) return <Navigate to="/login" />;
   return (
     <div className="max-h-screen flex justify-center items-center">

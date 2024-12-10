@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    profilePicture: {
+    profileImg: {
       type: String,
       default:
-        'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
+        "https://www.pngkey.com/png/full/115-1150152_default-profile-picture-avatar-png-green.png",
     },
   },
   {
@@ -36,19 +36,19 @@ const userSchema = new mongoose.Schema(
 );
 // Pre-save hook to hash password before saving to database
 userSchema.pre("save", async function (next) {
-	if (!this.isModified("password")) return next();
+  if (!this.isModified("password")) return next();
 
-	try {
-		const salt = await bcrypt.genSalt(10);
-		this.password = await bcrypt.hash(this.password, salt);
-		next();
-	} catch (error) {
-		next(error);
-	}
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 // compare the password
 userSchema.methods.comparePassword = async function (password) {
-	return bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.password);
 };
 
 const userModel = mongoose.models.User || mongoose.model("User", userSchema);

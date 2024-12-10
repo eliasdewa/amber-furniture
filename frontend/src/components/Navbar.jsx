@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import avatarImg from "/avatar.png";
 import { useUserStore } from "../stores/useUserStore";
 import { clearCart } from "../redux/features/cart/cartSlice";
 
 const dropdownMenu = [
-  { name: "Profile", path: "/profile" },
   { name: "Orders", path: "/orders" },
   { name: "Cart", path: "/cart" },
   { name: "CheckOut", path: "/checkout" },
@@ -23,9 +22,12 @@ const Navbar = () => {
   const isAdmin = currentUser?.role === "admin";
   // console.log(currentUser)
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   // handle logout
   const handleLogOut = async () => {
     await logout();
+    navigate("/login")
     // Clear the cart
     dispatch(clearCart());
     setIsDropDownOpen(false);
@@ -90,7 +92,7 @@ const Navbar = () => {
               <>
                 <div className="flex items-center gap-1">
                   <img
-                    src={currentUser?.profileImage || avatarImg}
+                    src={currentUser.profileImg|| avatarImg}
                     alt="profile image"
                     onClick={() => setIsDropDownOpen(!isDropDownOpen)}
                     className="size-6 object-cover rounded-full cursor-pointer"
@@ -111,6 +113,15 @@ const Navbar = () => {
                             <span className="hidden sm:inline">Dashboard</span>
                           </Link>
                         )}
+                      </li>
+                      <li>
+                        <Link
+                          to={"/update-profile"}
+                          onClick={() => setIsDropDownOpen(false)}
+                          className="block w-full text-left px-2 py-1 text-sm hover:bg-gray-100"
+                        >
+                          <span className="hidden sm:inline">Profile</span>
+                        </Link>
                       </li>
                       {dropdownMenu.map((item, index) => (
                         <li key={index}>

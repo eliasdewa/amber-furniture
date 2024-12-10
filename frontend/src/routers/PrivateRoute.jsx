@@ -2,11 +2,8 @@ import { Navigate } from 'react-router-dom'
 import { useUserStore } from '../stores/useUserStore';
 
 const PrivateRoute = ({children}) => {
-    const { currentUser, loading } = useUserStore();
-
-    if(loading) {
-        return <div>Loading..</div>
-    }
+    const { currentUser } = useUserStore();
+    
     if(currentUser) {
         return children;
     }

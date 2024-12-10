@@ -6,8 +6,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "./components/ScrollToTop";
 import ToTopBtn from "./components/ToTopBtn";
+import { useUserStore } from "./stores/useUserStore";
+import { useEffect } from "react";
 
 const App = () => {
+  const restoreAuthState = useUserStore((state) => state.restoreAuthState);
+
+  useEffect(() => {
+    restoreAuthState();
+  }, [restoreAuthState]);
   return (
     <>
       <ScrollToTop />
